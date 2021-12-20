@@ -1,0 +1,168 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@import '~@angular/material/theming';
+@include mat.core();
+
+
+#search-form {
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-wrapper{
+      padding: 0 !important;
+      margin-left: -15px !important;
+      margin-right: -18px !important;
+  }
+  .mat-input-element {
+    padding-bottom: 4px;
+  }
+
+  .mat-form-field-infix {
+    margin-top: -10.0925em;
+    margin-left: 18px;
+  }
+  .mat-form-field-flex {
+    border-radius: 40px 40px 40px 40px;
+    width: 100%;
+    height: auto;
+    background-color: #f8f8f8;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .24) !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+  }
+
+  .mat-form-field-infix {
+    display: flex;
+    position: flex;
+    flex: auto;
+  }
+
+  .placeholder {
+    display: none;
+    background-color: #f8f8f8;
+  }
+  .mat-form-field-wrapper{
+    padding: 0 !important;
+    margin-left: -15px !important;
+    margin-right: -18px !important;
+  }
+
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .mat-form-field-flex {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+    .mat-form-field-flex {
+      width: 95%;
+    }
+  }
+
+  @media (max-width: 480px) and (min-width: 391px) {
+    .mat-form-field-flex {
+      width: 94%;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mat-form-field-flex {
+      width: 92%;
+    }
+  }
+
+}
+
+.progress-circular__circle {
+  stroke: rgb(69, 204, 206);
+  stroke-width: 3;
+  font-weight: normal;
+}
+
+.progress-circular__text,
+.progress-circular__text--hidden {
+  font-weight: normal;
+  font-size: 1.3em;
+}
+
+$mat-turmalina-custom: (50: #e0f2f1,
+100: #b2dfdb,
+200: #80cbc4,
+300: #4db6ac,
+400: #26a69a,
+500: #009688,
+600: #00897b,
+700: #00796b,
+800: #c2c5c5,
+900: #004d40,
+A100: #a7ffeb,
+A200: #64ffda,
+A400:#1de9b6,
+A700: #00bfa5,
+contrast: (50: $black-87-opacity,
+100: $black-87-opacity,
+200: $black-87-opacity,
+300: $black-87-opacity,
+400: $black-87-opacity,
+500: white,
+600: white,
+700: white,
+800: $white-87-opacity,
+900: $white-87-opacity,
+A100: $black-87-opacity,
+A200: white,
+A400: white,
+A700: $black-87-opacity,
+));
+
+$my-app-primary: mat-palette($mat-turmalina-custom);
+$my-app-accent: mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn: mat-palette($mat-deep-orange);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);
+
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent: mat-palette($mat-yellow, 400);
+
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+
+  @include angular-material-theme($alternate-theme);
+}
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$turmalina-primary: mat.define-palette(mat.$indigo-palette);
+$turmalina-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$turmalina-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$turmalina-theme: mat.define-light-theme((
+  color: (
+    primary: $turmalina-primary,
+    accent: $turmalina-accent,
+    warn: $turmalina-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($turmalina-theme);

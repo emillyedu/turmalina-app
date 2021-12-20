@@ -1,0 +1,148 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/prismjs/themes/prism-okaidia.css";
+@import "../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css";
+@import "../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+:host {
+    --weight: 540;
+    --color-dark: black;
+    --font-family: "Montserrat", sans-serif; 
+}    
+
+table {
+    width: 100%;
+    box-shadow: 0 0 12px -9px #000;
+    font-family: var(--font-family);
+    margin-bottom: 1rem;
+}
+table th {
+    color: var(--color-dark);
+    font-size: 16px;
+    font-weight: 600;
+    height: 56px;
+    background-color: white !important;
+
+}
+table th[align=""], table th:not([align]) {
+    text-align: left;
+}
+
+table td {
+    font-size: 15px;
+    height: 48px;
+
+}
+table td:not(:last-child), table tr:not(:last-child){
+    padding-right: 3rem;
+}
+table td, table th {
+    padding-left: 0.5rem;
+} 
+
+table tr:nth-child(odd) {
+    background: rgb(243, 243, 243);
+}
+
+h1{
+    color: var(--color-dark);
+    font-weight: var(--weight);
+    font-size: 1.6rem;
+    padding-bottom: 1rem;
+}
+
+h1 a{
+    color: var(--color-dark);
+    font-weight: var(--weight);
+    font-size: 1.6rem;
+    padding-bottom: 1rem;
+    text-decoration: none;
+}
+
+h1 a:hover{
+    color: rgb(30, 134, 160) !important;
+}
+
+h2{
+    color:var(--color-dark);
+    font-weight: var(--weight);
+    font-size: 1.3rem;
+    padding-bottom: 0.5rem;
+}
+h3{
+    color: var(--color-dark);
+    font-weight: var(--weight);
+    font-size: 1.1rem;
+    padding-bottom: 0.5rem;
+}
+.img-md img{
+    width: 870x; 
+    height: 640px;
+    margin-bottom: 1rem;
+}
+
+.leaflet-right{
+    margin-right: 30px;
+}
+
+.leaflet-bottom{
+    display: flex ;
+    align-items: center ;
+    margin: 0 26% !important;
+}
+
+.legend{
+    line-height: 18px;
+    color: #555;
+}
+.legend h1{
+    padding-bottom: 0 !important;
+    font-size: 18px !important;
+    color: #777  !important;
+    margin-bottom: 2px !important;
+}
+.legend_box{
+    display: inline-flex !important;
+}
+.legend_text{
+    display: block;
+    text-align: center;
+}
+
+.legend i:not(:first-child){
+    margin-left: 2rem !important;
+}
+
+.legend i {
+    width: 30px;
+    height: 15px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info {
+    padding: 6px 8px; 
+    font: 17px/18px Arial, Helvetica, sans-serif; 
+    background: white; 
+    background: rgba(255,255,255,0.8); 
+    box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+    border-radius: 5px; 
+}
+
+.info h4 { 
+    margin: 0 0 5px; 
+    color: #777;
+    font: 17px/18px Arial, Helvetica, sans-serif !important; 
+}
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/** Material **/
+
+mat-form-field {
+    width: 100%;
+    position: flex !important;
+}
