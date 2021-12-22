@@ -6,27 +6,35 @@
     max-width: 1300px !important;
     margin: 0 auto !important;
 }
+
 tr:nth-child(odd) {
     background: #fff;
 }
+
 tr:nth-child(even) {
     background: rgb(243, 243, 243);
 }
+
 tr{
     padding: 2px;
 }
+
 table{
     padding: 20px !important;
 }
+
 table td:not(:last-child), table tr:not(:last-child){
     padding-right: 0 !important;
 }
+
 th{
     padding: 5px 20px !important;
 }
+
 td{
     padding: 0 20px !important;
 }
+
 a{
     color: black;
 }
@@ -34,16 +42,19 @@ a{
     margin-top: 2rem;
 
 }
+
 input{
     border:1px solid gray;
     padding: 0.5% 20% 0.5% 1%;
 }
+
 .btn{
     padding: 0.5% 2%;
     border:1px solid gray;
     background: rgb(243, 243, 243);
     border-radius: 0;
 }
+
 .navbar-form .navbar-input:focus {
     outline: none;
 }

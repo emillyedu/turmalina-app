@@ -4,7 +4,6 @@
 @import "../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-
 :host {
     --weight: 540;
     --color-dark: black;
@@ -17,6 +16,7 @@ table {
     font-family: var(--font-family);
     margin-bottom: 1rem;
 }
+
 table th {
     color: var(--color-dark);
     font-size: 16px;
@@ -25,6 +25,7 @@ table th {
     background-color: white !important;
 
 }
+
 table th[align=""], table th:not([align]) {
     text-align: left;
 }
@@ -34,9 +35,11 @@ table td {
     height: 48px;
 
 }
+
 table td:not(:last-child), table tr:not(:last-child){
     padding-right: 3rem;
 }
+
 table td, table th {
     padding-left: 0.5rem;
 } 
@@ -87,15 +90,16 @@ h3{
 }
 
 .leaflet-bottom{
-    display: flex ;
-    align-items: center ;
-    margin: 0 26% !important;
+    position: absolute;
+    left: 50%;
+    width: 280px;
 }
 
 .legend{
     line-height: 18px;
     color: #555;
 }
+
 .legend h1{
     padding-bottom: 0 !important;
     font-size: 18px !important;
@@ -105,6 +109,7 @@ h3{
 .legend_box{
     display: inline-flex !important;
 }
+
 .legend_text{
     display: block;
     text-align: center;
@@ -136,7 +141,16 @@ h3{
     color: #777;
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
 }
-  
+
+@media screen and (min-width: 350px) and (max-width: 706px){
+    .legend i{
+        width: 15px !important;
+    }
+    .leaflet-bottom{
+        width: 230px;
+    }
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

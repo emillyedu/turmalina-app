@@ -153,25 +153,25 @@ export class MapleafComponent implements OnInit {
     }
 
     function style(feature : any) {
-      return {
-        weight: 2,
-        opacity: 1,
-        color: "white",
-        dashArray: "3",
-        fillOpacity: 0.7,
-        fillColor: getColor(feature.properties.pontuation)
-      };
+        return {
+          weight: 1,
+          opacity: 1,
+          color: "white",
+          dashArray: "3",
+          fillOpacity: 0.7,
+          fillColor: getColor(feature.properties.pontuation)
+        };
     }
-
+  
     function highlightFeature(e : any) {
-      var layer = e.target;
-
-      layer.setStyle({
-        weight: 5,
-        color: "#666",
-        dashArray: "",
-        fillOpacity: 0.7
-      });
+        var layer = e.target;
+  
+        layer.setStyle({
+          weight: 3,
+          color: "#666",
+          dashArray: "",
+          fillOpacity: 0.7
+        });
 
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
