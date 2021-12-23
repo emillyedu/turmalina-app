@@ -383,13 +383,13 @@ export class TutorialComponent {
     ## Turmalina Schema: Boas práticas
     - Lembrar de fazer a demarcação dos items com o itemscope e o itemtype sempre na tag imediatamente superior às suas propriedades, caso contrário o crawler não conseguirá identificá-las.
     - Evitar o uso de iframes, pois esses dificultam a navegação do cidadão por tornar o site mais confuso, assim como o funcionamento do crawler por impedir o seu bom funcionamento.
-    - Evitar o uso excessivo de conteúdos dinâmicos Javascript, pelos mesmos motivos da segunda observação.
+    - Evitar o uso excessivo de conteúdos dinâmicos Ajakx, pelos mesmos motivos da segunda observação.
     - Evitar direcionar o usuário para páginas externas para acessar informações fiscais, pelos mesmos motivos da segunda observação.
     - Centralizar informações referentes a um item, ou seja, fazer com que todas as propriedades referentes a um determinado item estejam na mesma página, pois isso facilita o acesso à informação.
     `
     example_one = ` \`\`\`html
     <!--  MENU 1 -->
-        <table itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
+        <table itemscope itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
@@ -423,7 +423,7 @@ export class TutorialComponent {
 
     example_two = ` \`\`\`html
     <!--  MENU 2 -->
-        <div itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
+        <div itemscope itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <div>
