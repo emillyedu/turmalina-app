@@ -1,3 +1,5 @@
+import { AgreementModel } from './../../shared/models/agreement.model';
+import { TotalPoints } from './../../shared/models/totalpoints.model';
 import { Municipio } from './../municipio.class';
 import { Component, OnInit } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
@@ -23,10 +25,19 @@ export class MapleafComponent implements OnInit {
   results$: Observable<any> | undefined;
   paraibaGeoJson: any;
   erro : any;
+  muniagreement : AgreementModel[] = [];
   municipios: Municipio[] = [];
 
   async getGeoJsonData (){
     return await this.mapService.getParaibaGeoJson().toPromise();
+  }
+
+  getTotalPoints(){
+    this.mapService.getTotalPoints('Joao Pessoa').subscribe(data=>{
+      console.log(data)
+      // this.muniagreement = data.agreement;
+      // console.log(this.muniagreement);
+    })
   }
 
   ajusteMapaResolucao(tamanhoTela:any) {
@@ -248,6 +259,7 @@ export class MapleafComponent implements OnInit {
 
   ngOnInit(): void{
     this.initMap();   
+    this.getTotalPoints();
      this.mapService.getMetaDadosMunicipios().subscribe((data: any) => {
       this.convertJsonObjMunicipio(data);
     });
