@@ -1,6 +1,6 @@
 import { AgreementModel } from './../../shared/models/agreement.model';
 import { TotalPoints } from './../../shared/models/totalpoints.model';
-import { Municipio } from './../municipio.class';
+
 import { Component, OnInit } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
 import { FormControl } from '@angular/forms';
@@ -26,7 +26,6 @@ export class MapleafComponent implements OnInit {
   paraibaGeoJson: any;
   erro : any;
   muniagreement : AgreementModel[] = [];
-  municipios: Municipio[] = [];
 
   async getGeoJsonData (){
     return await this.mapService.getParaibaGeoJson().toPromise();
@@ -70,33 +69,16 @@ export class MapleafComponent implements OnInit {
     return nome.toLowerCase().replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
   }
 
-  public searchMunicipios(nome: string) {
-    console.log(nome)
-    return this.municipios.filter(municipio =>
-      this.simplificaNomes(municipio.nome).indexOf(this.simplificaNomes(nome)) === 0);
-  }
+  // public searchMunicipios(nome: string) {
+  //   console.log(nome)
+  //   return this.municipios.filter(municipio =>
+  //     this.simplificaNomes(municipio.nome).indexOf(this.simplificaNomes(nome)) === 0);
+  // }
 
-  public filterMunicipios(nome: string, _ : any) {
-    return this.municipios.filter(municipio =>
-      _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
-  }
-
-  public convertJsonObjMunicipio(data: any) {
-    let cont = 1
-    for (let i in data) {
-      // if (data[i].pontuacao > 0) {
-        if (data[i].nome !== 'Estado da Paraíba' && data[i].nome !== 'Estado Paraíba') {
-          let municipio = new Municipio();
-          municipio.nome = data[i].nome;
-          municipio.pontuacao = data[i].pontuacao;
-          municipio.qtd_itens_pesquisados = data[i].qtd;
-          municipio.posicao = data[i].posicao;
-          municipio.pontuacaoMaxima = data[i].pontuacao_maxima;
-          this.municipios.push(municipio);
-        }
-    }
-
-  }
+  // public filterMunicipios(nome: string, _ : any) {
+  //   return this.municipios.filter(municipio =>
+  //     _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
+  // }
 
   private initMap(): void {
 
@@ -133,10 +115,8 @@ export class MapleafComponent implements OnInit {
     tilesPane.addTo(this.mapa);
   }
 
-  public mapReady(mapa: L.Map, paraibaGeoJson: any, municipios: Municipio[] = []) {
+  public mapReady(mapa: L.Map, paraibaGeoJson: any) {
     let info = new L.Control();
-
-    console.log(this.municipios);
 
     info.onAdd = function () {
         this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -260,11 +240,8 @@ export class MapleafComponent implements OnInit {
   ngOnInit(): void{
     this.initMap();   
     this.getTotalPoints();
-     this.mapService.getMetaDadosMunicipios().subscribe((data: any) => {
-      this.convertJsonObjMunicipio(data);
-    });
     this.getGeoJsonData().then((data: any) =>{
-        this.mapReady(this.mapa, data, this.municipios);
+        this.mapReady(this.mapa, data);
     });
 
   }
