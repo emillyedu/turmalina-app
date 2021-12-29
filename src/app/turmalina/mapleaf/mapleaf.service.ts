@@ -7,7 +7,7 @@ import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 })
 export class MapleafService {
 
-  apiUrl = 'https://turmalina-api.herokuapp.com/turmalina_totalpoints'
+  apiUrl = 'http://turmalina-api.herokuapp.com/turmalina_totalpoints'
 
   constructor(private http:HttpClient) {
   }
