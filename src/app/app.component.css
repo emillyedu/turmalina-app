@@ -93,7 +93,7 @@ a:hover{
     body{
         margin: 0 15vw!important;
     }
-} */
+} **/
 @media screen and (min-width: 729px) and (max-width: 991px){
     .navbar-toggler-icon{
         display: flex!important;
