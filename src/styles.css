@@ -142,12 +142,23 @@ h3{
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
 }
 
-@media screen and (min-width: 350px) and (max-width: 706px){
+@media screen and (min-width: 400px) and (max-width: 706px){
     .legend i{
         width: 15px !important;
     }
     .leaflet-bottom{
         width: 230px;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 399px){
+    .legend i{
+        width: 15px !important;
+    }
+    .leaflet-bottom{
+        width: 190px;
+    }
+    .legend i:not(:first-child){
+        margin-left: 1rem !important;
     }
 }
 
