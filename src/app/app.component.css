@@ -21,7 +21,7 @@
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) var(--color-mid);
-}
+} 
 
 /* Chrome and Edge */
 *::-webkit-scrollbar {
@@ -51,9 +51,8 @@ body {
   /*************************/
 
 header{
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 a{
@@ -65,7 +64,7 @@ a{
 a:hover{
     color: rgb(30, 134, 160) !important;
 }
-/* 
+
 .navbar{
     z-index: 1000;
     width: 100%;
@@ -75,32 +74,32 @@ a:hover{
     box-shadow: 0 0 15px rgba(0,0,0,0.2); 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    justify-content: left!important;
 }
 
-.navbar-documentation{
-    margin-bottom: 1.5rem;
+.navbar-collapse{
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.navbar-toggler-icon{
-    margin-right: 15px;
+.w-100 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-.navbar-brand:not(:last-child){
-    padding-right: 2rem;
-} */
 
 /* @media screen and (min-width: 2500px){
     body{
         margin: 0 15vw!important;
     }
 } */
-
-@media screen and (min-width: 729px){
+@media screen and (min-width: 729px) and (max-width: 991px){
     .navbar-toggler-icon{
-        display: none!important;
+        display: flex!important;
     }
 }
+
 
 
 
