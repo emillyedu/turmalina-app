@@ -58,13 +58,14 @@ header{
 
 a{
     color: black;
-    text-decoration:none; 
+    text-decoration:none;
+    font-size: 16px;
 }
 
 a:hover{
     color: rgb(30, 134, 160) !important;
 }
-
+/* 
 .navbar{
     z-index: 1000;
     width: 100%;
@@ -87,7 +88,7 @@ a:hover{
 
 .navbar-brand:not(:last-child){
     padding-right: 2rem;
-}
+} */
 
 /* @media screen and (min-width: 2500px){
     body{
