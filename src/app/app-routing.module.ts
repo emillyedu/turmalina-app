@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'rank',
      loadChildren: () => import('./rank/rank.module').then(m => m.RankModule) 
   },
+  { 
+    path: 'relatorio',
+     loadChildren: () => import('./relatorio/relatorio.module').then(m => m.RelatorioModule) 
+  },
   {
     path: '',
     redirectTo: 'turmalina',
