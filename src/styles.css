@@ -142,7 +142,7 @@ h3{
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
 }
 
-@media screen and (min-width: 400px) and (max-width: 706px){
+@media screen and (min-width: 450px) and (max-width: 706px){
     .legend i{
         width: 15px !important;
     }
@@ -150,7 +150,7 @@ h3{
         width: 230px;
     }
 }
-@media screen and (min-width: 0px) and (max-width: 399px){
+@media screen and (min-width: 0px) and (max-width: 449px){
     .legend i{
         width: 15px !important;
     }

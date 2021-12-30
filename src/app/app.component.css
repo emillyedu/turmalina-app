@@ -58,7 +58,7 @@ header{
 a{
     color: black;
     text-decoration:none;
-    font-size: 16px;
+    font-size: 18px !important;
 }
 
 a:hover{
