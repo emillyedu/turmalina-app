@@ -25,7 +25,8 @@ export class MapleafComponent implements OnInit {
   results$: Observable<any> | undefined;
   paraibaGeoJson: any;
   erro : any;
-  muniagreement : AgreementModel[] = [];
+  totalpoints!: number;
+  muni: TotalPoints[] = [];
 
   async getGeoJsonData (){
     return await this.mapService.getParaibaGeoJson().toPromise();
@@ -33,8 +34,8 @@ export class MapleafComponent implements OnInit {
 
   getTotalPoints(){
     this.mapService.getTotalPoints('Joao Pessoa').subscribe(data=>{
-      console.log(data)
-      // this.muniagreement = data.agreement;
+      this.totalpoints = data.totalpoints;
+      console.log(this.totalpoints);
       // console.log(this.muniagreement);
     })
   }
@@ -126,8 +127,8 @@ export class MapleafComponent implements OnInit {
 
     // method that we will use to update the control based on feature properties passed
     info.update = function (props: { NM_MUNICIP: string; }) {
-        let municipio = props ? this.searchMunicipios(props.NM_MUNICIP): null;
-        console.log(municipio);
+        // let municipio = props ? this.searchMunicipios(props.NM_MUNICIP): null;
+        // console.log(municipio);
         this._div.innerHTML = '<h4>Município da Paraíba</h4>' +  (props ?
             '<b>' + props.NM_MUNICIP + '</b><br />'
             : 'Selecione o município');

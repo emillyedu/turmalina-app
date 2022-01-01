@@ -1,12 +1,13 @@
 //Importa as dependências que acabamos de instalar
+const cors = require('cors'); 
 const express = require("express");
 const path = require("path");
 
 const app = express();
 
 // Serve os arquivos estáticos da pasta dist (gerada pelo ng build)
+app.use(cors());
 app.use(express.static(__dirname + "/dist/turmalina"));
-
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + "/dist/turmalina/index.html"));
 });
