@@ -22,8 +22,8 @@
 }
 
 #search-form {
-  position: absolute;
-  top: 111px;
+  position: relative;
+  top: 95px;
   left: 50%;
   width: 350px;
   height: auto;

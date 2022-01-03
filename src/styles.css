@@ -92,7 +92,7 @@ h3{
 .leaflet-bottom{
     position: absolute;
     left: 50%;
-    width: 280px;
+    width: 250px;
 }
 
 .legend{
@@ -120,7 +120,7 @@ h3{
 }
 
 .legend i {
-    width: 30px;
+    width:30px;
     height: 15px;
     float: left;
     margin-right: 8px;
@@ -129,6 +129,7 @@ h3{
 
 .info {
     padding: 6px 8px; 
+    margin-right: -1rem !important;
     font: 17px/18px Arial, Helvetica, sans-serif; 
     background: white; 
     background: rgba(255,255,255,0.8); 
@@ -142,24 +143,8 @@ h3{
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
 }
 
-@media screen and (min-width: 450px) and (max-width: 706px){
-    .legend i{
-        width: 15px !important;
-    }
-    .leaflet-bottom{
-        width: 230px;
-    }
-}
-@media screen and (min-width: 0px) and (max-width: 449px){
-    .legend i{
-        width: 15px !important;
-    }
-    .leaflet-bottom{
-        width: 190px;
-    }
-    .legend i:not(:first-child){
-        margin-left: 1rem !important;
-    }
+.map-container{
+    margin-top: -3.5rem !important;
 }
 
 html, body { height: 100%; }
@@ -171,3 +156,25 @@ mat-form-field {
     width: 100%;
     position: flex !important;
 }
+
+@media screen and (min-width: 450px) and (max-width: 706px){
+    .legend i{
+        width: 15px !important;
+    }
+    .leaflet-bottom{
+        width: 205px;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 449px){
+    .legend i{
+        width: 15px !important;
+    }
+    .leaflet-bottom{
+        width: 170px;
+    }
+    .legend i:not(:first-child){
+        margin-left: 1rem !important;
+    }
+}
+
+
