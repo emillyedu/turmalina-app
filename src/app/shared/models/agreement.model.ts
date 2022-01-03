@@ -1,5 +1,5 @@
 export class AgreementModel{
-    agreementamount!: number;
+    agreementAmount!: number;
     agreementID!: number;
     celebrationDate!: number;
     contractorName!: number;

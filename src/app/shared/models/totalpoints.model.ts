@@ -1,13 +1,13 @@
 export class TotalPoints{
-    agreement: any[] = [];
-    bid: any[] = [];
-    budgetexpenditure: any[] = [];
-    budgetrevenue: any[] = [];
-    contract: any[] = [];
-    employeeinformation: any[] = [];
-    extrabudgetexpenditure: any[] = [];
-    extrabudgetrevenue: any[] = [];
-    paymentdocument: any[] = [];
-    planninginstrument: any[] = [];
-    totalpoints!: number;
+    Agreement: any[] = [];
+    Bid: any[] = [];
+    BudgetExpenditure: any[] = [];
+    BudgetRevenue: any[] = [];
+    Contract: any[] = [];
+    EmployeeInformation: any[] = [];
+    ExtraBudgetExpenditure: any[] = [];
+    ExtraBudgetRevenue: any[] = [];
+    PaymentDocument: any[] = [];
+    PlanningInstrument: any[] = [];
+    total_points!: number;
 }

@@ -12,6 +12,9 @@ import { RelatorioComponent } from './relatorio.component';
   imports: [
     CommonModule,
     RelatorioRoutingModule
+  ],
+  bootstrap: [
+    RelatorioComponent
   ]
 })
 export class RelatorioModule { }

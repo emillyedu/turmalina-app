@@ -389,7 +389,8 @@ export class TutorialComponent {
     `
     example_one = ` \`\`\`html
     <!--  MENU 1 -->
-        <table itemscope itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
+    <div itemscope itemtype="Unipt.org/Bid">
+        <table>
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
@@ -423,7 +424,8 @@ export class TutorialComponent {
 
     example_two = ` \`\`\`html
     <!--  MENU 2 -->
-        <div itemscope itemtype="https://turmalinaschema.vercel.app/documentation/bidding>
+    <div itemscope itemtype="Unipt.org/Bid">
+        <div>
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <div>

@@ -34,8 +34,7 @@ export class MapleafComponent implements OnInit {
 
   getTotalPoints(){
     this.mapService.getTotalPoints('Joao Pessoa').subscribe(data=>{
-      this.totalpoints = data.totalpoints;
-      console.log(this.totalpoints);
+      console.log(data[0].Agreement);
       // console.log(this.muniagreement);
     })
   }

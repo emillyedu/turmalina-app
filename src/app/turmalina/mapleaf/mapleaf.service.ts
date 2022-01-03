@@ -16,7 +16,7 @@ export class MapleafService {
     return this.http.get("./assets/map-data/paraiba.json")
   }
   
-  public getTotalPoints(flag:string): Observable<TotalPoints>{
-    return this.http.get<TotalPoints>(this.apiUrl + '?city=' + flag)
+  public getTotalPoints(flag:string): Observable<TotalPoints[]>{
+    return this.http.get<TotalPoints[]>(this.apiUrl + '?city=' + flag)
   }
 }
