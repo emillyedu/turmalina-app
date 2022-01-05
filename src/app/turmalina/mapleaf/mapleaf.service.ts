@@ -8,6 +8,7 @@ import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 export class MapleafService {
 
   apiUrl = 'https://app-turmalina.herokuapp.com/api/turmalina_totalpoints'
+  ibgeUrl = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/pb/distritos'
 
   constructor(private http:HttpClient) {
   }
@@ -16,7 +17,11 @@ export class MapleafService {
     return this.http.get("./assets/map-data/paraiba.json")
   }
   
-  public getTotalPoints(flag:string){
+  public getTotalPoints(flag:string ){
     return this.http.get<TotalPoints[]>(this.apiUrl + '?city=' + flag)
+  }
+
+  public getIBGE(){
+    return this.http.get(this.ibgeUrl)
   }
 }

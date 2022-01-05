@@ -38,26 +38,6 @@ a{
     color: black;
 }
 
-input{
-    border:1px solid gray;
-    padding: 0.5% 20% 0.5% 1%;
-}
-
-.btn{
-    padding: 0.5% 2%;
-    border:1px solid gray;
-    background: rgb(243, 243, 243);
-    border-radius: 0;
-}
-
-.search{
-    margin-top: 2rem;
-}
-
-.navbar-form .navbar-input:focus {
-    outline: none;
-}
-
 @media (max-width: 990px) { 
     table td:not(:last-child), table tr:not(:last-child){
         padding-right: none;

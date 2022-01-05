@@ -7,5 +7,14 @@
           "^/api": ""
         },
         "logLevel": "debug"
-    }
+    },
+    "/ibge/*": {
+      "target": "https://servicodados.ibge.gov.br/api/v1/localidades/estados/",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/ibge": ""
+      },
+      "logLevel": "debug"
+  }
 }

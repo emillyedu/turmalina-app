@@ -1,1 +1,11 @@
-
+<form>
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o município</mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="municipio">
+        <mat-option *ngFor="let municipio of municipios" [value]="municipio.value">
+          {{municipio.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+</form>
+<p> {{selectedValue}} </p>

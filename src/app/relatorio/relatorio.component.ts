@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import
+import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
+
+interface Municipio{
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css']
 })
-export class RelatorioComponent implements OnInit {
+export class RelatorioComponent{
+  selectedValue!: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  municipios: Municipio[] = [
+    {value: 'joao pessoa', viewValue: 'João Pessoa'},
+    {value: 'campina grande', viewValue: 'Campina Grande'},
+  ];
 
 }
