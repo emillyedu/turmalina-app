@@ -6,6 +6,11 @@ interface Municipio{
   viewValue: string;
 }
 
+interface Data{
+    value: string;
+    viewValue: string;
+}
+
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
@@ -13,10 +18,15 @@ interface Municipio{
 })
 export class RelatorioComponent{
   selectedValue!: string;
+  selectedValueData!: string;
 
   municipios: Municipio[] = [
     {value: 'joao pessoa', viewValue: 'João Pessoa'},
     {value: 'campina grande', viewValue: 'Campina Grande'},
   ];
+
+  datas: Data[] = [
+      {value: '10-10-2021', viewValue: '11/11/2021'},
+  ]
 
 }

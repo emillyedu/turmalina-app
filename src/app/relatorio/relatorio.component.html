@@ -9,3 +9,15 @@
     </mat-form-field>
 </form>
 <p> {{selectedValue}} </p>
+
+<form>
+    <mat-form-field appearance="fill">
+        <mat-label>Selecione a data</mat-label>
+        <mat-select [(ngModel)]="selectedValueData" name="data">
+          <mat-option *ngFor="let data of datas" [value]="data.value">
+              {{data.viewValue}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+<p>{{selectedValueData}}</p>

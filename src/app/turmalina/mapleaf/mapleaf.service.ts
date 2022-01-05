@@ -8,7 +8,7 @@ import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 export class MapleafService {
 
   apiUrl = 'https://app-turmalina.herokuapp.com/api/turmalina_totalpoints'
-  ibgeUrl = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/pb/distritos'
+  ibgeUrl = 'https://app-turmalina.herokuapp.com/ibge/v1/localidades/estados/pb/distritos'
 
   constructor(private http:HttpClient) {
   }
