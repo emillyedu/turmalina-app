@@ -26,7 +26,7 @@ export class MapleafComponent implements OnInit {
   paraibaGeoJson: any;
   erro : any;
   totalpoints!: number;
-  muni: TotalPoints[] = [];
+  agreement!: number;
 
   async getGeoJsonData (){
     return await this.mapService.getParaibaGeoJson().toPromise();
@@ -34,8 +34,8 @@ export class MapleafComponent implements OnInit {
 
   getTotalPoints(){
     this.mapService.getTotalPoints('Joao Pessoa').subscribe(data=>{
-      console.log(data[0].Agreement);
-      // console.log(this.muniagreement);
+      this.agreement = data[0].PlanningInstrument.annualBudgetLaw;
+      console.log(this.agreement);
     })
   }
 
