@@ -247,50 +247,68 @@ article > * + * {
 
 @media screen and (min-width: 2500px){
     .components{
-        width:70%!important;
+        width:70% !important;
     }
     body{
-        margin: 0 15vw!important;
+        margin: 0 15vw !important;
     }
 
 }
 
 @media screen and (min-width: 1200px) and (max-width: 2000px){
     .components{
-        width:70%!important;
+        width:70% !important;
     }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .components{
-        width:60%!important;
+        width:60% !important;
     }
 }
 
 @media screen and (min-width: 900px) and (max-width: 1024px){
     .components{
-        width:60%!important;
+        width:60% !important;
     }
 }
 
-@media screen and (min-width: 800px) and (max-width: 900px){
+@media screen and (min-width: 790px) and (max-width: 900px){
     .components{
-        margin-left: 0%!important;
-        max-width:60%!important;
+        margin-left: 0% !important;
+        max-width:60% !important;
     }
     .sidebar{
-        max-width: 40%!important;
+        max-width: 40% !important;
     }
 }
 
-@media screen and (min-width: 0px) and (max-width: 800px){
+@media screen and (min-width: 0px) and (max-width: 790px){
+    .container{
+        margin: 0 0 !important;
+        padding: 0 0 !important;
+    }
+
+    .components{
+        margin-top: 4rem !important;
+        margin-left: 0% !important;
+        min-width: 100% !important;
+    }
+
     .sidebar{
-        position:static;
+        align-self: center ;
+        margin-top: -2rem !important;
+        position: relative !important;
+    }
+
+    main{
+        display: flex !important;
+        flex-direction: column;
     }
 }
 
 @media screen and (min-width: 729px){
     .navbar-toggler-icon{
-        display: none!important;
+        display: none !important;
     }
 }
