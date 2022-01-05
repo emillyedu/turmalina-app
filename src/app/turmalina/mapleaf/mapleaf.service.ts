@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
+import { IbgeContent } from 'src/app/shared/models/ibgecontent.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MapleafService {
 
-  apiUrl = 'https://app-turmalina.herokuapp.com/api/turmalina_totalpoints'
-  ibgeUrl = 'https://app-turmalina.herokuapp.com/ibge/v1/localidades/estados/pb/distritos'
+  apiUrl = 'http://localhost:4200/api/turmalina_totalpoints'
+  ibgeUrl = 'http://localhost:4200/ibge/v1/localidades/estados/pb/distritos'
 
   constructor(private http:HttpClient) {
   }
@@ -22,6 +24,6 @@ export class MapleafService {
   }
 
   public getIBGE(){
-    return this.http.get(this.ibgeUrl)
+    return this.http.get<IbgeContent[]>(this.ibgeUrl)
   }
 }

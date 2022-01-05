@@ -16,7 +16,7 @@ interface Data{
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css']
 })
-export class RelatorioComponent{
+export class RelatorioComponent implements OnInit{
   selectedValue!: string;
   selectedValueData!: string;
 
@@ -29,4 +29,17 @@ export class RelatorioComponent{
       {value: '10-10-2021', viewValue: '11/11/2021'},
   ]
 
+  constructor(public mapleafservice: MapleafService){
+  }
+
+  getNomeMunicipios(){
+    this.mapleafservice.getIBGE().subscribe( data =>{
+      console.log(data);
+    })   
+  }
+
+  ngOnInit(): void {
+      this.getNomeMunicipios();
+    }
+  
 }
