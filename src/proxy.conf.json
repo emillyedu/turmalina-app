@@ -1,20 +1,12 @@
 {
-    "/api/*": {
+    "/result/*": {
         "target": "http://turmalina-api.herokuapp.com/",
-        "secure": true,
+        "secure": false,
         "changeOrigin": true,
+        "logLevel": "debug",
         "pathRewrite": {
-          "^/api": ""
-        },
-        "logLevel": "debug"
-    },
-    "/ibge/*": {
-      "target": "https://servicodados.ibge.gov.br/api/v1/localidades/estados/",
-      "secure": true,
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/ibge": ""
-      },
-      "logLevel": "debug"
-  }
+          "^/result": ""
+        }
+    }
+  
 }

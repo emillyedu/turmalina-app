@@ -9,8 +9,8 @@ import { IbgeContent } from 'src/app/shared/models/ibgecontent.model';
 })
 export class MapleafService {
 
-  apiUrl = 'http://localhost:4200/api/turmalina_totalpoints'
-  ibgeUrl = 'http://localhost:4200/ibge/v1/localidades/estados/pb/distritos'
+  apiUrl = 'http://localhost:4200/result/turmalina_totalpoints'
+  ibgeUrl = 'http://servicodados.ibge.gov.br/'
 
   constructor(private http:HttpClient) {
   }
@@ -19,11 +19,11 @@ export class MapleafService {
     return this.http.get("./assets/map-data/paraiba.json")
   }
   
-  public getTotalPoints(flag:string ){
-    return this.http.get<TotalPoints[]>(this.apiUrl + '?city=' + flag)
+  public getTotalPoints(municipio:string, datestamp:string){
+    return this.http.get<TotalPoints[]>(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp)
   }
 
   public getIBGE(){
-    return this.http.get<IbgeContent[]>(this.ibgeUrl)
+    return this.http.get<any[]>(this.ibgeUrl + '/api/v1/localidades/estados/pb/distritos') 
   }
 }

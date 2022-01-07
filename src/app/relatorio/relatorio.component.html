@@ -1,23 +1,16 @@
-<form>
-    <mat-form-field appearance="fill">
-      <mat-label>Selecione o município</mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="municipio">
-        <mat-option *ngFor="let municipio of municipios" [value]="municipio.value">
-          {{municipio.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-</form>
-<p> {{selectedValue}} </p>
-
-<form>
-    <mat-form-field appearance="fill">
-        <mat-label>Selecione a data</mat-label>
-        <mat-select [(ngModel)]="selectedValueData" name="data">
-          <mat-option *ngFor="let data of datas" [value]="data.value">
-              {{data.viewValue}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-</form>
-<p>{{selectedValueData}}</p>
+<mat-form-field>
+  <mat-label>Selecione o município</mat-label>
+  <mat-select [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+    <mat-option *ngFor="let city of turmalinaresults.Municipios" [value]="city.MunicipioName">
+      {{city.MunicipioName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="evaluations && evaluations.length">
+  <mat-label>Selecione a data</mat-label>
+  <mat-select [(ngModel)]="selectedValueData" name="data" [formControl]="date" #evaluationSelect>
+    <mat-option *ngFor="let date of evaluations" [value]="date.date">
+        {{date.dateView}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -33,7 +33,7 @@ export class MapleafComponent implements OnInit {
   }
 
   getTotalPoints(){
-    this.mapService.getTotalPoints('Joao Pessoa').subscribe(data=>{
+    this.mapService.getTotalPoints('Joao Pessoa', '2021-02-11').subscribe(data=>{
       this.agreement = data[0].PlanningInstrument.annualBudgetLaw;
       console.log(this.agreement);
     })
