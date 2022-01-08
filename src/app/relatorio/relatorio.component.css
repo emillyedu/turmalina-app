@@ -1,13 +1,87 @@
+body{
+    font-family: "Montserrat", sans-serif;
+}
+
+/** form **/
+
+.date{
+    margin: 5px 5px 5px 10px;
+}
+
+.main-select{
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 2rem auto 4rem auto;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+.select{
+    padding: 10px ;
+    border:1px solid gray;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 3px 3px 3px rgb(0 0 0 / 14%);
+    margin: 5px 5px 5px 5px;
+}
+
+
+/** graphs **/
+
+#canvas{
+    width: 25rem;
+    margin-right: 4rem;
+}
+
+#canvas2{
+    width: 38rem;
+}
+
 .container{
     display: flex;
-    flex-direction:column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-#canvas{
-    width: 25rem;
-    margin-bottom: 2rem;
+
+@media screen and (min-width: 0px) and (max-width: 1200px){
+    .container{
+        flex-direction: column !important;
+    }
+
+    #canvas{
+        margin: 0 0 4rem 0 !important;
+    }
+
 }
-#canvas2{
-    width: 40rem;
+@media screen and (min-width: 450px) and (max-width: 670px){
+    #canvas{
+        width: 20rem !important;
+        margin: 0 0 4rem 0 !important;
+    }
+
+    #canvas2{
+        width: 28rem !important;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 450px){
+    #canvas{
+        width: 17rem !important;
+        margin: 0 0 4rem 0 !important;
+    }
+
+    #canvas2{
+        width: 22rem !important;
+    }
+
+    .main-select{
+        flex-direction: column;
+    }
+   
+    .date{
+        margin: 10px 5px 5px 5px !important;
+    }
 }
