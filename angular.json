@@ -42,7 +42,8 @@
                 "node_modules/prismjs/prism.js",
                 "node_modules/prismjs/components/prism-typescript.min.js",
                 "node_modules/tether/dist/js/tether.js",
-                "node_modules/bootstrap/dist/js/bootstrap.js"
+                "node_modules/bootstrap/dist/js/bootstrap.js",
+                "node_modules/chart.js/dist/chart.js"
             ]
           },
           "configurations": {

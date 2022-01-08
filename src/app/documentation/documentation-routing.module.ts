@@ -18,17 +18,17 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 const routes: Routes = [
   { path: '', component: DocumentationComponent, children:[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: 'agreement', component: AgreementComponent },
-    { path: 'bidding', component: BiddingComponent },
-    { path: 'budgetExpenditure', component: BudgetExpenditureComponent },
-    { path: 'budgetRevenue', component: BudgetRevenueComponent },
-    { path: 'contract', component: ContractComponent },
-    { path: 'employeeInformation', component: EmployeeInformationComponent },
-    { path: 'extraBudgetExpenditure', component: ExtraBudgetExpenditureComponent },
-    { path: 'extraBudgetRevenue', component: ExtraBudgetRevenueComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'paymentDocument', component: PaymentDocumentComponent },
-    { path: 'planningInstrument', component: PlanningInstrumentComponent },
+    { path: 'Agreement', component: AgreementComponent },
+    { path: 'Bidding', component: BiddingComponent },
+    { path: 'BudgetExpenditure', component: BudgetExpenditureComponent },
+    { path: 'BudgetRevenue', component: BudgetRevenueComponent },
+    { path: 'Contract', component: ContractComponent },
+    { path: 'EmployeeInformation', component: EmployeeInformationComponent },
+    { path: 'ExtraBudgetExpenditure', component: ExtraBudgetExpenditureComponent },
+    { path: 'ExtraBudgetRevenue', component: ExtraBudgetRevenueComponent },
+    { path: 'Home', component: HomeComponent },
+    { path: 'PaymentDocument', component: PaymentDocumentComponent },
+    { path: 'PlanningInstrument', component: PlanningInstrumentComponent },
     { path: 'tutorial', component: TutorialComponent }
   ]}
 

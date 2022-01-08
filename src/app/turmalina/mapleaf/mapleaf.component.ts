@@ -32,12 +32,12 @@ export class MapleafComponent implements OnInit {
     return await this.mapService.getParaibaGeoJson().toPromise();
   }
 
-  getTotalPoints(){
-    this.mapService.getTotalPoints('Joao Pessoa', '2021-02-11').subscribe(data=>{
-      this.agreement = data[0].PlanningInstrument.annualBudgetLaw;
-      console.log(this.agreement);
-    })
-  }
+  // getTotalPoints(){
+  //   this.mapService.getTotalPoints('Joao Pessoa', '2021-02-11').subscribe(data=>{
+  //     this.agreement = data[0].PlanningInstrument.annualBudgetLaw;
+  //     console.log(this.agreement);
+  //   })
+  // }
 
   ajusteMapaResolucao(tamanhoTela:any) {
     if (tamanhoTela <= 600) {
@@ -239,7 +239,7 @@ export class MapleafComponent implements OnInit {
 
   ngOnInit(): void{
     this.initMap();   
-    this.getTotalPoints();
+    // this.getTotalPoints();
     this.getGeoJsonData().then((data: any) =>{
         this.mapReady(this.mapa, data);
     });

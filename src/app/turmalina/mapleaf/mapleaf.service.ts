@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 import { IbgeContent } from 'src/app/shared/models/ibgecontent.model';
@@ -7,6 +7,7 @@ import { IbgeContent } from 'src/app/shared/models/ibgecontent.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MapleafService {
 
   apiUrl = 'http://localhost:4200/result/turmalina_totalpoints'
@@ -20,7 +21,10 @@ export class MapleafService {
   }
   
   public getTotalPoints(municipio:string, datestamp:string){
-    return this.http.get<TotalPoints[]>(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp)
+    return this.http
+    .get(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp + ' 00:00:00.000' + '&second_timestamp=' + datestamp + ' 23:59:59.999')
+    .toPromise()
+    .then((data) => {return data} );
   }
 
   public getIBGE(){

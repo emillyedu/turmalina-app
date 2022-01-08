@@ -24,10 +24,10 @@
                                     <a class="nav-link" data-link>Receita </a>
                                     <ol class="submenu ">
                                         <li *ngIf="find(userQuery, budgetRevenue)">
-                                            <a class="nav-link" routerLink="budgetRevenue">Receita Orçamentária</a>
+                                            <a class="nav-link" routerLink="BudgetRevenue">Receita Orçamentária</a>
                                         </li>
                                         <li *ngIf="find(userQuery, extraBudgetRevenue)">
-                                            <a class="nav-link" routerLink="extraBudgetRevenue">Receita Extraorçamentária</a>
+                                            <a class="nav-link" routerLink="ExtraBudgetRevenue">Receita Extraorçamentária</a>
                                         </li>
                                     </ol>
                                 </li>
@@ -35,30 +35,30 @@
                                     <a class="nav-link">Despesas</a>
                                     <ol class="submenu ">
                                         <li *ngIf="find(userQuery, budgetExpenditure)">
-                                            <a class="nav-link" routerLink="budgetExpenditure">Despesa Orçamentária</a>
+                                            <a class="nav-link" routerLink="BudgetExpenditure">Despesa Orçamentária</a>
                                         </li>
                                         <li *ngIf="find(userQuery, extraBudgetExpenditure)">
-                                            <a class="nav-link" routerLink="extraBudgetExpenditure">Despesa Extraorçamentária</a>
+                                            <a class="nav-link" routerLink="ExtraBudgetExpenditure">Despesa Extraorçamentária</a>
                                         </li>
                                         <li *ngIf="find(userQuery, paymentDocument)">
-                                            <a class="nav-link" routerLink="paymentDocument">Documento de Pagamento</a>
+                                            <a class="nav-link" routerLink="PaymentDocument">Documento de Pagamento</a>
                                         </li>
                                     </ol>
                                 </li>
                                 <li class="nav-item has-submenu" *ngIf="find(userQuery, contract)">
-                                    <a class="nav-link" routerLink="contract">Contratos</a>
+                                    <a class="nav-link" routerLink="Contract">Contratos</a>
                                 </li>
                                 <li class="nav-item has-submenu" *ngIf="find(userQuery, planningInstrument)" >
-                                    <a class="nav-link" routerLink="planningInstrument">Instrumento de Planejamento</a>
+                                    <a class="nav-link" routerLink="PlanningInstrument">Instrumento de Planejamento</a>
                                 </li>
                                 <li class="nav-item has-submenu" *ngIf="find(userQuery, bidding)">
-                                    <a class="nav-link" routerLink="bidding">Procedimentos Licitatórios</a>
+                                    <a class="nav-link" routerLink="Bidding">Procedimentos Licitatórios</a>
                                 </li>
                                 <li class="nav-item has-submenu" *ngIf="find(userQuery, agreement)">
-                                    <a class="nav-link" routerLink="agreement">Convênios</a>
+                                    <a class="nav-link" routerLink="Agreement">Convênios</a>
                                 </li>
                                 <li class="nav-item has-submenu" *ngIf="find(userQuery, employeeInformation)">
-                                    <a class="nav-link" routerLink="employeeInformation">Pessoal</a>
+                                    <a class="nav-link" routerLink="EmployeeInformation">Pessoal</a>
                                 </li>
                             </ol>
                         </div>
