@@ -89,72 +89,76 @@ export class RelatorioComponent implements OnInit{
     let nome = nomeDoMunicipio.replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
     this.mapleafservice.getTotalPoints(nome, datestamp).then((res) => {
       this.result = res;
+            
       Object.entries(this.result[0].Agreement).forEach(([key, value]) => {
         this.categorylabels.push(key);
         this.datalabels.push(value);
       });
-      console.log(this.datalabels)
+      //console.log(this.datalabels)
+
+      this.datalength = this.datalabels.length;
+      
+      let color = new ColorGenerator();
+      const colorRangeInfo = {
+        colorStart: 0,
+        colorEnd: 1,
+        useEndAsStart: false,
+      };
+
+      this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
+      
+      console.log(this.colors);
+      this.chart = new Chart('canvas', {
+        type: 'doughnut',
+        data: {
+          labels: this.categorylabels,
+          datasets: [
+            {
+              data: this.datalabels,
+              backgroundColor: this.colors,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Agreement Donut'
+            }
+          }
+        },
+      });
+
+      this.chart2 = new Chart('canvas2', {
+        type: 'bar',
+        data: {
+          labels: this.categorylabels,
+          datasets: [
+            {
+              data: this.datalabels,
+              backgroundColor: this.colors,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Agreement Bar'
+            }
+          }
+        },
+      });
     })
 
-    this.datalength = this.datalabels.length;
-
-    let color = new ColorGenerator();
-    const colorRangeInfo = {
-      colorStart: 0,
-      colorEnd: 1,
-      useEndAsStart: false,
-    };
-
-    this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
-
-    this.chart = new Chart('canvas', {
-      type: 'doughnut',
-      data: {
-        labels: this.categorylabels,
-        datasets: [
-          {
-            data: this.datalabels,
-            // backgroundColor: this.colors,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Agreement Donut'
-          }
-        }
-      },
-    });
-
-    this.chart2 = new Chart('canvas2', {
-      type: 'bar',
-      data: {
-        labels: this.categorylabels,
-        datasets: [
-          {
-            data: this.datalabels,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Agreement Bar'
-          }
-        }
-      },
-    });
 
   }
 

@@ -26,7 +26,7 @@ const routes: Routes = [
     { path: 'EmployeeInformation', component: EmployeeInformationComponent },
     { path: 'ExtraBudgetExpenditure', component: ExtraBudgetExpenditureComponent },
     { path: 'ExtraBudgetRevenue', component: ExtraBudgetRevenueComponent },
-    { path: 'Home', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'PaymentDocument', component: PaymentDocumentComponent },
     { path: 'PlanningInstrument', component: PlanningInstrumentComponent },
     { path: 'tutorial', component: TutorialComponent }
