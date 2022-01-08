@@ -3,6 +3,9 @@ body{
 }
 
 /** form **/
+.city{
+    margin: 5px 5px 5px 5px;
+}
 
 .date{
     margin: 5px 5px 5px 10px;
@@ -24,7 +27,6 @@ body{
     border:1px solid gray;
     background-color: rgba(255,255,255,0.8);
     box-shadow: 3px 3px 3px rgb(0 0 0 / 14%);
-    margin: 5px 5px 5px 5px;
 }
 
 
@@ -76,12 +78,17 @@ body{
     #canvas2{
         width: 22rem !important;
     }
+    
+    .city{
+        margin: 0 !important;
+    }
+
+    .date{
+        margin: 10px 0 0 0 !important;
+    }
 
     .main-select{
         flex-direction: column;
     }
-   
-    .date{
-        margin: 10px 5px 5px 5px !important;
-    }
+
 }
