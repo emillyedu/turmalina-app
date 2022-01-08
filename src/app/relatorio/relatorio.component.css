@@ -71,14 +71,14 @@ body{
 
 @media screen and (min-width: 0px) and (max-width: 450px){
     #canvas{
-        width: 17rem !important;
+        width: 18rem !important;
         margin: 0 0 4rem 0 !important;
     }
 
     #canvas2{
         width: 22rem !important;
     }
-    
+
     .city{
         margin: 0 !important;
     }
