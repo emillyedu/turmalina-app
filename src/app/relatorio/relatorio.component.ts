@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, ChartConfiguration, ChartData } from 'chart.js';
 import { reduceEachLeadingCommentRange, reduceEachTrailingCommentRange } from 'typescript';
 import { ColorGenerator } from './color-generator.model';
 import { get } from 'https';
+
+
 
 @Component({
   selector: 'app-relatorio',
@@ -27,10 +29,10 @@ export class RelatorioComponent implements OnInit{
   result: any;
   categorylabels: string[] = [];
   datalabels: any[] = [];
-  chart: any;
-  chart2:any;
   colors:any;
   loading!: boolean;
+  chartData: ChartData[] = [];
+  baseConfig: ChartConfiguration[] = []
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -72,7 +74,8 @@ export class RelatorioComponent implements OnInit{
     this.result = this.mapleafservice.results; 
   
     for (var category in this.result[0]){
-      if()
+      let chartObject: any[] = [];
+      let chartOptions: any[] = [];
       Object.entries(this.result[0][category]).forEach(([key, value]) => {
         this.categorylabels.push(key);
         this.datalabels.push(value);
@@ -87,13 +90,13 @@ export class RelatorioComponent implements OnInit{
         useEndAsStart: false,
       };
 
-      if (this.chart !== null && this.chart !== undefined) {
-        this.chart.destroy();
-      }
+      // if (this.chart !== null && this.chart !== undefined) {
+      //   this.chart.destroy();
+      // }
 
       this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
 
-      this.chart = new Chart('canvas', {
+      chartObject.push({
         type: 'doughnut',
         data: {
           labels: this.categorylabels,
@@ -104,6 +107,9 @@ export class RelatorioComponent implements OnInit{
             },
           ],
         },
+      }) 
+
+      chartOptions.push({
         options: {
           responsive: false,
           plugins: {
@@ -115,34 +121,11 @@ export class RelatorioComponent implements OnInit{
               text: `${category} Donut`
             }
           }
-        },
-      });
+        }        
+      })
 
-      this.chart2 = new Chart('canvas2', {
-        type: 'bar',
-        data: {
-          labels: this.categorylabels,
-          datasets: [
-            {
-              data: this.datalabels,
-              backgroundColor: this.colors,
-            },
-          ],
-        },
-        options: {
-          responsive: false,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: `${category} Bar`
-            }
-          }
-        },
-      });
     }
+    
   }
 
   getDadosTotalPoints(nome:any, datestamp:any){
