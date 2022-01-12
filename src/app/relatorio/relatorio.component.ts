@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables } from 'chart.js';
 import { reduceEachLeadingCommentRange, reduceEachTrailingCommentRange } from 'typescript';
 import { ColorGenerator } from './color-generator.model';
+import { get } from 'https';
 
 @Component({
   selector: 'app-relatorio',
@@ -14,6 +15,11 @@ export class RelatorioComponent implements OnInit{
 
   city: FormControl = new FormControl();
   date: FormControl = new FormControl();
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
   evaluations: any[] | undefined = [];
   selectedValue!: string;
   selectedValueData!: string;
@@ -24,35 +30,7 @@ export class RelatorioComponent implements OnInit{
   chart: any;
   chart2:any;
   colors:any;
-
-  turmalinaresults = {
-    "Municipios":[
-      {
-        "id": 0,
-        "MunicipioName": "João Pessoa",
-        "Evaluations":[
-          {
-            date: "2021-02-11",
-            dateView: "11/02/2021"
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "MunicipioName": "Campina Grande",
-        "Evaluations":[
-          {
-            date: "2021-03-12",
-            dateView: "12/03/2021"
-          },
-          {
-            date: "2021-03-13",
-            dateView: "13/03/2021"
-          }
-        ]
-      }
-    ]
-  }
+  loading!: boolean;
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -85,17 +63,21 @@ export class RelatorioComponent implements OnInit{
     }
   }
 
-  getDadosMunicipio(nomeDoMunicipio: string, datestamp: string){
-    let nome = nomeDoMunicipio.replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
-    this.mapleafservice.getTotalPoints(nome, datestamp).then((res) => {
-      this.result = res;
-            
-      Object.entries(this.result[0].Agreement).forEach(([key, value]) => {
+  // getDadosMunicipio(nomeDoMunicipio: string, datestamp: string){
+  //   let nome = nomeDoMunicipio.replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
+
+  // }
+
+  createChart(){
+    this.result = this.mapleafservice.results; 
+  
+    for (var category in this.result[0]){
+      if()
+      Object.entries(this.result[0][category]).forEach(([key, value]) => {
         this.categorylabels.push(key);
         this.datalabels.push(value);
       });
       //console.log(this.datalabels)
-
       this.datalength = this.datalabels.length;
       
       let color = new ColorGenerator();
@@ -105,9 +87,12 @@ export class RelatorioComponent implements OnInit{
         useEndAsStart: false,
       };
 
+      if (this.chart !== null && this.chart !== undefined) {
+        this.chart.destroy();
+      }
+
       this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
-      
-      console.log(this.colors);
+
       this.chart = new Chart('canvas', {
         type: 'doughnut',
         data: {
@@ -127,7 +112,7 @@ export class RelatorioComponent implements OnInit{
             },
             title: {
               display: true,
-              text: 'Agreement Donut'
+              text: `${category} Donut`
             }
           }
         },
@@ -152,27 +137,32 @@ export class RelatorioComponent implements OnInit{
             },
             title: {
               display: true,
-              text: 'Agreement Bar'
+              text: `${category} Bar`
             }
           }
         },
       });
-    })
+    }
+  }
 
+  getDadosTotalPoints(nome:any, datestamp:any){
+    this.loading = true
+    this.mapleafservice.getTotalPoints(nome, datestamp).then(_ => {this.loading = false; this.createChart()})
 
   }
 
   ngOnInit(): void {
+    this.mapleafservice.getIBGE();
     //  this.getNomeMunicipios();
-
+    this.getDadosTotalPoints("Joao Pessoa", "2021-02-11")
     /** This will get value changes on city selector */
-    this.city.valueChanges.subscribe(() => {
-      this.evaluations = [];
-      this.changeDetectorRef.detectChanges();
-      this.evaluations = this.turmalinaresults.Municipios.find(municipio => {
-        return municipio.MunicipioName === this.city.value;
-      })?.Evaluations;
-    });
+    // this.city.valueChanges.subscribe(() => {
+    //   this.evaluations = [];
+    //   this.changeDetectorRef.detectChanges();
+    //   this.evaluations = this.turmalinaresults.Municipios.find(municipio => {
+    //     return municipio.MunicipioName === this.city.value;
+    //   })?.Evaluations;
+    // });
 
     /*****************************************************/
     /**************   Chart accomplishment  **************/

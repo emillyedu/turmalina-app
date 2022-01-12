@@ -10,16 +10,18 @@ import { ExtraBudgetRevenueModel } from "./extrabudgetrevenue.model";
 import { PaymentDocument } from "./paymentdoc.model";
 import { PlanningInstrumentModel } from "./planning.model";
 
-export interface TotalPoints{
-    Agreement: AgreementModel;
-    Bid: BidModel;
-    BudgetExpenditure: BudgetExpenditure;
-    BudgetRevenue: BudgetRevenue;
-    Contract: Contract;
-    EmployeeInformation: EmployeeInformation;
-    ExtraBudgetExpenditure: ExtraBudgetExpenditureModel;
-    ExtraBudgetRevenue: ExtraBudgetRevenueModel;
-    PaymentDocument: PaymentDocument;
-    PlanningInstrument: PlanningInstrumentModel;
-    total_points: number;
+export class TotalPoints{
+    constructor(
+        public Agreement: AgreementModel,
+        public Bid: BidModel,
+        public BudgetExpenditure: BudgetExpenditure,
+        public BudgetRevenue: BudgetRevenue,
+        public Contract: Contract,
+        public EmployeeInformation: EmployeeInformation,
+        public ExtraBudgetExpenditure: ExtraBudgetExpenditureModel,
+        public ExtraBudgetRevenue: ExtraBudgetRevenueModel,
+        public PaymentDocument: PaymentDocument,
+        public PlanningInstrument: PlanningInstrumentModel,
+        public total_points: number
+    ){}
 }

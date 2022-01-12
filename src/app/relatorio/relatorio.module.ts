@@ -5,6 +5,8 @@ import { MaterialModule } from '../shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RelatorioRoutingModule } from './relatorio-routing.module';
 import { RelatorioComponent } from './relatorio.component';
+import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,10 +19,14 @@ import { RelatorioComponent } from './relatorio.component';
     SharedModule,
     MaterialModule,
     CommonModule,
+    HttpClientModule,
     RelatorioRoutingModule
   ],
   bootstrap: [
     RelatorioComponent
+  ],
+  providers: [
+    MapleafService
   ]
 })
 export class RelatorioModule { }

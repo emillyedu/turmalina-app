@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
-import { IbgeContent } from 'src/app/shared/models/ibgecontent.model';
+import { resolve } from 'dns';
+import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class MapleafService {
 
   apiUrl = 'http://localhost:4200/result/turmalina_totalpoints'
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
+  results: TotalPoints[];
+  resultsIbge : IbgeData[];
 
   constructor(private http:HttpClient) {
+    this.results = [];
+    this.resultsIbge = [];
   }
 
   public getParaibaGeoJson(): Observable<any> {
@@ -21,13 +26,58 @@ export class MapleafService {
   }
   
   public getTotalPoints(municipio:string, datestamp:string){
-    return this.http
-    .get(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp + ' 00:00:00.000' + '&second_timestamp=' + datestamp + ' 23:59:59.999')
-    .toPromise()
-    .then((data) => {return data} );
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<TotalPoints[]>(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp + ' 00:00:00.000' + '&second_timestamp=' + datestamp + ' 23:59:59.999')
+      .toPromise()
+      .then(
+        data => {
+          this.results = data.map(item => {
+            return new TotalPoints(
+              item.Agreement,
+              item.Bid,
+              item.BudgetExpenditure,
+              item.BudgetRevenue,
+              item.Contract,
+              item.EmployeeInformation,
+              item.ExtraBudgetExpenditure,
+              item.ExtraBudgetRevenue,
+              item.PaymentDocument,
+              item.PlanningInstrument,
+              item.total_points
+            )
+          })
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
   }
 
   public getIBGE(){
-    return this.http.get<any[]>(this.ibgeUrl + '/api/v1/localidades/estados/pb/distritos') 
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<IbgeData[]>(this.ibgeUrl + '/api/v1/localidades/estados/pb/distritos')
+      .toPromise()
+      .then(
+        data => {
+          this.resultsIbge = data.map(item => {
+            return new IbgeData(
+              item.id,
+              item.nome,
+              item.municipio,
+            )
+          })
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
   }
 }
