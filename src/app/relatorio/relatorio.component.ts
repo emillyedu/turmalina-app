@@ -72,7 +72,7 @@ export class RelatorioComponent implements OnInit{
 
   createChart(){
     this.result = this.mapleafservice.results; 
-  
+    
     for (var category in this.result[0]){
       let chartObject: any[] = [];
       let chartOptions: any[] = [];
@@ -97,7 +97,7 @@ export class RelatorioComponent implements OnInit{
       this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
 
       chartObject.push({
-        type: 'doughnut',
+        
         data: {
           labels: this.categorylabels,
           datasets: [
@@ -110,6 +110,7 @@ export class RelatorioComponent implements OnInit{
       }) 
 
       chartOptions.push({
+        type: 'doughnut',
         options: {
           responsive: false,
           plugins: {
