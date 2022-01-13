@@ -11,6 +11,15 @@ body{
     margin: 5px 5px 5px 10px;
 }
 
+.range{
+    margin: 5px 5px 5px 10px;
+}
+
+.picker{
+    width: 100vw!important;
+    /* height: 354px; */
+}
+
 .main-select{
     display: flex;
     flex-direction: row;
