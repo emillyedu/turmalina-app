@@ -1,12 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables, ChartConfiguration, ChartData } from 'chart.js';
 import { reduceEachLeadingCommentRange, reduceEachTrailingCommentRange } from 'typescript';
 import { ColorGenerator } from './color-generator.model';
 import { get } from 'https';
-
-
 
 @Component({
   selector: 'app-relatorio',
@@ -22,17 +20,17 @@ export class RelatorioComponent implements OnInit{
     end: new FormControl(),
   });
 
+  @ViewChildren('chart', { read: ElementRef }) chartElementRefs!: QueryList<ElementRef>;
+
   evaluations: any[] | undefined = [];
   selectedValue!: string;
   selectedValueData!: string;
   datalength!: number;
   result: any;
-  categorylabels: string[] = [];
-  datalabels: any[] = [];
   colors:any;
   loading!: boolean;
-  chartData: ChartData[] = [];
-  baseConfig: ChartConfiguration[] = []
+  chart: Chart[] = [];
+  chartOptions: ChartConfiguration[] = [];
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -74,14 +72,14 @@ export class RelatorioComponent implements OnInit{
     this.result = this.mapleafservice.results; 
     
     for (var category in this.result[0]){
-      let chartObject: any[] = [];
-      let chartOptions: any[] = [];
+      let categorylabels: string[] = [];
+      let datalabels: any[] = [];
       Object.entries(this.result[0][category]).forEach(([key, value]) => {
-        this.categorylabels.push(key);
-        this.datalabels.push(value);
+        categorylabels.push(key);
+        datalabels.push(value);
       });
       //console.log(this.datalabels)
-      this.datalength = this.datalabels.length;
+      this.datalength = datalabels.length;
       
       let color = new ColorGenerator();
       const colorRangeInfo = {
@@ -96,21 +94,17 @@ export class RelatorioComponent implements OnInit{
 
       this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
 
-      chartObject.push({
-        
-        data: {
-          labels: this.categorylabels,
+      this.chartOptions.push({
+        type:'doughnut',
+        data:{
+          labels: categorylabels,
           datasets: [
             {
-              data: this.datalabels,
+              data: datalabels,
               backgroundColor: this.colors,
             },
           ],
         },
-      }) 
-
-      chartOptions.push({
-        type: 'doughnut',
         options: {
           responsive: false,
           plugins: {
@@ -125,8 +119,17 @@ export class RelatorioComponent implements OnInit{
         }        
       })
 
+      this.generateChart(this.chartOptions);
+
     }
     
+  }
+
+  generateChart(chartOptions: ChartConfiguration[]){
+    this.chart = this.chartElementRefs.map((chartElementRef, index) => {
+      const config = chartOptions[index]
+      return new Chart(chartElementRef.nativeElement, config);
+    });
   }
 
   getDadosTotalPoints(nome:any, datestamp:any){

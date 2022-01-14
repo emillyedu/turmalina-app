@@ -36,84 +36,11 @@
             <p class="lead" *ngIf="loading">Loading...</p>
         </div>
         <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
+            <div *ngFor="let data of chartOptions" class="chart">
+              <canvas id=canvas #chart>{{chart}}</canvas>
             </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
         </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
       
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
     </div>
 
 </body>

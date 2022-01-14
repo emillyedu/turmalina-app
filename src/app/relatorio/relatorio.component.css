@@ -40,14 +40,13 @@ body{
 
 
 /** graphs **/
-
+.canvas{
+    height: 100px;
+    display: block;
+}
 #canvas{
     width: 25rem;
     margin-right: 9rem;
-}
-
-#canvas2{
-    width: 38rem;
 }
 
 .container{
