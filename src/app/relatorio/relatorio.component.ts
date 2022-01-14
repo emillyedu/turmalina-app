@@ -67,70 +67,74 @@ export class RelatorioComponent implements OnInit{
   //   let nome = nomeDoMunicipio.replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
 
   // }
+  generateChart(){
+    
+    this.chart = this.chartElementRefs.map((chartElementRef, index) => {
+      console.log(index)
+      let config = this.chartOptions[index]
+      return new Chart(chartElementRef.nativeElement, config);
+    });
+  }
 
   createChart(){
     this.result = this.mapleafservice.results; 
     
     for (var category in this.result[0]){
-      let categorylabels: string[] = [];
-      let datalabels: any[] = [];
-      Object.entries(this.result[0][category]).forEach(([key, value]) => {
-        categorylabels.push(key);
-        datalabels.push(value);
-      });
-      //console.log(this.datalabels)
-      this.datalength = datalabels.length;
-      
-      let color = new ColorGenerator();
-      const colorRangeInfo = {
-        colorStart: 0,
-        colorEnd: 1,
-        useEndAsStart: false,
-      };
+      if (category != "total_points"){
+        let categorylabels: string[] = [];
+        let datalabels: any[] = [];
+        Object.entries(this.result[0][category]).forEach(([key, value]) => {
+          categorylabels.push(key);
+          datalabels.push(value);
+        });
+        //console.log(this.datalabels)
+        this.datalength = datalabels.length;
+        
+        let color = new ColorGenerator();
+        const colorRangeInfo = {
+          colorStart: 0,
+          colorEnd: 1,
+          useEndAsStart: false,
+        };
 
-      // if (this.chart !== null && this.chart !== undefined) {
-      //   this.chart.destroy();
-      // }
+        // if (this.chart !== null && this.chart !== undefined) {
+        //   this.chart.destroy();
+        // }
 
-      this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
+        this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
 
-      this.chartOptions.push({
-        type:'doughnut',
-        data:{
-          labels: categorylabels,
-          datasets: [
-            {
-              data: datalabels,
-              backgroundColor: this.colors,
-            },
-          ],
-        },
-        options: {
-          responsive: false,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: `${category} Donut`
+        this.chartOptions.push({
+          type:'doughnut',
+          data:{
+            labels: categorylabels,
+            datasets: [
+              {
+                data: datalabels,
+                backgroundColor: this.colors,
+              },
+            ],
+          },
+          options: {
+            responsive: false,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: `${category} Donut`
+              }
             }
-          }
-        }        
-      })
+          }        
+        })
 
-      this.generateChart(this.chartOptions);
+        this.generateChart();
 
+      }
     }
-    
   }
 
-  generateChart(chartOptions: ChartConfiguration[]){
-    this.chart = this.chartElementRefs.map((chartElementRef, index) => {
-      const config = chartOptions[index]
-      return new Chart(chartElementRef.nativeElement, config);
-    });
-  }
+
 
   getDadosTotalPoints(nome:any, datestamp:any){
     this.loading = true

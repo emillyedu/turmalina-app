@@ -20,6 +20,12 @@ body{
     /* height: 354px; */
 }
 
+.chart {
+    height: 150px;
+    display: block;
+    border: 1px solid black;
+}
+
 .main-select{
     display: flex;
     flex-direction: row;
