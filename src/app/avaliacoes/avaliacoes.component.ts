@@ -4,7 +4,7 @@ import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-Avaliacoes',
@@ -29,7 +29,8 @@ export class AvaliacoesComponent implements OnInit{
   startDate!: Date;
   endDate!: Date;
 
-  constructor(public mapleafservice: MapleafService){
+  constructor(public mapleafservice: MapleafService, private dateAdapter: DateAdapter<any>){
+    this.dateAdapter.setLocale('pt');
   }
 
   // getNomeMunicipios(){
