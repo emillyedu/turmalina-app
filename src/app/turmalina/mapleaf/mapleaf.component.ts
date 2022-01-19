@@ -1,6 +1,3 @@
-import { AgreementModel } from './../../shared/models/agreement.model';
-import { TotalPoints } from './../../shared/models/totalpoints.model';
-
 import { Component, OnInit } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
 import { FormControl } from '@angular/forms';

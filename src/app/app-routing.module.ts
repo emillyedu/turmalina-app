@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'relatorio',
      loadChildren: () => import('./relatorio/relatorio.module').then(m => m.RelatorioModule) 
   },
+  { 
+    path: 'avaliacoes',
+     loadChildren: () => import('./avaliacoes/avaliacoes.module').then(m => m.AvaliacoesModule) 
+  },
   {
     path: '',
     redirectTo: 'turmalina',

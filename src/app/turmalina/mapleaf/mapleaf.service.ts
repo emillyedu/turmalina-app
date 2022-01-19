@@ -1,7 +1,7 @@
+import { TurmalinaStamp } from './../../shared/models/turmalinastamp.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 import { resolve } from 'dns';
 import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 
@@ -11,13 +11,15 @@ import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 
 export class MapleafService {
 
-  apiUrl = 'http://localhost:4200/result/turmalina_totalpoints'
+  apiUrl = 'http://turmalina-api.herokuapp.com/'
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
-  results: TotalPoints[];
+  results: TurmalinaStamp[];
+  resultsTotalPoints: TurmalinaStamp[];
   resultsIbge : IbgeData[];
 
   constructor(private http:HttpClient) {
     this.results = [];
+    this.resultsTotalPoints = [];
     this.resultsIbge = [];
   }
 
@@ -25,26 +27,50 @@ export class MapleafService {
     return this.http.get("./assets/map-data/paraiba.json")
   }
   
-  public getTotalPoints(municipio:string, datestamp:string){
+  public getTurmalinaStamp(municipio:string, firststamp:string, secondstamp:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<TotalPoints[]>(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp + ' 00:00:00.000' + '&second_timestamp=' + datestamp + ' 23:59:59.999')
+      .get<any[]>(this.apiUrl + 'turmalina_timestamp' + '?city=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
       .toPromise()
       .then(
         data => {
           this.results = data.map(item => {
-            return new TotalPoints(
-              item.Agreement,
-              item.Bid,
-              item.BudgetExpenditure,
-              item.BudgetRevenue,
-              item.Contract,
-              item.EmployeeInformation,
-              item.ExtraBudgetExpenditure,
-              item.ExtraBudgetRevenue,
-              item.PaymentDocument,
-              item.PlanningInstrument,
-              item.total_points
+            return new TurmalinaStamp(
+              item.endDateTime,
+              item.evaluation,
+              item.evaluationId,
+              item.logpath,
+              item.managementUnit,
+              item.startDateTime,
+              item.status
+            )
+          })
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTotalPoints(municipio:string){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_latest' + '?city=' + municipio)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsTotalPoints = data.map(item => {
+            return new TurmalinaStamp(
+              item.endDateTime,
+              item.evaluation,
+              item.evaluationId,
+              item.logpath,
+              item.managementUnit,
+              item.startDateTime,
+              item.status
             )
           })
           resolve();
