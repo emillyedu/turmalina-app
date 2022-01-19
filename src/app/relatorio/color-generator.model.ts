@@ -18,7 +18,7 @@ export class ColorGenerator{
         
         for (i = 0; i < dataLength; i++) {
             colorPoint = this.calculatePoint(i, intervalSize, colorRangeInfo);
-            colorArray.push(d3.interpolateInferno(colorPoint));
+            colorArray.push(d3.interpolateBlues(colorPoint));
         }
         
         return colorArray;

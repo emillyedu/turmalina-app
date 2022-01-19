@@ -45,14 +45,14 @@ body{
 }
 
 
-/** graphs **/
-.canvas{
-    height: 100px;
-    display: block;
+
+#barchart{
+    width: 35rem;
+    margin-right: 4rem;
 }
-#canvas{
+
+#polarchart{
     width: 25rem;
-    margin-right: 9rem;
 }
 
 .container{
@@ -67,29 +67,29 @@ body{
         flex-direction: column !important;
     }
 
-    #canvas{
+    #barchart{
         margin: 0 0 4rem 0 !important;
     }
 
 }
 @media screen and (min-width: 450px) and (max-width: 670px){
-    #canvas{
+    #barchart{
         width: 20rem !important;
         margin: 0 0 4rem 0 !important;
     }
 
-    #canvas2{
+    #polarchart{
         width: 28rem !important;
     }
 }
 
 @media screen and (min-width: 0px) and (max-width: 450px){
-    #canvas{
+    #barchart{
         width: 18rem !important;
         margin: 0 0 4rem 0 !important;
     }
 
-    #canvas2{
+    #polarchart{
         width: 22rem !important;
     }
 

@@ -8,7 +8,6 @@ import { RelatorioRoutingModule } from './relatorio-routing.module';
 import { RelatorioComponent } from './relatorio.component';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ChartsModule } from 'ng2-charts';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_FORMATS } from './datepicker-formats';
 
@@ -21,7 +20,6 @@ const moment = _rollupMoment || _moment;
     RelatorioComponent
   ],
   imports: [
-    ChartsModule,
     FormsModule, 
     ReactiveFormsModule,
     SharedModule,

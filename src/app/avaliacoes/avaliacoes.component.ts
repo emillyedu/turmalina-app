@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
-import { Chart, registerables, ChartConfiguration, ChartData } from 'chart.js';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -21,24 +20,16 @@ export class AvaliacoesComponent implements OnInit{
     end: new FormControl(),
   });
 
-  @ViewChildren('chart', { read: ElementRef }) chartElementRefs!: QueryList<ElementRef>;
-  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  // @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  evaluations: any[] | undefined = [];
+  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   selectedValue!: string;
   selectedValueData!: string;
-  datalength!: number;
   result: any;
   colors:any;
   loading!: boolean;
-  chart: Chart[] = [];
-  chartOptions: ChartConfiguration[] = [];
   startDate!: Date;
   endDate!: Date;
 
-  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
-    Chart.register(...registerables);
+  constructor(public mapleafservice: MapleafService){
   }
 
   // getNomeMunicipios(){

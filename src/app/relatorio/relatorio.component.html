@@ -20,21 +20,21 @@
           
     </div>
 
-    <div>
+    <div class="container">
         <div class="text-center">
             <p class="lead" *ngIf="loading">Loading...</p>
         </div>
         <div class="graph1">
-          <canvas baseChart
-                  [datasets] = "categoryValues"
-                  [labels] = "categoryLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
+            <div>
+              <canvas id="barchart">{{barchart}}</canvas>
+            </div>
         </div>
-      </div>
+        <div class="graph2">
+            <div>
+              <canvas id="polarchart">{{polarchart}}</canvas>
+            </div>
+        </div>
+    </div>
 
 </body>
 

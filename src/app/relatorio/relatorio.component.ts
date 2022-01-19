@@ -2,11 +2,10 @@ import { Evaluation } from './../shared/models/evaluation.model';
 import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
-import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions} from 'chart.js';
-import { reduceEachLeadingCommentRange, reduceEachTrailingCommentRange } from 'typescript';
+import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
-import { get } from 'https';
-import { strictEqual } from 'assert';
+
+
 
 
 @Component({
@@ -23,15 +22,14 @@ export class RelatorioComponent implements OnInit{
     end: new FormControl(),
   });
 
-  @ViewChildren('chart', { read: ElementRef }) chartElementRefs!: QueryList<ElementRef>;
-
   selectedValue!: string;
   selectedValueData!: string;
   datalength!: number;
   result: any[]=[];
   colors:any;
   loading!: boolean;
-  chart: Chart[] = [];
+  barchart!: Chart;
+  polarchart!: Chart;
   chartOptions: ChartConfiguration[] = [];
   startDate!: Date;
   endDate!: Date;
@@ -48,23 +46,6 @@ export class RelatorioComponent implements OnInit{
   //   })   
   // }
 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
-  public barChartType: ChartType = 'bar';
-  public barChartLegend:boolean = true;
-  public barChartData:any[] = [
-    {data: this.categoryValues , label: 'Municipio'},
-  ];
-  public barChartOptions: ChartOptions = {
-    responsive: true
-  };
   removeAcentos(letra: string) {
     /** Remove letters accents*/
     if ('áàâã'.indexOf(letra) !== -1) {
@@ -123,62 +104,77 @@ export class RelatorioComponent implements OnInit{
     }
   }
 
+  generateColors(){
+    let datalength = this.categoryLabels.length;
+    
+    let color = new ColorGenerator();
+    const colorRangeInfo = {
+      colorStart: 0.5,
+      colorEnd: 1,
+      useEndAsStart: false,
+    };
 
-  createChart(){
+    this.colors = color.interpolateColors(datalength, colorRangeInfo);
+
+  }
+
+  createChart(nome: string){
     // this.result = this.mapleafservice.results; 
     this.sumSubCategories();
+    this.generateColors();
     console.log(this.categoryLabels, this.categoryValues);
+    if (this.barchart !== null && this.barchart !== undefined && this.polarchart !== null && this.polarchart !== undefined) {
+      this.barchart.destroy();
+      this.polarchart.destroy();
+    }
 
-      //console.log(this.datalabels)
-      // this.datalength = datalabels.length;
-      
-      // let color = new ColorGenerator();
-      // const colorRangeInfo = {
-      //   colorStart: 0,
-      //   colorEnd: 1,
-      //   useEndAsStart: false,
-      // };
+    this.barchart = new Chart("barchart", {
+      type: "bar",
+      data: {
+        labels: this.categoryLabels,
+        datasets: [
+          {
+            data: this.categoryValues,
+            backgroundColor: this.colors,
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          title: {
+            display: true,
+            text: `${nome}`
+          }
+        }
+      }
+    });
 
-      // if (this.chart !== null && this.chart !== undefined) {
-      //   this.chart.destroy();
-      // }
+    this.polarchart = new Chart("polarchart", {
+      type: "polarArea",
+      data: {
+        labels: this.categoryLabels,
+        datasets: [
+          {
+            data: this.categoryValues,
+            backgroundColor: this.colors,
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+      }
+    });
 
-      // this.colors = color.interpolateColors(this.datalength, colorRangeInfo);
 
-      // new Chart({
-      //   type:'doughnut',
-      //   data:{
-      //     labels: categorylabels,
-      //     datasets: [
-      //       {
-      //         data: datalabels,
-      //         backgroundColor: this.colors,
-      //       },
-      //     ],
-      //   },
-      //   options: {
-      //     responsive: false,
-      //     plugins: {
-      //       legend: {
-      //         position: 'top',
-      //       },
-      //       title: {
-      //         display: true,
-      //         text: `${category} Donut`
-      //       }
-      //     }
-      //   }        
-      // })
-    
-    
-    // this.generateChart();
   }
 
 
 
   getDadosTotalPoints(nome:any){
     this.loading = true
-    this.mapleafservice.getTotalPoints(nome).then(_ => {this.loading = false; this.createChart()})
+    this.mapleafservice.getTotalPoints(nome).then(_ => {this.loading = false; this.createChart(nome)})
   }
 
 

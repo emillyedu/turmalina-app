@@ -20,12 +20,6 @@ body{
     /* height: 354px; */
 }
 
-.chart {
-    height: 150px;
-    display: block;
-    border: 1px solid black;
-}
-
 .main-select{
     display: flex;
     flex-direction: row;
@@ -42,35 +36,6 @@ body{
     border:1px solid gray;
     background-color: rgba(255,255,255,0.8);
     box-shadow: 3px 3px 3px rgb(0 0 0 / 14%);
-}
-
-
-/** graphs **/
-.canvas{
-    height: 100px;
-    display: block;
-}
-#canvas{
-    width: 25rem;
-    margin-right: 9rem;
-}
-
-.container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-@media screen and (min-width: 0px) and (max-width: 1200px){
-    .container{
-        flex-direction: column !important;
-    }
-
-    #canvas{
-        margin: 0 0 4rem 0 !important;
-    }
-
 }
 
 /** Table **/
@@ -134,26 +99,7 @@ th.mat-column-position, td.mat-column-position {
     flex-direction: column;
 }
 
-@media screen and (min-width: 450px) and (max-width: 670px){
-    #canvas{
-        width: 20rem !important;
-        margin: 0 0 4rem 0 !important;
-    }
-
-    #canvas2{
-        width: 28rem !important;
-    }
-}
-
 @media screen and (min-width: 0px) and (max-width: 450px){
-    #canvas{
-        width: 18rem !important;
-        margin: 0 0 4rem 0 !important;
-    }
-
-    #canvas2{
-        width: 22rem !important;
-    }
 
     .city{
         margin: 0 !important;
