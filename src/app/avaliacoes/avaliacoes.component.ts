@@ -19,8 +19,8 @@ export class AvaliacoesComponent implements OnInit{
     start: new FormControl(),
     end: new FormControl(),
   });
-
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+//ELEMENT_DATA
+  dataSource = new MatTableDataSource<Element>();
   selectedValue!: string;
   selectedValueData!: string;
   result: any;

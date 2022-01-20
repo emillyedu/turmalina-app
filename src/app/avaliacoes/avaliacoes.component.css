@@ -3,6 +3,15 @@ body{
 }
 
 /** form **/
+.button{
+    margin: 0 5px 0 10px;
+    padding: 0px 20px 0px 20px !important;
+    color: #fff !important;
+    font-size: 15px;
+    background-color: rgba(32, 19, 4, 0.8) !important;
+    box-shadow: 3px 3px 3px rgb(0 0 0 / 14%) !important;
+}
+
 .city{
     margin: 5px 5px 5px 5px;
 }
@@ -15,8 +24,13 @@ body{
     margin: 5px 5px 5px 10px;
 }
 
+.mat-raised-button{
+    min-width: 80px !important;
+    line-height: 50px !important;
+}
+
 .picker{
-    width: 100vw!important;
+    width: 100vw;
     /* height: 354px; */
 }
 
@@ -32,21 +46,21 @@ body{
 }
 
 .select{
-    padding: 10px ;
+    padding: 5px 5px 5px 10px;
     border:1px solid gray;
     background-color: rgba(255,255,255,0.8);
     box-shadow: 3px 3px 3px rgb(0 0 0 / 14%);
 }
 
 /** Table **/
-div.mat-app-background {
+ div.mat-app-background {
     background-color: #F0F0F0;
 }
   
 .example-container {
     height: 100%;
     width: 100%;
-    max-width: 828px;
+    max-width: 1200px;
     overflow: auto;
     margin: 0 auto;
 }
@@ -88,30 +102,26 @@ th.mat-column-position, td.mat-column-position {
     font-size: 0.75rem;
 }
 
-.mat-form-field {
-    width: 100px;
-    font-size: 0.75rem;
-    padding: 5px;
-}
-
 .mat-sort-header-container,
 .mat-sort-header-button {
     flex-direction: column;
-}
+} 
 
-@media screen and (min-width: 0px) and (max-width: 450px){
+@media screen and (min-width: 0px) and (max-width: 575px){
+
+    .main-select{
+        flex-direction: column !important;
+    }
 
     .city{
         margin: 0 !important;
     }
 
-    .date{
-        margin: 10px 0 0 0 !important;
+    .range{
+        margin: 10px 0 !important;
     }
-
-    .main-select{
-        flex-direction: column;
+    .button{
+        margin: 0 !important;
     }
-
 }
   
