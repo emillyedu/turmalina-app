@@ -259,29 +259,29 @@ export class TutorialComponent {
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
-                <th itemprop="ManagementUnitName">Nome da unidade gestora</th>
-                <th itemprop="ManagementUnitID">Código da unidade gestora</th>
-                <th itemprop="BidID">Número da licitação</th>
-                <th itemprop="BidModality">Modalidade de licitação</th>
-                <th itemprop="Object">Objeto da licitação</th>
-                <th itemprop="PublicationDate">Data da publicação</th>
-                <th itemprop="RealizationDate">Data de realização</th>
-                <th itemprop="BidderName">Nome do Participante</th>
-                <th itemprop="IdentificationNumber">CNPJ do paricipante</th>
-                <th itemprop="BidderProposalAmount">Valor da proposta</th>
+                <th itemprop="managementUnitName">Nome da unidade gestora</th>
+                <th itemprop="managementUnitID">Código da unidade gestora</th>
+                <th itemprop="bidID">Número da licitação</th>
+                <th itemprop="bidModality">Modalidade de licitação</th>
+                <th itemprop="object">Objeto da licitação</th>
+                <th itemprop="publicationDate">Data da publicação</th>
+                <th itemprop="realizationDate">Data de realização</th>
+                <th itemprop="bidderName">Nome do Participante</th>
+                <th itemprop="identificationNumber">CNPJ do paricipante</th>
+                <th itemprop="bidderProposalAmount">Valor da proposta</th>
             </tr>
             <!-- Dados referentes a certa linha da tabela  -->
             <tr>
-                <td itemprop="ManagementUnitName">Secretaria Municipal de Saúde</th>
-                <td itemprop="ManagementUnitID">00000.000-0</th>
-                <td itemprop="BidID">10.017/2021</th>
-                <td itemprop="BidModality">Pregão Eletrônico</th>
-                <td itemprop="Object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</th>
-                <td itemprop="PublicationDate">01/04/2021</th>
-                <td itemprop="RealizationDate">01/03/2021</th>
-                <td itemprop="BidderName">COMERCIAL VALFARMA LTDA</th>
-                <td itemprop="IdentificationNumber">02.600.770/0001-09</th>
-                <td itemprop="BidderProposalAmount">R$ 3.535.816,11</th>
+                <td itemprop="managementUnitName">Secretaria Municipal de Saúde</th>
+                <td itemprop="managementUnitID">00000.000-0</th>
+                <td itemprop="bidID">10.017/2021</th>
+                <td itemprop="bidModality">Pregão Eletrônico</th>
+                <td itemprop="object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</th>
+                <td itemprop="publicationDate">01/04/2021</th>
+                <td itemprop="realizationDate">01/03/2021</th>
+                <td itemprop="bidderName">COMERCIAL VALFARMA LTDA</th>
+                <td itemprop="identificationNumber">02.600.770/0001-09</th>
+                <td itemprop="bidderProposalAmount">R$ 3.535.816,11</th>
             </tr>
         </table>
     </div>
@@ -293,29 +293,29 @@ export class TutorialComponent {
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <div>
-                <div itemprop="ManagementUnitName">Nome da unidade gestora</div>
-                <div itemprop="ManagementUnitID">Código da unidade gestora</div>
-                <div itemprop="BidID">Número da licitação</div>
-                <div itemprop="BidModality">Modalidade de licitação</div>
-                <div itemprop="Object">Objeto da licitação</div>
-                <div itemprop="PublicationDate">Data da publicação</div>
-                <div itemprop="RealizationDate">Data de realização</div>
-                <div itemprop="BidderName">Nome do Participante</div>
-                <div itemprop="IdentificationNumber">CNPJ do paricipante</div>
-                <div itemprop="BidderProposalAmount">Valor da proposta</div>
+                <div itemprop="managementUnitName">Nome da unidade gestora</div>
+                <div itemprop="managementUnitID">Código da unidade gestora</div>
+                <div itemprop="bidID">Número da licitação</div>
+                <div itemprop="bidModality">Modalidade de licitação</div>
+                <div itemprop="object">Objeto da licitação</div>
+                <div itemprop="publicationDate">Data da publicação</div>
+                <div itemprop="realizationDate">Data de realização</div>
+                <div itemprop="bidderName">Nome do Participante</div>
+                <div itemprop="identificationNumber">CNPJ do paricipante</div>
+                <div itemprop="bidderProposalAmount">Valor da proposta</div>
             </div>
             <!-- Dados referentes a certa linha da tabela  -->
             <div>
-                <div itemprop="ManagementUnitName">Secretaria Municipal de Saúde</div>
-                <div itemprop="ManagementUnitID">00000.000-0</div>
-                <div itemprop="BidID">10.017/2021</div>
-                <div itemprop="BidModality">Pregão Eletrônico</div>
-                <div itemprop="Object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</div>
-                <div itemprop="PublicationDate">01/04/2021</div>
-                <div itemprop="RealizationDate">01/03/2021</div>
-                <div itemprop="BidderName">COMERCIAL VALFARMA LTDA</div>
-                <div itemprop="IdentificationNumber">02.600.770/0001-09</div>
-                <div itemprop="BidderProposalAmount">R$ 3.535.816,11</div>
+                <div itemprop="managementUnitName">Secretaria Municipal de Saúde</div>
+                <div itemprop="managementUnitID">00000.000-0</div>
+                <div itemprop="bidID">10.017/2021</div>
+                <div itemprop="bidModality">Pregão Eletrônico</div>
+                <div itemprop="object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</div>
+                <div itemprop="publicationDate">01/04/2021</div>
+                <div itemprop="realizationDate">01/03/2021</div>
+                <div itemprop="bidderName">COMERCIAL VALFARMA LTDA</div>
+                <div itemprop="identificationNumber">02.600.770/0001-09</div>
+                <div itemprop="bidderProposalAmount">R$ 3.535.816,11</div>
             </div>
         </div>
     </div>
@@ -394,29 +394,29 @@ export class TutorialComponent {
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
-                <th itemprop="ManagementUnitName">Nome da unidade gestora</th>
-                <th itemprop="ManagementUnitID">Código da unidade gestora</th>
-                <th itemprop="BidID">Número da licitação</th>
-                <th itemprop="BidModality">Modalidade de licitação</th>
-                <th itemprop="Object">Objeto da licitação</th>
-                <th itemprop="PublicationDate">Data da publicação</th>
-                <th itemprop="RealizationDate">Data de realização</th>
-                <th itemprop="BidderName">Nome do Participante</th>
-                <th itemprop="IdentificationNumber">CNPJ do paricipante</th>
-                <th itemprop="BidderProposalAmount">Valor da proposta</th>
+                <th itemprop="managementUnitName">Nome da unidade gestora</th>
+                <th itemprop="managementUnitID">Código da unidade gestora</th>
+                <th itemprop="bidID">Número da licitação</th>
+                <th itemprop="bidModality">Modalidade de licitação</th>
+                <th itemprop="object">Objeto da licitação</th>
+                <th itemprop="publicationDate">Data da publicação</th>
+                <th itemprop="realizationDate">Data de realização</th>
+                <th itemprop="bidderName">Nome do Participante</th>
+                <th itemprop="identificationNumber">CNPJ do paricipante</th>
+                <th itemprop="bidderProposalAmount">Valor da proposta</th>
             </tr>
             <!-- Dados referentes a certa linha da tabela  -->
             <tr>
-                <td itemprop="ManagementUnitName">Secretaria Municipal de Saúde</th>
-                <td itemprop="ManagementUnitID">00000.000-0</th>
-                <td itemprop="BidID">10.017/2021</th>
-                <td itemprop="BidModality">Pregão Eletrônico</th>
-                <td itemprop="Object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</th>
-                <td itemprop="PublicationDate">01/04/2021</th>
-                <td itemprop="RealizationDate">01/03/2021</th>
-                <td itemprop="BidderName">COMERCIAL VALFARMA LTDA</th>
-                <td itemprop="IdentificationNumber">02.600.770/0001-09</th>
-                <td itemprop="BidderProposalAmount">R$ 3.535.816,11</th>
+                <td itemprop="managementUnitName">Secretaria Municipal de Saúde</th>
+                <td itemprop="managementUnitID">00000.000-0</th>
+                <td itemprop="bidID">10.017/2021</th>
+                <td itemprop="bidModality">Pregão Eletrônico</th>
+                <td itemprop="object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</th>
+                <td itemprop="publicationDate">01/04/2021</th>
+                <td itemprop="realizationDate">01/03/2021</th>
+                <td itemprop="bidderName">COMERCIAL VALFARMA LTDA</th>
+                <td itemprop="identificationNumber">02.600.770/0001-09</th>
+                <td itemprop="bidderProposalAmount">R$ 3.535.816,11</th>
             </tr>
         </table>
     </div>
@@ -429,29 +429,29 @@ export class TutorialComponent {
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <div>
-                <div itemprop="ManagementUnitName">Nome da unidade gestora</div>
-                <div itemprop="ManagementUnitID">Código da unidade gestora</div>
-                <div itemprop="BidID">Número da licitação</div>
-                <div itemprop="BidModality">Modalidade de licitação</div>
-                <div itemprop="Object">Objeto da licitação</div>
-                <div itemprop="PublicationDate">Data da publicação</div>
-                <div itemprop="RealizationDate">Data de realização</div>
-                <div itemprop="BidderName">Nome do Participante</div>
-                <div itemprop="IdentificationNumber">CNPJ do paricipante</div>
-                <div itemprop="BidderProposalAmount">Valor da proposta</div>
+                <div itemprop="managementUnitName">Nome da unidade gestora</div>
+                <div itemprop="managementUnitID">Código da unidade gestora</div>
+                <div itemprop="bidID">Número da licitação</div>
+                <div itemprop="bidModality">Modalidade de licitação</div>
+                <div itemprop="object">Objeto da licitação</div>
+                <div itemprop="publicationDate">Data da publicação</div>
+                <div itemprop="realizationDate">Data de realização</div>
+                <div itemprop="bidderName">Nome do Participante</div>
+                <div itemprop="identificationNumber">CNPJ do paricipante</div>
+                <div itemprop="bidderProposalAmount">Valor da proposta</div>
             </div>
             <!-- Dados referentes a certa linha da tabela  -->
             <div>
-                <div itemprop="ManagementUnitName">Secretaria Municipal de Saúde</div>
-                <div itemprop="ManagementUnitID">00000.000-0</div>
-                <div itemprop="BidID">10.017/2021</div>
-                <div itemprop="BidModality">Pregão Eletrônico</div>
-                <div itemprop="Object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</div>
-                <div itemprop="PublicationDate">01/04/2021</div>
-                <div itemprop="RealizationDate">01/03/2021</div>
-                <div itemprop="BidderName">COMERCIAL VALFARMA LTDA</div>
-                <div itemprop="IdentificationNumber">02.600.770/0001-09</div>
-                <div itemprop="BidderProposalAmount">R$ 3.535.816,11</div>
+                <div itemprop="managementUnitName">Secretaria Municipal de Saúde</div>
+                <div itemprop="managementUnitID">00000.000-0</div>
+                <div itemprop="bidID">10.017/2021</div>
+                <div itemprop="bidModality">Pregão Eletrônico</div>
+                <div itemprop="object">SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</div>
+                <div itemprop="publicationDate">01/04/2021</div>
+                <div itemprop="realizationDate">01/03/2021</div>
+                <div itemprop="bidderName">COMERCIAL VALFARMA LTDA</div>
+                <div itemprop="identificationNumber">02.600.770/0001-09</div>
+                <div itemprop="bidderProposalAmount">R$ 3.535.816,11</div>
             </div>
         </div>
     </div>

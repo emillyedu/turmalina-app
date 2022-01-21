@@ -72,7 +72,7 @@ export class AvaliacoesComponent implements OnInit{
 
   createTable(){
 
-    console.log(this.mapleafservice.results[0].evaluation)
+    console.log(this.mapleafservice.results[0])
 
   }
 
@@ -92,12 +92,13 @@ export class AvaliacoesComponent implements OnInit{
 
   searchDadosMunicipio(nomeDoMunicipio:string){
     let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
+    console.log(municipio)
     this.getDadosApi(municipio, this.correctionDate(this.startDate), this.correctionDate(this.endDate))
   }
   
   ngOnInit(): void {
     this.mapleafservice.getIBGE();
-    this.getDadosApi("Joao Pessoa", "2021-02-11", "2021-02-12")
+    // this.getDadosApi("Joao Pessoa", "2021-02-11", "2021-02-12")
     /*****************************************************/
     /**************   Table accomplishment  **************/
     /*****************************************************/

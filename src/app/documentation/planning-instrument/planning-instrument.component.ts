@@ -28,15 +28,15 @@ export class PlanningInstrumentComponent {
     <table itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/PlanningInstrument">
         <!-- Cabeçalho da tabela  -->
         <tr>
-            <th itemprop="MultiyearPlan">Plano Plurianual (PPA)</th>
-            <th itemprop="BudgetGuidelinesLaw">Lei de Diretrizes Orçamentárias (LDO)</th>
-            <th itemprop="AnnualBudgetLaw">Lei Orçamentária Anual (LOA)</th>
+            <th itemprop="multiyearPlan">Plano Plurianual (PPA)</th>
+            <th itemprop="budgetGuidelinesLaw">Lei de Diretrizes Orçamentárias (LDO)</th>
+            <th itemprop="annualBudgetLaw">Lei Orçamentária Anual (LOA)</th>
         </tr>
         <!-- Dados referentes a certa linha da tabela  -->
         <tr>
-            <td itemprop="MultiyearPlan"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LDO-2021-1.pdf">Lei de Diretrizes Orçamentárias 2021</a></td>
-            <td itemprop="BudgetGuidelinesLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/PPA-Plano-Plurianual-2018-2021.pdf">Lei de PPA – Plano Plurianual 2018-2021</a></td>
-            <td itemprop="AnnualBudgetLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LOA-2021.pdf">LOA – Lei Orçamentária Anual 2021</a></td>
+            <td itemprop="multiyearPlan"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LDO-2021-1.pdf">Lei de Diretrizes Orçamentárias 2021</a></td>
+            <td itemprop="budgetGuidelinesLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/PPA-Plano-Plurianual-2018-2021.pdf">Lei de PPA – Plano Plurianual 2018-2021</a></td>
+            <td itemprop="annualBudgetLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LOA-2021.pdf">LOA – Lei Orçamentária Anual 2021</a></td>
         </tr>
     </table>
     \`\`\`
@@ -47,15 +47,15 @@ export class PlanningInstrumentComponent {
     <div itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/PlanningInstrument">
       <!-- Cabeçalho da tabela  -->
       <div>
-        <div itemprop="MultiyearPlan">Plano Plurianual (PPA)</div>
-        <div itemprop="BudgetGuidelinesLaw">Lei de Diretrizes Orçamentárias (LDO)</div>
-        <div itemprop="AnnualBudgetLaw">Lei Orçamentária Anual (LOA)</div>
+        <div itemprop="multiyearPlan">Plano Plurianual (PPA)</div>
+        <div itemprop="budgetGuidelinesLaw">Lei de Diretrizes Orçamentárias (LDO)</div>
+        <div itemprop="annualBudgetLaw">Lei Orçamentária Anual (LOA)</div>
       </div>
       <!-- Dados referentes a certa linha da tabela  -->
       <div>
-        <div itemprop="MultiyearPlan"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LDO-2021-1.pdf">Lei de Diretrizes Orçamentárias 2021</a></div>
-        <div itemprop="BudgetGuidelinesLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/PPA-Plano-Plurianual-2018-2021.pdf">Lei de PPA – Plano Plurianual 2018-2021</a></div>
-        <div itemprop="AnnualBudgetLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LOA-2021.pdf">LOA – Lei Orçamentária Anual 2021</a></div>
+        <div itemprop="multiyearPlan"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LDO-2021-1.pdf">Lei de Diretrizes Orçamentárias 2021</a></div>
+        <div itemprop="budgetGuidelinesLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/PPA-Plano-Plurianual-2018-2021.pdf">Lei de PPA – Plano Plurianual 2018-2021</a></div>
+        <div itemprop="annualBudgetLaw"><a>href="http://pocinhos.pb.gov.br/wp-content/uploads/2021/01/LOA-2021.pdf">LOA – Lei Orçamentária Anual 2021</a></div>
       </div>
     </div>
     \`\`\`

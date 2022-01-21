@@ -30,7 +30,7 @@ export class MapleafService {
   public getTurmalinaStamp(municipio:string, firststamp:string, secondstamp:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<any[]>(this.apiUrl + 'turmalina_timestamp' + '?city=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
+      .get<any[]>(this.apiUrl + 'turmalina_citytimestamp' + '?city=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
       .toPromise()
       .then(
         data => {
