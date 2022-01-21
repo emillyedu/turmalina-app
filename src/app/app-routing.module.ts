@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [
   { 
@@ -33,10 +34,11 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
-    {
-      preloadingStrategy: PreloadAllModules
-    }
-  )],
+      {
+        preloadingStrategy: PreloadAllModules
+      }
+    ),
+    NgCircleProgressModule.forRoot()],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

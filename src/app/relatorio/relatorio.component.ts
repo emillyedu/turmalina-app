@@ -2,11 +2,8 @@ import { Evaluation } from './../shared/models/evaluation.model';
 import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
-import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset} from 'chart.js';
+import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
-
-
-
 
 @Component({
   selector: 'app-relatorio',
@@ -29,12 +26,34 @@ export class RelatorioComponent implements OnInit{
   colors:any;
   loading!: boolean;
   barchart!: Chart;
-  polarchart!: Chart;
-  chartOptions: ChartConfiguration[] = [];
   startDate!: Date;
   endDate!: Date;
   categoryValues: number[] = [];
   categoryLabels: string[] = [];
+  categoryMaxPoints: number[] = [300, 200, 1500, 250, 250, 1000, 1000, 1000, 1000, 10];
+  stroke: number = 5;
+  radius: number = 40;
+  semicircle: boolean = false;
+  rounded: boolean = true;
+  responsive: boolean = false;
+  clockwise: boolean = true;
+  color: string = '#037DA6';
+  background: string = '#eaeaea';
+  duration: number = 800;
+  animation: string = 'easeOutCubic';
+  animationDelay: number = 0;
+
+  // agreementProgress: number = 0;
+  // bidProgress: number = 0;
+  // budgetExpenditureProgress: number = 0;
+  // budgetRevenueProgress: number = 0;
+  // contractProgress: number = 0;
+  // employeeInformationProgress: number = 0;
+  // extraBudgetExpenditureProgress: number = 0;
+  // extraBudgetRevenueProgress: number = 0;
+  // paymentDocumentProgress: number = 0;
+  // planningInstrumentProgress: number = 0;
+
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -118,16 +137,43 @@ export class RelatorioComponent implements OnInit{
 
   }
 
+  generateProgressGraph(index: number){
+    // this.agreementProgress = (this.categoryValues[0] / this.categoryMaxPoints[0]) * 100
+    // this.bidProgress = (this.categoryValues[1] / this.categoryMaxPoints[1]) * 100
+    // this.budgetExpenditureProgress = (this.categoryValues[2] / this.categoryMaxPoints[2]) * 100
+    // this.budgetRevenueProgress = (this.categoryValues[3] / this.categoryMaxPoints[3]) * 100
+    // this.contractProgress = (this.categoryValues[4] / this.categoryMaxPoints[4]) * 100
+    // this.employeeInformationProgress = (this.categoryValues[5] / this.categoryMaxPoints[5]) * 100
+    // this.extraBudgetExpenditureProgress = (this.categoryValues[6] / this.categoryMaxPoints[6]) * 100
+    // this.extraBudgetRevenueProgress = (this.categoryValues[7] / this.categoryMaxPoints[7]) * 100
+    // this.paymentDocumentProgress = (this.categoryValues[8] / this.categoryMaxPoints[8]) * 100
+    // this.planningInstrumentProgress = (this.categoryValues[9] / this.categoryMaxPoints[9]) * 100
+    return 100*(this.categoryValues[index]/this.categoryMaxPoints[index])
+
+  }
+
+  getOverlayStyle() {
+    const isSemi = this.semicircle;
+    const transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+
+    return {
+      top: isSemi ? 'auto' : '50%',
+      bottom: isSemi ? '5%' : 'auto',
+      left: '50%',
+      transform,
+      'font-size': this.radius / 3.5 + 'px',
+    };
+  }
+
   createChart(nome: string){
     // this.result = this.mapleafservice.results; 
     this.sumSubCategories();
     this.generateColors();
-    console.log(this.categoryLabels, this.categoryValues);
-    if (this.barchart !== null && this.barchart !== undefined && this.polarchart !== null && this.polarchart !== undefined) {
-      this.barchart.destroy();
-      this.polarchart.destroy();
-    }
 
+    // if ((this.barchart !== null) || (this.barchart !== undefined) || (this.doughnutChart !== null) || (this.doughnutChart !== undefined)) {
+    //   this.barchart.destroy();
+    //   this.doughnutChart.destroy();
+    // }
     this.barchart = new Chart("barchart", {
       type: "bar",
       data: {
@@ -150,23 +196,6 @@ export class RelatorioComponent implements OnInit{
         }
       }
     });
-
-    this.polarchart = new Chart("polarchart", {
-      type: "polarArea",
-      data: {
-        labels: this.categoryLabels,
-        datasets: [
-          {
-            data: this.categoryValues,
-            backgroundColor: this.colors,
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-      }
-    });
-
 
   }
 
