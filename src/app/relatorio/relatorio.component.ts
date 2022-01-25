@@ -31,6 +31,7 @@ export class RelatorioComponent implements OnInit{
   categoryValues: number[] = [];
   categoryLabels: string[] = [];
   categoryMaxPoints: number[] = [300, 200, 1500, 250, 250, 1000, 1000, 1000, 1000, 10];
+  categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
   stroke: number = 5;
   radius: number = 40;
   semicircle: boolean = false;
@@ -154,11 +155,11 @@ export class RelatorioComponent implements OnInit{
 
   getOverlayStyle() {
     const isSemi = this.semicircle;
-    const transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+    const transform = (isSemi ? '' : 'translateY(-40%) ') + 'translateX(-50%)';
 
     return {
-      top: isSemi ? 'auto' : '50%',
-      bottom: isSemi ? '5%' : 'auto',
+      top: isSemi ? 'auto' : '40%',
+      bottom: 'auto',
       left: '50%',
       transform,
       'font-size': this.radius / 3.5 + 'px',
@@ -177,7 +178,7 @@ export class RelatorioComponent implements OnInit{
     this.barchart = new Chart("barchart", {
       type: "bar",
       data: {
-        labels: this.categoryLabels,
+        labels: this.categoryPtLabels,
         datasets: [
           {
             data: this.categoryValues,

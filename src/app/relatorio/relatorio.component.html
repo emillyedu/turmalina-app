@@ -26,23 +26,25 @@
         </div>
         <div *ngIf="categoryValues" class="allgraphs">
             <div class="graph2 progress-wrapper" *ngFor="let item of categoryValues; let i = index">
-                <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
-                <round-progress
-                    [current]="item"
-                    [max]="categoryMaxPoints[i]"
-                    [color]="color"
-                    [background]="background"
-                    [radius]="radius"
-                    [stroke]="stroke"
-                    [semicircle]="semicircle"
-                    [rounded]="rounded"
-                    [clockwise]="clockwise"
-                    [responsive]="responsive"
-                    [duration]="duration"
-                    [animation]= "animation"
-                    [animationDelay]= "animationDelay"
-                ></round-progress>
-                <div class="category-labels">{{categoryLabels[i]}}</div>
+                <div class="g{{i}}">
+                    <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
+                    <round-progress
+                        [current]="item"
+                        [max]="categoryMaxPoints[i]"
+                        [color]="color"
+                        [background]="background"
+                        [radius]="radius"
+                        [stroke]="stroke"
+                        [semicircle]="semicircle"
+                        [rounded]="rounded"
+                        [clockwise]="clockwise"
+                        [responsive]="responsive"
+                        [duration]="duration"
+                        [animation]= "animation"
+                        [animationDelay]= "animationDelay"
+                    ></round-progress>
+                    <div class="category-labels">{{categoryPtLabels[i]}}</div>
+                </div>
             </div>
         </div>
         <div class="graph1">
