@@ -44,18 +44,6 @@ export class RelatorioComponent implements OnInit{
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
 
-  // agreementProgress: number = 0;
-  // bidProgress: number = 0;
-  // budgetExpenditureProgress: number = 0;
-  // budgetRevenueProgress: number = 0;
-  // contractProgress: number = 0;
-  // employeeInformationProgress: number = 0;
-  // extraBudgetExpenditureProgress: number = 0;
-  // extraBudgetRevenueProgress: number = 0;
-  // paymentDocumentProgress: number = 0;
-  // planningInstrumentProgress: number = 0;
-
-
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
   }
@@ -139,16 +127,6 @@ export class RelatorioComponent implements OnInit{
   }
 
   generateProgressGraph(index: number){
-    // this.agreementProgress = (this.categoryValues[0] / this.categoryMaxPoints[0]) * 100
-    // this.bidProgress = (this.categoryValues[1] / this.categoryMaxPoints[1]) * 100
-    // this.budgetExpenditureProgress = (this.categoryValues[2] / this.categoryMaxPoints[2]) * 100
-    // this.budgetRevenueProgress = (this.categoryValues[3] / this.categoryMaxPoints[3]) * 100
-    // this.contractProgress = (this.categoryValues[4] / this.categoryMaxPoints[4]) * 100
-    // this.employeeInformationProgress = (this.categoryValues[5] / this.categoryMaxPoints[5]) * 100
-    // this.extraBudgetExpenditureProgress = (this.categoryValues[6] / this.categoryMaxPoints[6]) * 100
-    // this.extraBudgetRevenueProgress = (this.categoryValues[7] / this.categoryMaxPoints[7]) * 100
-    // this.paymentDocumentProgress = (this.categoryValues[8] / this.categoryMaxPoints[8]) * 100
-    // this.planningInstrumentProgress = (this.categoryValues[9] / this.categoryMaxPoints[9]) * 100
     return 100*(this.categoryValues[index]/this.categoryMaxPoints[index])
 
   }
@@ -188,8 +166,12 @@ export class RelatorioComponent implements OnInit{
         ]
       },
       options: {
+        indexAxis: 'y',
         responsive: false,
         plugins: {
+          legend: {
+            display: false
+          },
           title: {
             display: true,
             text: `${nome}`
