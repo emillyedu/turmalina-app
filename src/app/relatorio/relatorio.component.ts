@@ -26,6 +26,7 @@ export class RelatorioComponent implements OnInit{
   colors:any;
   loading!: boolean;
   barchart!: Chart;
+  linechart!: Chart;
   startDate!: Date;
   endDate!: Date;
   categoryValues: number[] = [];
@@ -43,6 +44,9 @@ export class RelatorioComponent implements OnInit{
   duration: number = 800;
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
+  canvas: any;
+  ctx: any;
+
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -84,14 +88,6 @@ export class RelatorioComponent implements OnInit{
       return letra;
     }
   }
-
-  // getDadosMunicipio(nomeDoMunicipio: string, datestamp: string){
-  //   let nome = nomeDoMunicipio.replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
-
-  // }
-  // generateChart(){
-
-  // }
 
   sumSubCategories(){
     let indexCategory: number = 0;
@@ -149,10 +145,10 @@ export class RelatorioComponent implements OnInit{
     this.sumSubCategories();
     this.generateColors();
 
-    // if ((this.barchart !== null) || (this.barchart !== undefined) || (this.doughnutChart !== null) || (this.doughnutChart !== undefined)) {
-    //   this.barchart.destroy();
-    //   this.doughnutChart.destroy();
-    // }
+    if ((this.barchart !== null) || (this.barchart !== undefined) ) {
+      this.barchart == null;
+    }
+    
     this.barchart = new Chart("barchart", {
       type: "bar",
       data: {
@@ -180,9 +176,53 @@ export class RelatorioComponent implements OnInit{
       }
     });
 
+    //this.canvas = this.mychart.nativeElement; 
+    this.ctx = this.canvas.getContext('2d');
+
+    this.linechart = new Chart("linechart", {
+      type:'line',
+      data:{
+        datasets:{}
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Histórico de avaliações'
+          }
+        }
+      },
+    //   options: {
+    //     responsive: true,
+    //     title: {
+    //       display: true,
+    //       text: 'Histórico de pontuações'
+    //     },
+    //     scales: {
+    //       xAxes: {
+    //         type: 'linear',
+    //         scaleLabel: {
+    //           labelString: 'Datas',
+    //           display: true,
+    //         }
+    //       },
+    //       yAxes: {
+    //         type: 'linear',
+    //         scaleLabel: {
+    //           labelString: 'Pontuação',
+    //           display: true
+    //         }
+    //       }
+    //     }
+    //   } 
+    });
   }
 
-
+ 
 
   getDadosTotalPoints(nome:any){
     this.loading = true
@@ -213,13 +253,7 @@ export class RelatorioComponent implements OnInit{
     //   return new Chart(chartElementRef.nativeElement, config);
     // });    
     /** This will get value changes on city selector */
-    // this.city.valueChanges.subscribe(() => {
-    //   this.evaluations = [];
-    //   this.changeDetectorRef.detectChanges();
-    //   this.evaluations = this.turmalinaresults.Municipios.find(municipio => {
-    //     return municipio.MunicipioName === this.city.value;
-    //   })?.Evaluations;
-    // });
+
 
     /*****************************************************/
     /**************   Chart accomplishment  **************/

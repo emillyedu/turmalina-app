@@ -8,16 +8,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="select date" *ngIf="evaluations && evaluations.length">
-            <mat-label>Selecione a data*</mat-label>
-            <mat-select [(ngModel)]="selectedValueData" name="data" [formControl]="date" (selectionChange)="getDadosMunicipio(selectedValue, selectedValueData)" #evaluationSelect>
-                <mat-option *ngFor="let date of evaluations" [value]="date.date">
-                    {{date.dateView}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
-        <button mat-raised-button class="button" (click)="searchDadosMunicipio(selectedValue)">Ok</button>
-          
+        <button mat-raised-button class="button" (click)="searchDadosMunicipio(selectedValue)">Ok</button>     
     </div>
 
     <div class="container">
@@ -51,115 +42,10 @@
             <div>
               <canvas id="barchart">{{barchart}}</canvas>
             </div>
+            <div>
+                <canvas id="linechart"></canvas>
+            </div>
         </div>
-        <!-- <div class="graph2">
-            <circle-progress
-            [percent]="bidProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="budgetExpenditureProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="budgetRevenueProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="contractProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="employeeInformationProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="extraBudgetExpenditureProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="extraBudgetRevenueProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="paymentDocumentProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div>
-        <div class="graph2">
-            <circle-progress
-            [percent]="planningInstrumentProgress"
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-            ></circle-progress>
-        </div> -->
     </div>
 
 </body>
