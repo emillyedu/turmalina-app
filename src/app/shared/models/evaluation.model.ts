@@ -10,6 +10,9 @@ import { PaymentDocument } from "./paymentdoc.model";
 import { PlanningInstrumentModel } from "./planning.model";
 
 export class Evaluation{
+    getTotal(){
+        return this.total_points;
+    }
     constructor(
         public Agreement: AgreementModel,
         public Bid: BidModel,
@@ -21,6 +24,8 @@ export class Evaluation{
         public ExtraBudgetRevenue: ExtraBudgetRevenueModel,
         public PaymentDocument: PaymentDocument,
         public PlanningInstrument: PlanningInstrumentModel,
-    ){}
+        public total_points: number,
+    ){
+    }
 
 }

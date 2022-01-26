@@ -1,9 +1,11 @@
+import { AgreementComponent } from './../documentation/agreement/agreement.component';
 import { Evaluation } from './../shared/models/evaluation.model';
 import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-relatorio',
@@ -11,7 +13,7 @@ import { ColorGenerator } from './color-generator.model';
   styleUrls: ['./relatorio.component.css']
 })
 export class RelatorioComponent implements OnInit{
-
+  /*** instantiation forms ***/
   city: FormControl = new FormControl();
   date: FormControl = new FormControl();
   range = new FormGroup({
@@ -19,20 +21,27 @@ export class RelatorioComponent implements OnInit{
     end: new FormControl(),
   });
 
+  /*** input data ***/
   selectedValue!: string;
   selectedValueData!: string;
-  datalength!: number;
-  result: any[]=[];
-  colors:any;
-  loading!: boolean;
-  barchart!: Chart;
-  linechart!: Chart;
   startDate!: Date;
   endDate!: Date;
+  loading!: boolean;
+
+  /*** graphics ***/
+  datalength!: number;
+  result: any[]=[];
+  barchart!: Chart;
+  linechart!: Chart;
+
+  /*** chart data ***/
   categoryValues: number[] = [];
   categoryLabels: string[] = [];
+  seriesValues: any[] = [];
   categoryMaxPoints: number[] = [300, 200, 1500, 250, 250, 1000, 1000, 1000, 1000, 10];
   categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
+
+  /*** graphics configuration ***/
   stroke: number = 5;
   radius: number = 40;
   semicircle: boolean = false;
@@ -44,9 +53,7 @@ export class RelatorioComponent implements OnInit{
   duration: number = 800;
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
-  canvas: any;
-  ctx: any;
-
+  colors:any;
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -58,6 +65,7 @@ export class RelatorioComponent implements OnInit{
   //   })   
   // }
 
+  /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/
     if ('áàâã'.indexOf(letra) !== -1) {
@@ -89,12 +97,13 @@ export class RelatorioComponent implements OnInit{
     }
   }
 
+  /*** sum points of categories ***/
   sumSubCategories(){
     let indexCategory: number = 0;
-    console.log(this.mapleafservice.resultsTotalPoints[0].evaluation)
-    for (var category in this.mapleafservice.resultsTotalPoints[0].evaluation){
+
+    for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation){
       let count: number = 0;
-      Object.entries(this.mapleafservice.resultsTotalPoints[0].evaluation[category]).forEach(([key, value]) => {
+      Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation[category]).forEach(([key, value]) => {
         if(count == 0){
           this.categoryValues.push(Number(value))
         }
@@ -108,6 +117,20 @@ export class RelatorioComponent implements OnInit{
     }
   }
 
+  getTimeSeries(){
+    for (var i = 0; i < this.mapleafservice.resultsTotalPoints.length; i ++){
+      let evaluation = this.mapleafservice.resultsTotalPoints.slice(i)[0]
+      for (var item in evaluation.evaluation){
+        if(item == "total_points"){
+          this.seriesValues.push([moment(evaluation.endDateTime).format(), Number(evaluation.evaluation[item]),])
+        }
+      }
+    }
+    console.log(this.seriesValues)
+
+  }
+  
+  /*** colors of the graphics ***/
   generateColors(){
     let datalength = this.categoryLabels.length;
     
@@ -119,14 +142,9 @@ export class RelatorioComponent implements OnInit{
     };
 
     this.colors = color.interpolateColors(datalength, colorRangeInfo);
-
   }
 
-  generateProgressGraph(index: number){
-    return 100*(this.categoryValues[index]/this.categoryMaxPoints[index])
-
-  }
-
+  /*** progress circle chart styles ***/
   getOverlayStyle() {
     const isSemi = this.semicircle;
     const transform = (isSemi ? '' : 'translateY(-40%) ') + 'translateX(-50%)';
@@ -140,6 +158,7 @@ export class RelatorioComponent implements OnInit{
     };
   }
 
+  /*** createChart ***/
   createChart(nome: string){
     // this.result = this.mapleafservice.results; 
     this.sumSubCategories();
@@ -175,69 +194,43 @@ export class RelatorioComponent implements OnInit{
         }
       }
     });
-
-    //this.canvas = this.mychart.nativeElement; 
-    this.ctx = this.canvas.getContext('2d');
-
-    this.linechart = new Chart("linechart", {
-      type:'line',
-      data:{
-        datasets:{}
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false
-          },
-          title: {
-            display: true,
-            text: 'Histórico de avaliações'
-          }
-        }
-      },
+    this.getTimeSeries();
+    // this.linechart = new Chart("linechart", {
+    //   type:'line',
+    //   data:{
+    //     datasets:{}
+    //   },
     //   options: {
     //     responsive: true,
-    //     title: {
-    //       display: true,
-    //       text: 'Histórico de pontuações'
-    //     },
-    //     scales: {
-    //       xAxes: {
-    //         type: 'linear',
-    //         scaleLabel: {
-    //           labelString: 'Datas',
-    //           display: true,
-    //         }
+    //     plugins: {
+    //       legend: {
+    //         display: false
     //       },
-    //       yAxes: {
-    //         type: 'linear',
-    //         scaleLabel: {
-    //           labelString: 'Pontuação',
-    //           display: true
-    //         }
+    //       title: {
+    //         display: true,
+    //         text: 'Histórico de avaliações'
     //       }
     //     }
-    //   } 
-    });
+    //   },
+    //});
   }
 
- 
-
+  /*** capture API data ***/
   getDadosTotalPoints(nome:any){
     this.loading = true
-    this.mapleafservice.getTotalPoints(nome).then(_ => {this.loading = false; this.createChart(nome)})
+    this.mapleafservice.getTotalPoints(nome, "2021-02-10 00:00:00.000").then(_ => {this.loading = false; this.createChart(nome)})
   }
 
-
+  /*** correction date ***/
   correctionDate(date: Date){
     let day = new Date(date).getDate()
     let month = new Date(date).getMonth()
     let year = new Date(date).getFullYear()
-
+    //if the dates are only one digit, add a leading zero
     return `${year}-${month+1 < 10? `0${month+1}` : month+1}-${day < 10 ? `0${day}`: day }`
   }
 
+  /*** uses the "remove accents" function in searches ***/
   searchDadosMunicipio(nomeDoMunicipio:string){
     let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
     this.getDadosTotalPoints(municipio)
@@ -245,7 +238,7 @@ export class RelatorioComponent implements OnInit{
   
   ngOnInit(): void {
     this.mapleafservice.getIBGE();
-    this.getDadosTotalPoints("Joao Pessoa");
+    this.getDadosTotalPoints("Campina Grande");
     //  this.getNomeMunicipios();
     // this.chart = this.chartElementRefs.map((chartElementRef, index, ) => {
     //   console.log(this.chartOptions[1])

@@ -1,4 +1,5 @@
 <body>
+    <!--city select-->
     <div class="main-select">
         <mat-form-field class="select city">
             <mat-label>Selecione o município*</mat-label>
@@ -11,11 +12,13 @@
         <button mat-raised-button class="button" (click)="searchDadosMunicipio(selectedValue)">Ok</button>     
     </div>
 
+    <!--graphics-->
     <div class="container">
         <div class="text-center">
             <p class="lead" *ngIf="loading">Loading...</p>
         </div>
         <div *ngIf="categoryValues" class="allgraphs">
+            <!--progress circle chart-->
             <div class="graph2 progress-wrapper" *ngFor="let item of categoryValues; let i = index">
                 <div class="g{{i}}">
                     <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
@@ -39,11 +42,13 @@
             </div>
         </div>
         <div class="graph1">
+            <!--bar graph-->
             <div>
               <canvas id="barchart">{{barchart}}</canvas>
             </div>
+            <!--line graph-->
             <div>
-                <canvas id="linechart"></canvas>
+                <canvas id="linechart">{{linechart}}</canvas>
             </div>
         </div>
     </div>

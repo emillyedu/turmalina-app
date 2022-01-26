@@ -10,9 +10,10 @@ import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 })
 
 export class MapleafService {
-
+  /*** Urls ***/
   apiUrl = 'http://turmalina-api.herokuapp.com/'
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
+  
   results: TurmalinaStamp[];
   resultsTotalPoints: TurmalinaStamp[];
   resultsIbge : IbgeData[];
@@ -35,13 +36,14 @@ export class MapleafService {
       .then(
         data => {
           this.results = data.map(item => {
+            console.log(item)
             return new TurmalinaStamp(
-              item.endDateTime,
+              item.end_datetime,
               item.evaluation,
               item.evaluationId,
               item.logpath,
               item.managementUnit,
-              item.startDateTime,
+              item.start_datetime,
               item.status
             )
           })
@@ -55,21 +57,22 @@ export class MapleafService {
     return promise
   }
 
-  public getTotalPoints(municipio:string){
+  public getTotalPoints(municipio:string, data:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<any[]>(this.apiUrl + 'turmalina_latest' + '?city=' + municipio)
+      .get<any[]>(this.apiUrl + 'turmalina_citytimestamp' + '?city=' + municipio + '&first_timestamp=' +  data)
       .toPromise()
       .then(
         data => {
           this.resultsTotalPoints = data.map(item => {
+            console.log(item)
             return new TurmalinaStamp(
-              item.endDateTime,
+              item.end_datetime,
               item.evaluation,
-              item.evaluationId,
+              item.id,
               item.logpath,
               item.managementUnit,
-              item.startDateTime,
+              item.start_datetime,
               item.status
             )
           })
