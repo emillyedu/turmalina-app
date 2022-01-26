@@ -1,11 +1,12 @@
 import { AgreementComponent } from './../documentation/agreement/agreement.component';
 import { Evaluation } from './../shared/models/evaluation.model';
-import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
 import moment from 'moment';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-relatorio',
@@ -54,6 +55,10 @@ export class RelatorioComponent implements OnInit{
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   colors:any;
+  @ViewChild('linechart')
+  chartLine !: ElementRef<any>;
+  config !: Highcharts.Options ;
+  chart !: Highcharts.Chart;
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -195,24 +200,37 @@ export class RelatorioComponent implements OnInit{
       }
     });
     this.getTimeSeries();
-    // this.linechart = new Chart("linechart", {
-    //   type:'line',
-    //   data:{
-    //     datasets:{}
-    //   },
-    //   options: {
-    //     responsive: true,
-    //     plugins: {
-    //       legend: {
-    //         display: false
-    //       },
-    //       title: {
-    //         display: true,
-    //         text: 'Histórico de avaliações'
-    //       }
-    //     }
-    //   },
-    //});
+
+    this.config = {
+          chart: {
+            type: 'line'
+          },
+          title: {
+            text: 'Histórico de avaliações'
+          },
+          xAxis:{
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                day: '%e. %b',
+                month: '%b \'%y',
+                year: '%Y'
+              }
+          },
+          yAxis: {
+            title: {
+                text: 'Pontuações'
+            }
+          },
+          series: [
+            { 
+              name: 'Pontuação por tempo',
+              type: 'line',
+              data: this.seriesValues,
+            }
+          ]
+    };
+    
+    this.chart = Highcharts.chart(this.chartLine.nativeElement, this.config)
   }
 
   /*** capture API data ***/
