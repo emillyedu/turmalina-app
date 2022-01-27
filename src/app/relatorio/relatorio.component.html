@@ -19,7 +19,7 @@
         </div>
         <div *ngIf="categoryValues" class="allgraphs">
             <!--progress circle chart-->
-            <div class="graph2 progress-wrapper" *ngFor="let item of categoryValues; let i = index">
+            <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
                 <div class="g{{i}}">
                     <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
                     <round-progress
@@ -41,13 +41,13 @@
                 </div>
             </div>
         </div>
-        <div class="graph1">
+        <div class="graph">
             <!--bar graph-->
             <div>
               <canvas id="barchart">{{barchart}}</canvas>
             </div>
             <!--line graph-->
-            <div #linechart></div>
+            <div id="linechart"></div>
         </div>
     </div>
 

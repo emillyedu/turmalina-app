@@ -1,5 +1,5 @@
 body{
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif !important;
 }
 
 /** form **/
@@ -59,8 +59,12 @@ body{
 }
 
 #barchart{
-    width: 35rem;
-    margin-right: 4rem;
+    width: 25rem;
+    margin-right: 3rem;
+}
+
+#linechart{
+    height: 15rem;
 }
 
 #polarchart{
@@ -89,7 +93,15 @@ body{
     line-height: 1;
     font-size: 12px !important;
 }
-.graph2{
+
+.graph{
+    display: flex;
+    flex-direction: row;
+    max-width: 100rem;
+    margin-top: 3rem;
+}
+
+.graphCircle{
     width: 6.5rem ;
 }
 
@@ -112,22 +124,63 @@ round-progress {
     margin-top: 5px !important;
 }
 
+text.highcharts-title{
+    text-align: center !important;
+    font-size: 0.7rem !important;
+    color: rgb(151, 148, 148) !important;
+    font-weight: bold !important;
+    margin-top: 5px !important;
+}
+
+.highcharts-axis-title{
+    font-size: 0.7rem !important;
+    color: rgb(151, 148, 148) !important;
+    font-weight: bold !important;
+    margin-top: 5px !important;
+}
 /***********************************************************/
 
-@media screen and (min-width: 0px) and (max-width: 1200px){
-    .container{
+@media screen and (min-width: 900px) and (max-width: 1200px){
+    #barchart{
+        width: 25rem !important;
+        margin-right: 2rem !important;
+    }
+    
+    #linechart{
+        width: 30rem;
+    }
+
+    .graph{
+        flex-direction: row !important;
+    }
+}
+@media screen and (min-width: 530px) and (max-width: 900px){
+    #barchart{
+        width: 30rem !important;
+        margin-right: 0rem !important;
+        margin-bottom: 4rem !important;
+    }
+    
+    #linechart{
+        width: 30rem;
+    }
+
+    .graph{
         flex-direction: column !important;
     }
-
+}
+@media screen and (min-width: 450px) and (max-width: 530px){
     #barchart{
+        width: 25rem !important;
         margin: 0 0 4rem 0 !important;
     }
 
-}
-@media screen and (min-width: 450px) and (max-width: 670px){
-    #barchart{
-        width: 20rem !important;
-        margin: 0 0 4rem 0 !important;
+    #linechart{
+        width: 25rem !important;
+    }
+
+    .graph{
+        flex-direction: column !important;
     }
 
     #polarchart{
@@ -137,12 +190,16 @@ round-progress {
 
 @media screen and (min-width: 0px) and (max-width: 450px){
     #barchart{
-        width: 18rem !important;
+        width: 19rem !important;
         margin: 0 0 4rem 0 !important;
     }
 
-    #polarchart{
-        width: 22rem !important;
+    #linechart{
+        width: 19rem !important;
+    }
+
+    .graph{
+        flex-direction: column !important;
     }
 
     .city{
@@ -157,4 +214,7 @@ round-progress {
         flex-direction: column;
     }
 
+    #polarchart{
+        width: 22rem !important;
+    }
 }

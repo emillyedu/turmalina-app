@@ -55,10 +55,10 @@ export class RelatorioComponent implements OnInit{
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   colors:any;
-  @ViewChild('linechart')
-  chartLine !: ElementRef<any>;
-  config !: Highcharts.Options ;
-  chart !: Highcharts.Chart;
+//   @ViewChild('linechart')
+//   chartLine !: ElementRef<any>;
+//   config !: Highcharts.Options ;
+//   chart !: Highcharts.Chart;
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -201,20 +201,21 @@ export class RelatorioComponent implements OnInit{
     });
     this.getTimeSeries();
 
-    this.config = {
+    Highcharts.chart('linechart', {
           chart: {
-            type: 'line'
+            zoomType: 'x'
+          },
+          legend: {
+            enabled: false,
           },
           title: {
-            text: 'Histórico de avaliações'
+            text: 'Histórico de avaliações',
           },
           xAxis:{
             type: 'datetime',
-            dateTimeLabelFormats: {
-                day: '%e. %b',
-                month: '%b \'%y',
-                year: '%Y'
-              }
+            labels: {
+                format: '{value:%e/%m/%Y}'
+            },
           },
           yAxis: {
             title: {
@@ -223,14 +224,13 @@ export class RelatorioComponent implements OnInit{
           },
           series: [
             { 
-              name: 'Pontuação por tempo',
               type: 'line',
-              data: this.seriesValues,
+              name: 'Pontuação',
+              data: this.seriesValues
             }
-          ]
-    };
-    
-    this.chart = Highcharts.chart(this.chartLine.nativeElement, this.config)
+          ],
+    });
+
   }
 
   /*** capture API data ***/
