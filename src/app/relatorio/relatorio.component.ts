@@ -6,8 +6,6 @@ import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
 import moment from 'moment';
-import * as Highcharts from 'highcharts';
-
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
@@ -32,8 +30,9 @@ export class RelatorioComponent implements OnInit{
   /*** graphics ***/
   datalength!: number;
   result: any[]=[];
-  barchart!: Chart;
-  linechart!: Chart;
+  barchart?: Chart;
+  linechart?: Chart;
+  timechart!: Chart;
 
   /*** chart data ***/
   categoryValues: number[] = [];
@@ -105,34 +104,35 @@ export class RelatorioComponent implements OnInit{
   /*** sum points of categories ***/
   sumSubCategories(){
     let indexCategory: number = 0;
-
-    for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation){
-      let count: number = 0;
-      Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation[category]).forEach(([key, value]) => {
-        if(count == 0){
-          this.categoryValues.push(Number(value))
-        }
-        else{
-          this.categoryValues[indexCategory] += Number(value);
-        }
-        count += 1;
-      });
-      this.categoryLabels.push(category);
-      indexCategory += 1;
+    if(this.mapleafservice.resultsTotalPoints != undefined){
+      for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation){
+        let count: number = 0;
+        Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation[category]).forEach(([key, value]) => {
+          if(count == 0){
+            this.categoryValues.push(Number(value))
+          }
+          else{
+            this.categoryValues[indexCategory] += Number(value);
+          }
+          count += 1;
+        });
+        this.categoryLabels.push(category);
+        indexCategory += 1;
+      }
     }
   }
 
   getTimeSeries(){
-    for (var i = 0; i < this.mapleafservice.resultsTotalPoints.length; i ++){
-      let evaluation = this.mapleafservice.resultsTotalPoints.slice(i)[0]
-      for (var item in evaluation.evaluation){
-        if(item == "total_points"){
-          this.seriesValues.push([moment(evaluation.endDateTime).format(), Number(evaluation.evaluation[item]),])
+    if(this.mapleafservice.resultsTotalPoints != undefined){
+      for (var i = 0; i < this.mapleafservice.resultsTotalPoints.length; i ++){
+        let evaluation = this.mapleafservice.resultsTotalPoints.slice(i)[0]
+        for (var item in evaluation.evaluation){
+          if(item == "total_points"){
+            this.seriesValues.push([moment(evaluation.endDateTime).locale('pt').format('L'), Number(evaluation.evaluation[item]),])
+          }
         }
       }
     }
-    console.log(this.seriesValues)
-
   }
   
   /*** colors of the graphics ***/
@@ -166,13 +166,21 @@ export class RelatorioComponent implements OnInit{
   /*** createChart ***/
   createChart(nome: string){
     // this.result = this.mapleafservice.results; 
+    if(this.barchart!==null || this.barchart!==undefined){
+      this.barchart?.destroy();
+    }
+    if(this.timechart!==null || this.timechart!==undefined){
+      this.timechart?.destroy();
+    }
+
+    this.categoryLabels = [];
+    this.categoryValues = [];
+    this.seriesValues = [];
+
     this.sumSubCategories();
     this.generateColors();
+    this.getTimeSeries();
 
-    if ((this.barchart !== null) || (this.barchart !== undefined) ) {
-      this.barchart == null;
-    }
-    
     this.barchart = new Chart("barchart", {
       type: "bar",
       data: {
@@ -187,7 +195,7 @@ export class RelatorioComponent implements OnInit{
       },
       options: {
         indexAxis: 'y',
-        responsive: false,
+        responsive: true,
         plugins: {
           legend: {
             display: false
@@ -199,38 +207,40 @@ export class RelatorioComponent implements OnInit{
         }
       }
     });
-    this.getTimeSeries();
 
-    Highcharts.chart('linechart', {
-          chart: {
-            zoomType: 'x'
-          },
+    this.timechart = new Chart("timechart", {
+      type: "line",
+      data: {
+        datasets: [{
+          data: this.seriesValues,
+          backgroundColor: this.colors,
+          borderColor: this.colors,
+          borderWidth: 3,
+        }],
+      },
+      options: {
+        indexAxis: 'x',
+        responsive: true,
+        plugins: {
           legend: {
-            enabled: false,
+            display: false
           },
           title: {
-            text: 'Histórico de avaliações',
-          },
-          xAxis:{
-            type: 'datetime',
-            labels: {
-                format: '{value:%e/%m/%Y}'
-            },
-          },
-          yAxis: {
-            title: {
-                text: 'Pontuações'
-            }
-          },
-          series: [
-            { 
-              type: 'line',
-              name: 'Pontuação',
-              data: this.seriesValues
-            }
-          ],
+            display: true,
+            text: 'Histórico de pontuações'
+          }
+        },
+        scales: {
+          xAxes: {
+              ticks: {
+                  autoSkip: false,
+                  maxRotation: 0,
+                  minRotation: 0
+              }
+          }
+        }
+      }
     });
-
   }
 
   /*** capture API data ***/
@@ -256,7 +266,7 @@ export class RelatorioComponent implements OnInit{
   
   ngOnInit(): void {
     this.mapleafservice.getIBGE();
-    this.getDadosTotalPoints("Campina Grande");
+    // this.getDadosTotalPoints("Campina Grande");
     //  this.getNomeMunicipios();
     // this.chart = this.chartElementRefs.map((chartElementRef, index, ) => {
     //   console.log(this.chartOptions[1])

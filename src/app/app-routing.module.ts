@@ -6,7 +6,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 const routes: Routes = [
   { 
     path: 'documentation',
-     loadChildren: () => import('./documentation/documentation.module').then(m => m.DocumentationModule) 
+     loadChildren: () => import('./documentation/documentation.module').then(m => m.DocumentationModule) ,
   },
   { 
     path: 'turmalina',

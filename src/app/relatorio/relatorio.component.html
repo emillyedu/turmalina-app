@@ -13,7 +13,7 @@
     </div>
 
     <!--graphics-->
-    <div class="container">
+    <div class="container" *ngIf="selectedValue">
         <div class="text-center">
             <p class="lead" *ngIf="loading">Loading...</p>
         </div>
@@ -43,11 +43,13 @@
         </div>
         <div class="graph">
             <!--bar graph-->
-            <div>
+            <div class= "graph-one">
               <canvas id="barchart">{{barchart}}</canvas>
             </div>
             <!--line graph-->
-            <div id="linechart"></div>
+            <div class= "graph-two">
+                <canvas class= "linechart" id="timechart">{{timechart}}</canvas>
+            </div>
         </div>
     </div>
 

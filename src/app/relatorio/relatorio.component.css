@@ -1,5 +1,6 @@
 body{
     font-family: "Montserrat", sans-serif !important;
+    background-color: rgb(213, 218, 218)!important;
 }
 
 /** form **/
@@ -59,12 +60,13 @@ body{
 }
 
 #barchart{
-    width: 25rem;
-    margin-right: 3rem;
+    width: 30rem;
+    margin: auto 0;
 }
 
-#linechart{
-    height: 15rem;
+#timechart{
+    width: 34rem;
+    margin: auto 0;
 }
 
 #polarchart{
@@ -72,7 +74,8 @@ body{
 }
 
 .container{
-    display: flex;
+    max-width: 80vw;
+    display: block;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -84,6 +87,10 @@ body{
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 100rem;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
+    background-color: rgba(255,255,255,0.8);
 }
 
 .current {
@@ -96,9 +103,30 @@ body{
 
 .graph{
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     max-width: 100rem;
     margin-top: 3rem;
+    justify-content: space-between;
+}
+
+.graph-one{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    /* margin: 0 10px; */
+    border-radius: 25px;
+    box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
+    background-color: rgba(255,255,255,0.8);
+}
+
+.graph-two{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    /* margin: 0 10px; */
+    border-radius: 25px;
+    box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
+    background-color: rgba(255,255,255,0.8);
 }
 
 .graphCircle{
@@ -124,15 +152,8 @@ round-progress {
     margin-top: 5px !important;
 }
 
-text.highcharts-title{
+.linechart{
     text-align: center !important;
-    font-size: 0.7rem !important;
-    color: rgb(151, 148, 148) !important;
-    font-weight: bold !important;
-    margin-top: 5px !important;
-}
-
-.highcharts-axis-title{
     font-size: 0.7rem !important;
     color: rgb(151, 148, 148) !important;
     font-weight: bold !important;
@@ -140,39 +161,71 @@ text.highcharts-title{
 }
 /***********************************************************/
 
-@media screen and (min-width: 900px) and (max-width: 1200px){
+@media screen and (min-width: 1800px) and (max-width: 2000px){
     #barchart{
-        width: 25rem !important;
-        margin-right: 2rem !important;
+        width: 40rem !important;
     }
     
-    #linechart{
-        width: 30rem;
+    #timechart{
+        width: 35rem !important;
     }
 
     .graph{
         flex-direction: row !important;
     }
 }
-@media screen and (min-width: 530px) and (max-width: 900px){
+
+@media screen and (min-width: 1400px) and (max-width: 1800px){
+
     #barchart{
         width: 30rem !important;
-        margin-right: 0rem !important;
-        margin-bottom: 4rem !important;
     }
     
+    #timechart{
+        width: 40vw !important;
+    }
+
+    .graph{
+        flex-direction: row !important;
+    }
+}
+
+@media screen and (min-width: 1300px) and (max-width: 1400px){
+
+    #timechart{
+        width: 35vw !important;
+    }
+
+    .graph{
+        flex-direction: row !important;
+    }
+}
+
+@media screen and (min-width: 530px) and (max-width: 1300px){
+    #barchart{
+        height: 18rem !important;
+    }
+
+    .graph-one{
+        margin-bottom: 3rem !important;
+    }
+
     #linechart{
         width: 30rem;
     }
 
     .graph{
+        max-width: 40rem;
         flex-direction: column !important;
+        margin: 3rem auto!important;
     }
 }
 @media screen and (min-width: 450px) and (max-width: 530px){
     #barchart{
         width: 25rem !important;
-        margin: 0 0 4rem 0 !important;
+    }
+    .graph-one{
+        margin-bottom: 3rem !important;
     }
 
     #linechart{
@@ -191,7 +244,10 @@ text.highcharts-title{
 @media screen and (min-width: 0px) and (max-width: 450px){
     #barchart{
         width: 19rem !important;
-        margin: 0 0 4rem 0 !important;
+    }
+    
+    .graph-one{
+        margin-bottom: 3rem !important;
     }
 
     #linechart{

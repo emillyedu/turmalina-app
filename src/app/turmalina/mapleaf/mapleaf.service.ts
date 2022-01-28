@@ -15,7 +15,7 @@ export class MapleafService {
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
   
   results: TurmalinaStamp[];
-  resultsTotalPoints: TurmalinaStamp[];
+  resultsTotalPoints?: TurmalinaStamp[];
   resultsIbge : IbgeData[];
 
   constructor(private http:HttpClient) {
@@ -58,6 +58,7 @@ export class MapleafService {
   }
 
   public getTotalPoints(municipio:string, data:string){
+    this.resultsTotalPoints = undefined;
     let promise = new Promise<void>((resolve, reject) => {
       this.http
       .get<any[]>(this.apiUrl + 'turmalina_citytimestamp' + '?city=' + municipio + '&first_timestamp=' +  data)
@@ -65,7 +66,6 @@ export class MapleafService {
       .then(
         data => {
           this.resultsTotalPoints = data.map(item => {
-            console.log(item)
             return new TurmalinaStamp(
               item.end_datetime,
               item.evaluation,
