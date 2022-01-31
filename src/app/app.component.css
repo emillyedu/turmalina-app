@@ -44,6 +44,7 @@ body {
     height: 100%;
     font-family: var(--font-family) !important;
     line-height: 1.4;
+    background-color: rgb(213, 218, 218)!important;
 }
 
     /*************************/
