@@ -38,13 +38,19 @@
 
 }
 
+.white{
+    background-color: rgba(213, 218, 218);
+}
+
+.gray{
+    background-color: white;
+}
 
 body {
     width: 100%;
     height: 100%;
     font-family: var(--font-family) !important;
     line-height: 1.4;
-    background-color: rgb(213, 218, 218)!important;
 }
 
     /*************************/

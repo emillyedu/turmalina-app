@@ -1,5 +1,6 @@
 body{
     font-family: "Montserrat", sans-serif;
+    height: 90vh;
     background-color: rgb(213, 218, 218)!important;
 }
 
@@ -108,6 +109,7 @@ th.mat-column-position, td.mat-column-position {
     flex-direction: column;
 } 
 
+.
 @media screen and (min-width: 0px) and (max-width: 575px){
 
     .main-select{

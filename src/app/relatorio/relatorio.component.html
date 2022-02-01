@@ -15,40 +15,47 @@
     <!--graphics-->
     <div class="container" *ngIf="selectedValue">
         <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
+            <div *ngIf="loading" class="loading">
+                <img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
+                <p class="lead">
+                    <img class="loading-gif" src="../../assets/images/1484.png">
+                </p>
+            </div>
         </div>
-        <div *ngIf="categoryValues" class="allgraphs">
-            <!--progress circle chart-->
-            <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
-                <div class="g{{i}}">
-                    <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
-                    <round-progress
-                        [current]="item"
-                        [max]="categoryMaxPoints[i]"
-                        [color]="color"
-                        [background]="background"
-                        [radius]="radius"
-                        [stroke]="stroke"
-                        [semicircle]="semicircle"
-                        [rounded]="rounded"
-                        [clockwise]="clockwise"
-                        [responsive]="responsive"
-                        [duration]="duration"
-                        [animation]= "animation"
-                        [animationDelay]= "animationDelay"
-                    ></round-progress>
-                    <div class="category-labels">{{categoryPtLabels[i]}}</div>
+        <div *ngIf="loading==false">
+            <div class="allgraphs" *ngIf="categoryValues">
+                <!--progress circle chart-->
+                <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
+                    <div class="g{{i}}">
+                        <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
+                        <round-progress
+                            [current]="item"
+                            [max]="categoryMaxPoints[i]"
+                            [color]="color"
+                            [background]="background"
+                            [radius]="radius"
+                            [stroke]="stroke"
+                            [semicircle]="semicircle"
+                            [rounded]="rounded"
+                            [clockwise]="clockwise"
+                            [responsive]="responsive"
+                            [duration]="duration"
+                            [animation]= "animation"
+                            [animationDelay]= "animationDelay"
+                        ></round-progress>
+                        <div class="category-labels">{{categoryPtLabels[i]}}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="graph">
-            <!--bar graph-->
-            <div class= "graph-one">
-              <canvas id="barchart">{{barchart}}</canvas>
-            </div>
-            <!--line graph-->
-            <div class= "graph-two">
-                <canvas class= "linechart" id="timechart">{{timechart}}</canvas>
+            <div class="graph">
+                <!--bar graph-->
+                <div class= "graph-one">
+                <canvas id="barchart">{{barchart}}</canvas>
+                </div>
+                <!--line graph-->
+                <div class= "graph-two">
+                    <canvas class= "linechart" id="timechart">{{timechart}}</canvas>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 body{
     font-family: "Montserrat", sans-serif !important;
+    height:90vh;
     background-color: rgb(213, 218, 218)!important;
 }
 
@@ -81,6 +82,23 @@ body{
     justify-content: center;
 }
 
+.gif-loading{
+    width: 200px;
+}
+
+.loading{
+    margin-top: 20vh;
+}
+
+.lead{
+    font-size: 2rem;
+    color: #683c14;
+    font-weight: bold;
+}
+
+.loading-gif{
+    width: 80px;
+}
 /********************* Progress graph ************************/
 .allgraphs{
     display: flex;

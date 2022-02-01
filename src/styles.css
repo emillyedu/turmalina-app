@@ -29,7 +29,7 @@ table th {
 }
 
 table th[align=""], table th:not([align]) {
-    text-align: left;
+    text-align: center;
 }
 
 table td {
