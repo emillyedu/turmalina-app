@@ -38,7 +38,7 @@ export class TutorialComponent {
     | itemtype | O atributo itemtype contém como valor uma URL válida que define o tipo do item e fornece o contexto para as propriedades referentes a ele. | 
     | itemprop | Este atributo define uma propriedade do item. | 
     
-    Como visto, a sintaxe básica inclui os atributos itemscope e itemtype para definir um item, e o atributo itemprop para descrever cada propriedade do item. Sendo os tipos dos itens especificados por meio do atributo itemtype, que assume valores de URLs válidas definidas através do vocabulário de escolha. Neste caso, podem assumir as URLs de cada tipo registrado no vocabulário do Turmalina Schema; por exemplo, o Turmalina Schema define tipos como http://turmalinaschema.org/Bid ou http://turmalinaschema.org/Contracts.
+    Como visto, a sintaxe básica inclui os atributos itemscope e itemtype para definir um item, e o atributo itemprop para descrever cada propriedade do item. Sendo os tipos dos itens especificados por meio do atributo itemtype, que assume valores de URLs válidas definidas através do vocabulário de escolha. Neste caso, podem assumir as URLs de cada tipo registrado no vocabulário do Turmalina Schema; por exemplo, o Turmalina Schema define tipos como http://turmalinaschema.org/Bidding ou http://turmalinaschema.org/Contracts.
     
     ## Como marcar seu conteúdo usando o Microdata e o Turmalina Schema?
     
@@ -68,10 +68,10 @@ export class TutorialComponent {
                 <td>10.017/2021</td>
                 <td>Pregão Eletrônico</td>
                 <td>SISTEMA DE REGISTRO DE PREÇOS PARA A AQUISIÇÃO DE MEDICAMENTOS DA REDE HOSPITALAR E ESPECIALIZADA</td>
-                <td>01/04/2021</td
-                <td>01/03/2021</td
-                <td>COMERCIAL VALFARMA LTDA</td
-                <td>02.600.770/0001-09</td
+                <td>01/04/2021</td>
+                <td>01/03/2021</td>
+                <td>COMERCIAL VALFARMA LTDA</td>
+                <td>02.600.770/0001-09</td>
                 <td>R$ 3.535.816,11</td>
             </tr>
         </table>
@@ -180,10 +180,10 @@ export class TutorialComponent {
     </div>
     \`\`\`
     
-    Ao adicionarmos o itemscope estamos especificando que o HTML contém um bloco sobre um determinado item. Entretanto, não é suficiente especificar que existe um item no HTML, precisamos especificar também de qual tipo esse item é. Para tanto, podemos utilizar o atributo itemtype imediatamente após o itemscope.
+    Ao adicionarmos o itemscope estamos especificando que o HTML contém um bloco sobre um determinado item. Entretanto, não é suficiente especificar que existe um item no HTML, precisamos especificar também o tipo desse item. Para tanto, podemos utilizar o atributo itemtype imediatamente após o itemscope.
     \`\`\`html
     <div>
-        <table itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
+        <table itemscope itemtype="http://turmalinaschema.org/Bidding">
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
@@ -215,7 +215,7 @@ export class TutorialComponent {
     </div>
     \`\`\`
     \`\`\`html
-    <div itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
+    <div itemscope itemtype="http://turmalinaschema.org/Bidding">
         <caption>Descrição</caption>
         <!-- Cabeçalho da tabela  -->
         <div>
@@ -246,16 +246,23 @@ export class TutorialComponent {
     </div>
     \`\`\`
     
-    Ao utilizarmos o itemtype estamos especificando que o item contido nesse bloco é do tipo Bidding, ou seja, trata sobre Licitações como definido na documentação de tipos do Turmalina Schema. Como visto, os tipos dos itens são informados como URLs, neste caso https://app-turmalina.herokuapp.com/documentation/Bidding. <div> </div>
-    OBS: vale ressaltar que a marcação do item precisa ser feita na tag imediatamente superior a das propriedades. Um exemplo é o caso da table ilustrado anteriormente, nele o itemscope e o itemtype não poderiam ser colocados na div que contém a table, pois é a table a tag imediatamente superior.
-    ### Segundo passo: itemprop
-    Além de indicarmos o escopo do item no HTML com o itemscope e especificarmos sobre o que é o item com o itemtype, podemos indicar mais informações sobre esse item. No microdata chamamos essas informações adicionais sobre um item de propriedades. Para rotular as propriedades de um item utilizamos o atributo itemprop. Por exemplo, para identificar a modalidade da Licitação no HTML, adicionamos itemprop=”BidModality” ao elemento que envolve o nome da modalidade de licitação.
+    Ao utilizarmos o itemtype estamos especificando que o item contido nesse bloco é do tipo Bidding, ou seja, trata sobre Licitações como definido na documentação de tipos do Turmalina Schema. Como visto, os tipos dos itens são informados como URLs, neste caso https://turmalinaschema.org/Bidding. <div> </div>
     
-    Observação: No link do itemtype (https://app-turmalina.herokuapp.com/documentation/Bidding, por exemplo) há uma lista completa de todas as propriedades que podemos associar a uma licitação.
+    **Observação 1:** Idealmente a declaração de um item precisa ser feita no primeiro elemento que contém todas as propriedades do item. A titulo de exemplo, o elemento \`table\` foi marcado com o itemscope/itemtype, pois ele é o primeiro elemento que contém todas as propriedades do item Bidding.
+    
+    **Observação 2:** Caso o portal possua mais de uma tabela por item, basta repetir a marcação nas respectivas tabelas.
+    
+    
+    **Observação 3:** Caso uma página possua **muitas** tabelas pequenas, o primeiro elemento que contém todas as tabelas pode ser marcado com o itemscope/itemtype.
+    
+    ### Segundo passo: itemprop
+    Além de indicarmos o escopo do item no HTML com o itemscope e especificarmos sobre o que é o item com o itemtype, podemos indicar mais informações sobre esse item. No microdata chamamos essas informações adicionais sobre um item de propriedades. Para rotular as propriedades de um item utilizamos o atributo itemprop. Por exemplo, para identificar a modalidade da Licitação no HTML, adicionamos itemprop=”bidModality” ao elemento que envolve o nome da modalidade de licitação.
+    
+    Observação: No link do itemtype (http://turmalinaschema.org/Bidding, por exemplo) há uma lista completa de todas as propriedades que podemos associar a uma licitação.
     
     \`\`\`html
     <div>
-        <table itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
+        <table itemscope itemtype="http://turmalinaschema.org/Bidding">
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <tr>
@@ -289,7 +296,7 @@ export class TutorialComponent {
     
     \`\`\`html
     <div>
-        <div itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
+        <div itemscope itemtype="http://turmalinaschema.org/Bidding">
             <caption>Descrição</caption>
             <!-- Cabeçalho da tabela  -->
             <div>
@@ -324,68 +331,72 @@ export class TutorialComponent {
     ## Turmalina Schema: tipos e propriedades
     Durante todo o exemplo anterior, utilizamos o tipo Bidding fornecido pelo vocabulário Turmalina Schema. Entretanto, o Turmalina Schema descreve uma variedade de outros tipos, cada um com seu próprio conjunto de propriedades que podem ser utilizadas para descrever os itens. Abaixo segue uma lista com os tipos do Turmalina Schema e seus respectivos links:
     
-    - PlanningInstrument - https://app-turmalina.herokuapp.com/documentation/PlanningInstrument
-    - Contract - https://app-turmalina.herokuapp.com/documentation/Contract
-    - Agreement - https://app-turmalina.herokuapp.com/documentation/Agreement
-    - BudgetRevenue - https://app-turmalina.herokuapp.com/documentation/BudgetRevenue
-    - ExtraBudgetRevenue - https://app-turmalina.herokuapp.com/documentation/ExtraBudgetRevenue
-    - BudgetExpenditure - https://app-turmalina.herokuapp.com/documentation/BudgetExpenditure
-    - ExtraBudgetExpenditure - https://app-turmalina.herokuapp.com/documentation/ExtraBudgetExpenditure
-    - EmployeeInformation - https://app-turmalina.herokuapp.com/documentation/EmployeeInformation
-    - PaymentDocument - https://app-turmalina.herokuapp.com/documentation/PaymentDocument
-    - Bidding - https://app-turmalina.herokuapp.com/documentation/Bidding
-
+    - PlanningInstrument - http://turmalinaschema.org/PlanningInstrument
+    - Bid - http://turmalinaschema.org/Bid
+    - Contract - http://turmalinaschema.org/Contract
+    - Agreement - http://turmalinaschema.org/Agreement
+    - BudgetRevenue - http://turmalinaschema.org/BudgetRevenue
+    - ExtraBudgetRevenue - http://turmalinaschema.org/ExtraBudgetRevenue
+    - BudgetExpenditure - http://turmalinaschema.org/BudgetExpenditure
+    - ExtraBudgetExpenditure - http://turmalinaschema.org/ExtraBudgetExpenditure
+    - EmployeeInformation - http://turmalinaschema.org/EmployeeInformation
+    - PaymentDocument - http://turmalinaschema.org/PaymentDocument
+    
     Nos links você também pode ver uma lista completa com as propriedades de cada tipo.
     
-    ##  O caminho até os dados
+    **Observação 1:** As propriedades precisam ser declaradas tanto no header (ou qualquer outro elemento que exerça essa função), quanto nas linhas de dados.
     
-    Existem situações em que os dados marcados são acessíveis apenas após uma série de interações com o website, como preenchimento de formulário e acionamento de botões. Assim, considera-se caminho até os dados a sequência de ações que um usuário deve executar para acessar os dados de uma página. A Turmalina pode ser enxergada como um usuário convencional que precisa executar ações para acessar dados. Dessa forma, essa sequência de ações deve ser explicitamente marcada como descrito nas próximas seções.
+    ##  Páginas com comportamento dinâmico
     
-    ## Formulário
+    Existem situações em que os dados marcados são acessíveis apenas após uma série de interações dinâmicas com o portal, como preenchimento de formulário e acionamento de botões. Para tratar esses casos, foram definadas algumas regras que precisam ser satisfeitas. 
     
-    Qualquer formulário necessário à busca de dados marcados deve por padrão efetuar alguma busca sem precisar ser explicitamente preenchido pelo usuário. Em síntese, espera-se que o formulário possua campos pré-populados que possibilitem alguma busca padrão. 
+    ## Formulários
     
-    ## Marcação de elementos acionáveis
+    Qualquer formulário necessário à busca de **dados marcados** que precisa ser explicitamente preenchido pelo usuário, precisa conter campos pré-populados que possibilitem alguma busca padrão. A busca padrão sempre que possível deve retornar algum dado.
     
-    Qualquer elemento que precisa ser explicitamente acionado pelo usuário para acessar dados marcados deve conter a classe \`tm-execute\`. Dessa forma, quando a Turmalina acessar a respectiva página, ela saberá quais elementos deve acionar para encontrar os dados da página.
+    ## Buscas sem resultado
+    
+    Quando as páginas de receitas e despesas extraorçamentárias não encontrem dados com a busca padrão, elas devem retornar o header da tabela buscada. Esse regra se aplica apenas a essas páginas.
+    
+    ## Elementos que expõem dados
+    
+    Os elementos que quando acionados produzem eventos que expõem **dados marcados** precisam conter a classe \`tm-execute\`. Esses elementos podem ser desde botões que efetuam buscas de dados à elementos que abrem popups com dados.   
+    
+    **Observação 1:** Links convencionais não podem ser marcados com \`tm-execute\`! Apenas elementos que produzem eventos que expõem **dados marcados** podem ser marcados com a respectiva classe. 
     
     ### Exemplo
     
-    Este exemplo demonstra como proceder em casos em que os dados não são diretamente acessíveis, sendo necessário marcar o caminho até esses dados.
-    Neste exemplo, os dados sobre licitação são acessíveis apenas após a submissão do formulário e acionamento do elemento de detalhamento. 
+    Este exemplo demonstra como proceder nos casos em que a página necessita de interação para expor seus dados.
     
+    Neste exemplo, os dados sobre licitação são acessíveis apenas após a submissão do formulário e acionamento do botão de detalhamento. 
     <div class="img-md">
-        <img src="../../../assets/images/md/pagina-inicial-licitacao.png" alt="Página inicial licitação"/>
-    </div>
-
+        <img src=""../../../assets/images/md/pagina-inicial-licitacao.png" alt="Página inicial licitação"/>
+    <div>
+    
     1. Esse formulário segue a especificação proposta, apresentando uma busca de dados padrão.
-    2. O botão de pesquisa deve conter a classe \`tm-execute\`, pois ele precisa ser explicitamente acionado para trazer os dados de licitação.
+    2. O botão de pesquisa contém a classe \`tm-execute\`, pois ele precisa ser explicitamente acionado para buscar os dados referentes a licitação.
     
     <div class="img-md">
         <img src="../../../assets/images/md/licitacao-pos-pesquisa.png" alt="Página de licitação pós pesquisa"/>
-    </div>
-
-    3. A página de detalhamento da licitação só é aberta apenas após acionamento do elemento destacado. Portanto, ele precisa conter a classe \`tm-execute\`.  
+    <div>
+    
+    1. A página de detalhamento da licitação só pode ser aberta acionando o elemento destacado. Portanto, ele contém a classe \`tm-execute\`.  
     
     \`\`\`html
     <!-- Adição da classe "tm-execute" ao elemento de detalhamento  -->
+    
     <a _ngcontent-xmb-c319 class="tm-execute">04.064/2021</a>
     \`\`\`   
     
     Segue a página após acionamento do botão de detalhamento.
-
     <div class="img-md">
         <img src="../../../assets/images/md/detalhamento-licitacao.png" alt="Página de detalhamento"/>
-    </div>
-
-    Dessa forma, a Turmalina executará a sequência de passos marcada, acionando o botão de pesquisa e o elemento de detalhamento da licitação para acessar corretamente todos os dados referentes à licitação. 
+    <div>
     
     ## Turmalina Schema: Boas práticas
-    - Lembrar de fazer a demarcação dos items com o itemscope e o itemtype sempre na tag imediatamente superior às suas propriedades, caso contrário o crawler não conseguirá identificá-las.
-    - Evitar o uso de iframes, pois esses dificultam a navegação do cidadão por tornar o site mais confuso, assim como o funcionamento do crawler por impedir o seu bom funcionamento.
-    - Evitar o uso excessivo de conteúdos dinâmicos Ajax, pelos mesmos motivos da segunda observação.
-    - Evitar direcionar o usuário para páginas externas para acessar informações fiscais, pelos mesmos motivos da segunda observação.
-    - Centralizar informações referentes a um item, ou seja, fazer com que todas as propriedades referentes a um determinado item estejam na mesma página, pois isso facilita o acesso à informação.
+    - Evitar o uso excessivo de ajax, pois seu mau uso pode provocar mau funcionamento no carregamento da página. 
+    - Evitar o uso de iframes, pois eles dificultam a navegação do cidadão e podem não ser acessíveis através de crawlers.
+    - Evitar direcionar o usuário para páginas externas para acessar informações fiscais.
     `
     example_one = ` \`\`\`html
     <!--  MENU 1 -->

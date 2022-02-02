@@ -1,33 +1,43 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator} from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
-
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+import { MatSelect } from '@angular/material/select';
+import { IbgeData } from '../shared/models/ibgenames.model';
 @Component({
   selector: 'app-Avaliacoes',
   templateUrl: './Avaliacoes.component.html',
   styleUrls: ['./Avaliacoes.component.css']
 })
-export class AvaliacoesComponent implements OnInit{
-
+export class AvaliacoesComponent implements OnInit, OnDestroy{
+  /*** instantiation forms ***/
   city: FormControl = new FormControl();
   date: FormControl = new FormControl();
+  cityFilter: FormControl = new FormControl();
+  @ViewChild('citySelect') citySelect!: MatSelect;
+  protected _onDestroy = new Subject<void>();
+  public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
-//ELEMENT_DATA
-  dataSource = new MatTableDataSource<Element>();
+
+ // dataSource = new MatTableDataSource<Element>(); //ELEMENT_DATA
+  
+  /*** input data ***/
+  protected cities: IbgeData[] = this.mapleafservice.resultsIbge
   selectedValue!: string;
   selectedValueData!: string;
-  result: any;
-  colors:any;
-  loading!: boolean;
   startDate!: Date;
   endDate!: Date;
+  loading!: boolean;
+  result: any;
+  colors:any;
 
   constructor(public mapleafservice: MapleafService, private dateAdapter: DateAdapter<any>){
     this.dateAdapter.setLocale('pt');
@@ -96,15 +106,46 @@ export class AvaliacoesComponent implements OnInit{
     this.getDadosApi(municipio, this.correctionDate(this.startDate), this.correctionDate(this.endDate))
   }
   
+  filterCities(){
+    if(!this.mapleafservice.resultsIbge){
+      return;
+    }
+    // get the search keyword
+    let search = this.cityFilter.value;
+    if (!search) {
+      this.filteredCity.next(this.mapleafservice.resultsIbge.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the cities
+    this.filteredCity.next(
+      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  sortCities(cities: IbgeData[]){
+    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+  }
+
   ngOnInit(): void {
-    this.mapleafservice.getIBGE();
+    this.mapleafservice.getIBGE().then(data => {
+      this.filteredCity.next(this.sortCities(this.mapleafservice.resultsIbge).slice());
+    });
+
+    this.cityFilter.valueChanges
+    .pipe(takeUntil(this._onDestroy))
+    .subscribe(() => {
+      this.filterCities();
+    });
     // this.getDadosApi("Joao Pessoa", "2021-02-11", "2021-02-12")
     /*****************************************************/
     /**************   Table accomplishment  **************/
     /*****************************************************/
-
-
   }
 
-  
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 }
