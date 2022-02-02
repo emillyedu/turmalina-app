@@ -1,21 +1,12 @@
 <body>
     <div class="main-select">
         <mat-form-field class="select city">
-            <mat-label>Selecione o município*</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+            <mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
                 <mat-option *ngFor="let city of mapleafservice.resultsIbge" [value]="city.nome">
                     {{city.nome}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="select date" *ngIf="evaluations && evaluations.length">
-            <mat-label>Selecione a data*</mat-label>
-            <mat-select [(ngModel)]="selectedValueData" name="data" [formControl]="date" (selectionChange)="getDadosMunicipio(selectedValue, selectedValueData)" #evaluationSelect>
-                <mat-option *ngFor="let date of evaluations" [value]="date.date">
-                    {{date.dateView}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
         <mat-form-field class="select range">
             <mat-label>Selecione a data</mat-label>
             <mat-date-range-input [formGroup]="range" [rangePicker]="picker" >

@@ -2,13 +2,12 @@
     <!--city select-->
     <div class="main-select">
         <mat-form-field class="select city">
-            <mat-label>Selecione o município*</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+            <mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
                 <mat-option>
-                    <ngx-mat-select-search [formControl]="cityFilter"></ngx-mat-select-search>
+                    <ngx-mat-select-search placeholderLabel="Pesquise o município" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let city of mapleafservice.resultsIbge" [value]="city.nome">
-                    {{city.nome}}
+                <mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
+                    {{cityName.nome}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

@@ -102,7 +102,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatDialogModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
   ],
 
   exports: [

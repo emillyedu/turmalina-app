@@ -1,27 +1,35 @@
 import { AgreementComponent } from './../documentation/agreement/agreement.component';
 import { Evaluation } from './../shared/models/evaluation.model';
-import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import moment from 'moment';
+import { MatSelect } from '@angular/material/select';
+import { IbgeData } from '../shared/models/ibgenames.model';
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css']
 })
-export class RelatorioComponent implements OnInit{
+export class RelatorioComponent implements OnInit, OnDestroy{
   /*** instantiation forms ***/
   city: FormControl = new FormControl();
   date: FormControl = new FormControl();
   cityFilter: FormControl = new FormControl();
+  @ViewChild('citySelect') citySelect!: MatSelect;
+  protected _onDestroy = new Subject<void>();
+  public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
 
   /*** input data ***/
+  protected cities: IbgeData[] = this.mapleafservice.resultsIbge
   selectedValue!: string;
   selectedValueData!: string;
   startDate!: Date;
@@ -264,25 +272,58 @@ export class RelatorioComponent implements OnInit{
     let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
     this.getDadosTotalPoints(municipio)
   }
+ 
+
+  filterCities() {
+    if (!this.mapleafservice.resultsIbge) {
+      return;
+    }
+    // get the search keyword
+    let search = this.cityFilter.value;
+    if (!search) {
+      this.filteredCity.next(this.mapleafservice.resultsIbge.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.filteredCity.next(
+      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+    );
+
+  }
   
+  sortCities(cities: IbgeData[]){
+    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+  }
+
   ngOnInit(): void {
-    this.mapleafservice.getIBGE();
-    // this.getDadosTotalPoints("Campina Grande");
-    //  this.getNomeMunicipios();
-    // this.chart = this.chartElementRefs.map((chartElementRef, index, ) => {
-    //   console.log(this.chartOptions[1])
-    //   let config = this.chartOptions[index]
-    //   return new Chart(chartElementRef.nativeElement, config);
-    // });    
-    /** This will get value changes on city selector */
+    this.mapleafservice.getIBGE().then(data => {
+      /** This will get value changes on city selector */
+      // load the initial bank list
+      this.filteredCity.next(this.sortCities(this.mapleafservice.resultsIbge).slice());
+      }
+    );
 
 
+    this.cityFilter.valueChanges
+    .pipe(takeUntil(this._onDestroy))
+    .subscribe(() => {
+      this.filterCities();
+    });
     /*****************************************************/
     /**************   Chart accomplishment  **************/
     /*****************************************************/
 
-
   }
+
+  /** Search form */
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+
 
   
 }
