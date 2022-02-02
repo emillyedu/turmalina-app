@@ -38,11 +38,12 @@ export class MapleafService {
           this.results = data.map(item => {
             console.log(item)
             return new TurmalinaStamp(
+              item.detailed_evaluation,
               item.end_datetime,
-              item.evaluation,
-              item.evaluationId,
-              item.logpath,
-              item.managementUnit,
+              item.id,
+              item.log_path,
+              item.management_unit,
+              item.score,
               item.start_datetime,
               item.status
             )
@@ -67,11 +68,12 @@ export class MapleafService {
         data => {
           this.resultsTotalPoints = data.map(item => {
             return new TurmalinaStamp(
+              item.detailed_evaluation,
               item.end_datetime,
-              item.evaluation,
               item.id,
-              item.logpath,
-              item.managementUnit,
+              item.log_path,
+              item.management_unit,
+              item.score,
               item.start_datetime,
               item.status
             )

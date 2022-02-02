@@ -4,6 +4,9 @@
         <mat-form-field class="select city">
             <mat-label>Selecione o município*</mat-label>
             <mat-select [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="cityFilter"></ngx-mat-select-search>
+                </mat-option>
                 <mat-option *ngFor="let city of mapleafservice.resultsIbge" [value]="city.nome">
                     {{city.nome}}
                 </mat-option>
@@ -22,7 +25,7 @@
                 </p>
             </div>
         </div>
-        <div *ngIf="loading==false">
+        <div *ngIf="loading == false">
             <div class="allgraphs" *ngIf="categoryValues">
                 <!--progress circle chart-->
                 <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">

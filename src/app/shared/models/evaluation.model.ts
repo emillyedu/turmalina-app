@@ -14,17 +14,17 @@ export class Evaluation{
         return this.total_points;
     }
     constructor(
-        public Agreement: AgreementModel,
-        public Bid: BidModel,
-        public BudgetExpenditure: BudgetExpenditure,
-        public BudgetRevenue: BudgetRevenue,
-        public Contract: Contract,
-        public EmployeeInformation: EmployeeInformation,
-        public ExtraBudgetExpenditure: ExtraBudgetExpenditureModel,
-        public ExtraBudgetRevenue: ExtraBudgetRevenueModel,
-        public PaymentDocument: PaymentDocument,
-        public PlanningInstrument: PlanningInstrumentModel,
-        public total_points: number,
+        public Agreement?: AgreementModel,
+        public Bid?: BidModel,
+        public BudgetExpenditure?: BudgetExpenditure,
+        public BudgetRevenue?: BudgetRevenue,
+        public Contract?: Contract,
+        public EmployeeInformation?: EmployeeInformation,
+        public ExtraBudgetExpenditure?: ExtraBudgetExpenditureModel,
+        public ExtraBudgetRevenue?: ExtraBudgetRevenueModel,
+        public PaymentDocument?: PaymentDocument,
+        public PlanningInstrument?: PlanningInstrumentModel,
+        public total_points?: number,
     ){
     }
 

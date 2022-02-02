@@ -15,6 +15,7 @@ export class RelatorioComponent implements OnInit{
   /*** instantiation forms ***/
   city: FormControl = new FormControl();
   date: FormControl = new FormControl();
+  cityFilter: FormControl = new FormControl();
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
@@ -105,9 +106,9 @@ export class RelatorioComponent implements OnInit{
   sumSubCategories(){
     let indexCategory: number = 0;
     if(this.mapleafservice.resultsTotalPoints != undefined){
-      for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation){
-        let count: number = 0;
-        Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].evaluation[category]).forEach(([key, value]) => {
+      for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].detailedEvaluation){
+        let count: number = 0; 
+        Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].detailedEvaluation[category]).forEach(([key, value]) => {
           if(count == 0){
             this.categoryValues.push(Number(value))
           }
@@ -126,9 +127,9 @@ export class RelatorioComponent implements OnInit{
     if(this.mapleafservice.resultsTotalPoints != undefined){
       for (var i = 0; i < this.mapleafservice.resultsTotalPoints.length; i ++){
         let evaluation = this.mapleafservice.resultsTotalPoints.slice(i)[0]
-        for (var item in evaluation.evaluation){
+        for (var item in evaluation.detailedEvaluation){
           if(item == "total_points"){
-            this.seriesValues.push([moment(evaluation.endDateTime).locale('pt').format('L'), Number(evaluation.evaluation[item]),])
+            this.seriesValues.push([moment(evaluation.endDateTime).locale('pt').format('L'), Number(evaluation.detailedEvaluation[item]),])
           }
         }
       }
@@ -165,7 +166,7 @@ export class RelatorioComponent implements OnInit{
 
   /*** createChart ***/
   createChart(nome: string){
-    // this.result = this.mapleafservice.results; 
+    console.log( this.mapleafservice.resultsTotalPoints); 
     if(this.barchart!==null || this.barchart!==undefined){
       this.barchart?.destroy();
     }
