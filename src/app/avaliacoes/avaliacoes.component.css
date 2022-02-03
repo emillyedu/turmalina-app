@@ -7,7 +7,7 @@ body{
 /** form **/
 .button{
     text-align: center;
-    margin: 0 5px 0 5px;
+    margin: 0 5px;
     width: 20%;
     padding: 0px 30px 0px 30px !important;
     color: #fff !important;
@@ -27,7 +27,7 @@ body{
 }
 
 .range{
-    margin: 0px 5px 0px 8px!important;
+    margin: 0px 5px 0px 5px !important;
 }
 
 .mat-raised-button{
@@ -113,8 +113,13 @@ th.mat-column-position, td.mat-column-position {
     flex-direction: column;
 } 
 
-@media screen and (min-width: 0px) and (max-width: 575px){
+@media screen and (min-width: 575px) and (max-width: 850px){
+    .button{
+        width: 40% !important;
+    }
+}
 
+@media screen and (min-width: 0px) and (max-width: 575px){
     .main-select{
         flex-direction: column !important;
     }
@@ -126,7 +131,9 @@ th.mat-column-position, td.mat-column-position {
     .range{
         margin: 10px 0 !important;
     }
+
     .button{
+        width: 100% !important;
         margin: 0 !important;
     }
 }
