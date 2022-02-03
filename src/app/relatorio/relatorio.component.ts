@@ -3,7 +3,7 @@ import { Evaluation } from './../shared/models/evaluation.model';
 import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
-import { Chart, registerables, ChartConfiguration, ChartType, ChartOptions, ChartDataset, ChartData} from 'chart.js';
+import { Chart, registerables} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -21,6 +21,10 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   date: FormControl = new FormControl();
   cityFilter: FormControl = new FormControl();
   @ViewChild('citySelect') citySelect!: MatSelect;
+  @ViewChild('graphOneId') barchartid!: ElementRef;
+  @ViewChild('graphTwoId') timechartid!: ElementRef;
+  // @ViewChild('timechartid') timechartid!: ElementRef;
+
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
   range = new FormGroup({
@@ -39,15 +43,15 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   /*** graphics ***/
   datalength!: number;
   result: any[]=[];
-  barchart?: Chart;
-  linechart?: Chart;
-  timechart!: Chart;
-
+  public barchart!: Chart;
+  public timechart!: Chart;
+  conditionGraph: any = false;
+  
   /*** chart data ***/
   categoryValues: number[] = [];
-  categoryLabels: string[] = [];
+  categoryValuesMean: number[] = [];
   seriesValues: any[] = [];
-  categoryMaxPoints: number[] = [300, 200, 1500, 250, 250, 1000, 1000, 1000, 1000, 10];
+  categoryMaxPoints: number[] = [45, 150, 120, 45, 40, 50, 70, 15, 60, 30];
   categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
 
   /*** graphics configuration ***/
@@ -111,34 +115,52 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   }
 
   /*** sum points of categories ***/
-  sumSubCategories(){
-    let indexCategory: number = 0;
-    if(this.mapleafservice.resultsTotalPoints != undefined){
-      for (var category in this.mapleafservice.resultsTotalPoints.slice(-1)[0].detailedEvaluation){
-        let count: number = 0; 
-        Object.entries(this.mapleafservice.resultsTotalPoints.slice(-1)[0].detailedEvaluation[category]).forEach(([key, value]) => {
-          if(count == 0){
+  subCategories(){;
+    if(this.mapleafservice.resultsSummaryPoints != undefined){
+      for( var i = 0 ; i < this.mapleafservice.resultsSummaryPoints.length; i ++){
+        let summary = this.mapleafservice.resultsSummaryPoints[i].summaryEvaluation
+        if(summary != undefined){
+          for (var category in summary){
+            let value = summary[category]
             this.categoryValues.push(Number(value))
+            // this.categoryValuesMean.push(category)
           }
-          else{
-            this.categoryValues[indexCategory] += Number(value);
-          }
-          count += 1;
-        });
-        this.categoryLabels.push(category);
-        indexCategory += 1;
+          break;
+        }
       }
     }
   }
 
   getTimeSeries(){
-    if(this.mapleafservice.resultsTotalPoints != undefined){
-      for (var i = 0; i < this.mapleafservice.resultsTotalPoints.length; i ++){
-        let evaluation = this.mapleafservice.resultsTotalPoints.slice(i)[0]
-        for (var item in evaluation.detailedEvaluation){
-          if(item == "total_points"){
-            this.seriesValues.push([moment(evaluation.endDateTime).locale('pt').format('L'), Number(evaluation.detailedEvaluation[item]),])
+    if(this.mapleafservice.resultsSummaryPoints != undefined){
+      let indexSeries = 0;
+      let indexAnterior = 0;
+      let dateAnterior = " ";
+      for (var i = 0; i < this.mapleafservice.resultsSummaryPoints.length; i ++){
+        let results = this.mapleafservice.resultsSummaryPoints
+        let evaluation = this.mapleafservice.resultsSummaryPoints.slice(i)[0]
+        
+        if(evaluation.endDateTime != "undefined"){
+          let dateEvaluation = moment(evaluation.endDateTime).locale('pt').format('L');
+
+          if(dateEvaluation != dateAnterior){
+            console.log(dateAnterior);
+            this.seriesValues.push([dateEvaluation, Number(evaluation.score),])
+            indexSeries += 1
+            indexAnterior = i;
+            dateAnterior = dateEvaluation;
           }
+          else{
+            if(evaluation.score > results.slice(indexAnterior)[0].score){
+              this.seriesValues[indexSeries] = [dateEvaluation, Number(evaluation.score),]
+            }
+            else{
+              continue;
+            }
+          }
+        }
+        else{
+          continue
         }
       }
     }
@@ -146,7 +168,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   
   /*** colors of the graphics ***/
   generateColors(){
-    let datalength = this.categoryLabels.length;
+    let datalength = this.categoryPtLabels.length;
     
     let color = new ColorGenerator();
     const colorRangeInfo = {
@@ -174,30 +196,28 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   /*** createChart ***/
   createChart(nome: string){
-    console.log( this.mapleafservice.resultsTotalPoints); 
-    if(this.barchart!==null || this.barchart!==undefined){
-      this.barchart?.destroy();
+    console.log( this.mapleafservice.resultsSummaryPoints); 
+    if(this.barchart!==null && this.barchart!==undefined){
+      this.barchart.destroy();
     }
-    if(this.timechart!==null || this.timechart!==undefined){
-      this.timechart?.destroy();
+    if(this.timechart!==null && this.timechart!==undefined){
+      this.timechart.destroy();
     }
-
-    this.categoryLabels = [];
     this.categoryValues = [];
     this.seriesValues = [];
 
-    this.sumSubCategories();
+    this.subCategories();
     this.generateColors();
     this.getTimeSeries();
-
-    this.barchart = new Chart("barchart", {
+    this.conditionGraph = true;
+    this.barchart = new Chart(this.barchartid.nativeElement, {
       type: "bar",
       data: {
         labels: this.categoryPtLabels,
         datasets: [
           {
             data: this.categoryValues,
-            backgroundColor: this.colors,
+            // backgroundColor: this.colors,
             borderWidth: 1
           }
         ]
@@ -211,13 +231,13 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           },
           title: {
             display: true,
-            text: `${nome}`
+            // text: `${nome}`
           }
         }
       }
     });
 
-    this.timechart = new Chart("timechart", {
+    this.timechart = new Chart(this.timechartid.nativeElement, {
       type: "line",
       data: {
         datasets: [{
@@ -255,16 +275,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   /*** capture API data ***/
   getDadosTotalPoints(nome:any){
     this.loading = true
-    this.mapleafservice.getTotalPoints(nome, "2021-02-10 00:00:00.000").then(_ => {this.loading = false; this.createChart(nome)})
-  }
-
-  /*** correction date ***/
-  correctionDate(date: Date){
-    let day = new Date(date).getDate()
-    let month = new Date(date).getMonth()
-    let year = new Date(date).getFullYear()
-    //if the dates are only one digit, add a leading zero
-    return `${year}-${month+1 < 10? `0${month+1}` : month+1}-${day < 10 ? `0${day}`: day }`
+    this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {this.loading = false; this.conditionGraph = false; this.createChart(nome)})
   }
 
   /*** uses the "remove accents" function in searches ***/
@@ -314,6 +325,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     /*****************************************************/
     /**************   Chart accomplishment  **************/
     /*****************************************************/
+
 
   }
 

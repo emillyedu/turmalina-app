@@ -231,6 +231,40 @@ export class MapleafComponent implements OnInit {
     // this.municipioCtrl.valueChanges.subscribe(val => console.log(val));
   }
 
+  // private fetchTiles(tileObject) {
+  //   this.homeMapaService.getParaibaGeoJson().subscribe((data: any) => {
+
+  //     data.features.map((feature) => {
+  //       feature.geometry.coordinates.forEach(coordinate => {
+  //         const nomeMunicipio = feature.properties.NM_MUNICIP === "SANTA TERESINHA" ? "SANTA TEREZINHA" : feature.properties.NM_MUNICIP;
+  //         const municipio = this.filterMunicipios(nomeMunicipio)[0];
+  //         const pontuacaoMunicipio = this.getPontuacaoMunicipio(nomeMunicipio);
+  //         const p = polygon(coordinate.map(coords => [coords[1], coords[0]]),
+  //           {
+  //             fillColor: pontuacaoMunicipio !== null ? this.color(pontuacaoMunicipio) : '#3b3b3b3b',
+  //             color: '#ffff',
+  //             weight: 1.5,
+  //             opacity: .75,
+  //             fillOpacity: 0.7
+  //           });
+
+  //         if (pontuacaoMunicipio !== null) {
+  //           this.adicionarEventoMouseOverPolygono(p, municipio);
+  //           this.adicionarEventoPolygono(p, municipio);
+  //           this.adicionarEventoClickPolygono(p, municipio);
+  //           this.adicionarPolygonMunicipio(nomeMunicipio, p);
+  //         }
+  //         tileObject.push(p);
+
+  //       });
+  //     });
+  //     this.bgcolorComponentPagination = this.municipiosTopDez[9].polygon.options.fillColor;
+  //     this.innerWidth = (window.innerWidth <= 600);
+  //     this.ajusteMapaResulucao(window.innerWidth);
+
+  //   });
+  // }
+
   constructor(private http: HttpClient, private mapService: MapleafService) {
   }
 

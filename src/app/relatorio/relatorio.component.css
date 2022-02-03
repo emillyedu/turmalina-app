@@ -15,7 +15,7 @@ body{
     font-weight: 500;
     background: rgb(116,76,44)!important;
     background: linear-gradient(0deg, rgba(116,76,44,1) 0%, rgba(156,124,100,1) 100%)!important;
-    border-radius: 25px !important;
+    border-radius: 10px !important;
 }
 
 .city{
@@ -60,8 +60,6 @@ body{
 .select{
     padding: 5px 5px 5px 10px;
     background-color: rgba(255,255,255,0.8);
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.103);
-    border-radius: 25px;
 }
 
 #barchart{

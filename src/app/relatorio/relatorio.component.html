@@ -11,11 +11,11 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-raised-button class="button" (click)="searchDadosMunicipio(selectedValue)">BUSCAR</button>     
+        <button mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">BUSCAR</button>     
     </div>
 
     <!--graphics-->
-    <div class="container" *ngIf="selectedValue">
+    <div class="container">
         <div class="text-center">
             <div *ngIf="loading" class="loading">
                 <img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
@@ -24,8 +24,8 @@
                 </p>
             </div>
         </div>
-        <div *ngIf="loading == false">
-            <div class="allgraphs" *ngIf="categoryValues">
+        <div>
+            <div [class.allgraphs] = "conditionGraph">
                 <!--progress circle chart-->
                 <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
                     <div class="g{{i}}">
@@ -51,12 +51,12 @@
             </div>
             <div class="graph">
                 <!--bar graph-->
-                <div class= "graph-one">
-                <canvas id="barchart">{{barchart}}</canvas>
+                <div [class.graph-one] = "conditionGraph">
+                    <canvas #graphOneId id="barchart">{{barchart}}</canvas>
                 </div>
                 <!--line graph-->
-                <div class= "graph-two">
-                    <canvas class= "linechart" id="timechart">{{timechart}}</canvas>
+                <div [class.graph-two] = "conditionGraph">
+                    <canvas class="linechart" #graphTwoId id="timechart">{{timechart}}</canvas>
                 </div>
             </div>
         </div>
