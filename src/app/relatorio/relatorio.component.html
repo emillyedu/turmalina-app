@@ -25,30 +25,41 @@
             </div>
         </div>
         <div>
-            <div [class.allgraphs] = "conditionGraph">
-                <!--progress circle chart-->
-                <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
-                    <div class="g{{i}}">
-                        <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
-                        <round-progress
-                            [current]="item"
-                            [max]="categoryMaxPoints[i]"
-                            [color]="color"
-                            [background]="background"
-                            [radius]="radius"
-                            [stroke]="stroke"
-                            [semicircle]="semicircle"
-                            [rounded]="rounded"
-                            [clockwise]="clockwise"
-                            [responsive]="responsive"
-                            [duration]="duration"
-                            [animation]= "animation"
-                            [animationDelay]= "animationDelay"
-                        ></round-progress>
-                        <div class="category-labels">{{categoryPtLabels[i]}}</div>
+            <div class="infosGraph">
+                <div class="infos">
+                    <div class="points">
+                        <h1>162/287</h1>
+                        <p>Pontos</p>
+                    </div>
+                    <h2>João Pessoa</h2>
+                    <p>Última atualização: 01/02/2022</p>
+                </div>
+                <div [class.allgraphs] = "conditionGraph">
+                    <!--progress circle chart-->
+                    <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
+                        <div class="g{{i}}">
+                            <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
+                            <round-progress
+                                [current]="item"
+                                [max]="categoryMaxPoints[i]"
+                                [color]="color"
+                                [background]="background"
+                                [radius]="radius"
+                                [stroke]="stroke"
+                                [semicircle]="semicircle"
+                                [rounded]="rounded"
+                                [clockwise]="clockwise"
+                                [responsive]="responsive"
+                                [duration]="duration"
+                                [animation]= "animation"
+                                [animationDelay]= "animationDelay"
+                            ></round-progress>
+                            <div class="category-labels">{{categoryPtLabels[i]}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="graph">
                 <!--bar graph-->
                 <div [class.graph-one] = "conditionGraph">

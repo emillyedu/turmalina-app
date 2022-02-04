@@ -15,7 +15,7 @@ body{
     font-weight: 500;
     background: rgb(116,76,44)!important;
     background: linear-gradient(0deg, rgba(116,76,44,1) 0%, rgba(156,124,100,1) 100%)!important;
-    border-radius: 10px !important;
+    border-radius: 1px !important;
 }
 
 .city{
@@ -58,7 +58,7 @@ body{
 }
 
 .select{
-    padding: 5px 5px 5px 10px;
+    padding: 5px 5px 5px 15px;
     background-color: rgba(255,255,255,0.8);
 }
 
@@ -106,9 +106,8 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 100rem;
+    max-width: 40rem;
     padding: 30px;
-    border-radius: 25px;
     box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
     background-color: rgba(255,255,255,0.8);
 }
@@ -125,16 +124,20 @@ body{
     display: flex;
     /* flex-direction: row; */
     max-width: 100rem;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+.infosGraph{
+    display: flex;
+    max-width: 100rem;
     margin-top: 3rem;
     justify-content: space-between;
 }
-
 .graph-one{
     display: flex;
     justify-content: center;
     padding: 10px;
     /* margin: 0 10px; */
-    border-radius: 25px;
     box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
     background-color: rgba(255,255,255,0.8);
 }
@@ -144,7 +147,6 @@ body{
     justify-content: center;
     padding: 10px;
     /* margin: 0 10px; */
-    border-radius: 25px;
     box-shadow:  0 0 10px  rgba(0, 0, 0, 0.171); 
     background-color: rgba(255,255,255,0.8);
 }
@@ -179,6 +181,37 @@ round-progress {
     font-weight: bold !important;
     margin-top: 5px !important;
 }
+.infos{
+    width: 25rem;
+    text-align: center;
+}
+.infos .points{
+    display: flex;
+    margin-top: 4rem;
+    justify-content: center;
+}
+.points h1{
+    color: #4c949c;
+    font-weight: bold;
+    font-size: 50px;  
+}
+.infos .points p{
+    color: #4c949c;
+    font-weight: bold;
+    font-size: 22px; 
+    margin-top: 10px;
+}
+.infos h2{
+    color: rgb(48, 47, 47);
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 1rem;
+}
+.infos p{
+    color: rgb(48, 47, 47);
+    font-size: 18px;
+    margin-top: -1rem;
+}
 /***********************************************************/
 
 @media screen and (min-width: 1800px) and (max-width: 2000px){
@@ -192,6 +225,10 @@ round-progress {
 
     .graph{
         flex-direction: row !important;
+    }
+
+    .infosGraph{
+        flex-direction: row !important;     
     }
 }
 
@@ -208,6 +245,10 @@ round-progress {
     .graph{
         flex-direction: row !important;
     }
+
+    .infosGraph{
+        flex-direction: row !important;     
+    }
 }
 
 @media screen and (min-width: 1300px) and (max-width: 1400px){
@@ -218,6 +259,10 @@ round-progress {
 
     .graph{
         flex-direction: row !important;
+    }
+
+    .infosGraph{
+        flex-direction: row !important;     
     }
 }
 
@@ -240,6 +285,21 @@ round-progress {
         margin: 3rem auto!important;
     }
 
+    .infos{
+        width: 18rem;
+        margin: 0 auto;
+    }
+
+    .allgraphs{
+        margin-top: 3rem!important;        
+    }
+
+    .infosGraph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 0 auto !important;
+    }
+
     .button{
         width: 30%;
     }
@@ -258,6 +318,18 @@ round-progress {
 
     .graph{
         flex-direction: column !important;
+    }
+
+    .infos{
+        width: 18rem;
+        margin: 0 auto!important; 
+    }
+    .allgraphs{
+        margin: 3rem auto 0 auto!important;        
+    }
+
+    .infosGraph{
+        flex-direction: column !important;     
     }
 
     #polarchart{
@@ -284,6 +356,19 @@ round-progress {
 
     .graph{
         flex-direction: column !important;
+    }
+
+    .infos{
+        width: 15rem;
+        margin: 0 auto!important; 
+    }
+
+    .allgraphs{
+        margin: 3rem auto 0 auto!important;        
+    }
+
+    .infosGraph{
+        flex-direction: column !important;     
     }
 
     .city{
