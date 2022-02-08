@@ -115,14 +115,15 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   createTable(){
-
-    for (var item in this.mapleafservice.resultsEvaluationId){
-      if(item == "detailed_evaluation"){
-        console.log(this.mapleafservice.resultsEvaluationId[item])
-        break
-      }
-      else{continue}
-    }
+    // console.log(this.mapleafservice.resultsEvaluationId.detailed_evaluation)
+    console.log(this.mapleafservice.resultsEvaluationId["detailed_evaluation"])
+    // for (var item in this.mapleafservice.resultsEvaluationId){
+    //   if(item == "detailed_evaluation"){
+    //     console.log(this.mapleafservice.resultsEvaluationId[item])
+    //     break
+    //   }
+    //   else{continue}
+    // }
 
   }
 

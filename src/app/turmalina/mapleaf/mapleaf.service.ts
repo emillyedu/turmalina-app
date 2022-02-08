@@ -19,7 +19,7 @@ export class MapleafService {
   resultsSummaryPoints?: TurmalinaStamp[];
   resultsIbge : IbgeData[];
   resultsDates!: any[];
-  resultsEvaluationId!: any[];
+  resultsEvaluationId!: any;
 
   constructor(private http:HttpClient) {
     this.resultsDetailPoints = [];

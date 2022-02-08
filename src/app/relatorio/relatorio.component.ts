@@ -71,20 +71,9 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   animationDelay: number = 0;
   colors:any;
 
-//   @ViewChild('linechart')
-//   chartLine !: ElementRef<any>;
-//   config !: Highcharts.Options ;
-//   chart !: Highcharts.Chart;
-
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
   }
-
-  // getNomeMunicipios(){
-  //   this.mapleafservice.getIBGE().subscribe( data =>{
-  //     console.log(data);
-  //   })   
-  // }
 
   /*** remove accents ***/
   removeAcentos(letra: string) {
@@ -269,8 +258,8 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           xAxes: {
               ticks: {
                   autoSkip: false,
-                  maxRotation: 0,
-                  minRotation: 0
+                  maxRotation: 45,
+                  minRotation: 45
               }
           }
         }
