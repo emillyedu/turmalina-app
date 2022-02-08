@@ -18,7 +18,7 @@ import moment from 'moment';
 export class AvaliacoesComponent implements OnInit, OnDestroy{
   /*** instantiation forms ***/
   city: FormControl = new FormControl();
-  date: FormControl = new FormControl();
+  date: any;
   cityFilter: FormControl = new FormControl();
   @ViewChild('citySelect') citySelect!: MatSelect;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -39,6 +39,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   colors:any;
   filter:any;
   listDatesApi: any[] = [];
+  dateId: any;
 
   // @Input() max: any;
   // tomorrow = new Date();
@@ -56,7 +57,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
         let resultDate = this.mapleafservice.resultsDates[i]
         this.listDatesApi.push([moment(resultDate["end_datetime"]).format("DD/MM/YYYY"), resultDate["id"]])
       }
-      console.log(this.listDatesApi)
+
       return true;
     }
     else{
@@ -65,21 +66,22 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   verifyDates(datesForms:string, datesApi:any[]){
-    let datesString: string[];
-    return datesApi.includes(datesForms)
-  }
-
-  date_picker_filters(){
-    return (date: any)=>{
-      return date?this.verifyDates(date.format("DD/MM/YYYY"), this.listDatesApi):true  
+    for(var i in datesApi){
+      if(datesForms == datesApi[i][0]){
+        return true;
+      }
+      else{
+        continue;
+      }
     }
+    return false;
   }
-  // getNomeMunicipios(){
-  //   this.mapleafservice.getIBGE().subscribe( data =>{
-  //     console.log(data);
-  //   })   
-  // }
 
+  myFilter = (d: Date | null): boolean => {
+    const day = moment(d || new Date());
+    // Prevent Saturday and Sunday from being selected.
+    return day?this.verifyDates(day.format("DD/MM/YYYY"), this.listDatesApi):true 
+  }
 
   removeAcentos(letra: string) {
     /** Remove letters accents*/
@@ -114,20 +116,29 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
 
   createTable(){
 
-    console.log(this.mapleafservice.resultsDetailPoints)
+    for (var item in this.mapleafservice.resultsEvaluationId){
+      if(item == "detailed_evaluation"){
+        console.log(this.mapleafservice.resultsEvaluationId[item])
+        break
+      }
+      else{continue}
+    }
 
   }
 
-  getDadosApi(nome:any, firststamp:any, secondstamp:any){
+  getDataId(){
+
+  }
+
+  getDadosApi(id:string){
     this.loading = true
-    this.mapleafservice.getTurmalinaStamp(nome, firststamp, secondstamp).then(_ => {
+    this.mapleafservice.getTurmalinaEvaluationId(id).then(_ => {
       setTimeout(() => {
         this.loading = false;
       },1000);
       this.createTable();
     })
   }
-
 
   correctionDate(date: Date){
     let day = new Date(date).getDate()
@@ -137,11 +148,17 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     return `${year}-${month+1 < 10? `0${month+1}` : month+1}-${day < 10 ? `0${day}`: day }`
   }
 
-  searchDadosMunicipio(nomeDoMunicipio:string){
-    let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
-    console.log(municipio)
-    this.correctionDate(this.endDate)
-    //this.getDadosApi(municipio)
+  searchDadosMunicipio(date: any){
+    var date = date.format("DD/MM/YYYY");
+    var position = '';
+    for( var i in this.listDatesApi){
+      if(date == this.listDatesApi[i][0]){
+        position = i;
+        break;
+      }
+      else{continue}
+    }
+    this.getDadosApi(this.listDatesApi[Number(position)][1])
   }
   
   filterCities(){
@@ -167,7 +184,6 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.filter = this.date_picker_filters()
     this.mapleafservice.getIBGE().then(data => {
       this.filteredCity.next(this.sortCities(this.mapleafservice.resultsIbge).slice());
     });

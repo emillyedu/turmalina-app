@@ -19,6 +19,7 @@ export class MapleafService {
   resultsSummaryPoints?: TurmalinaStamp[];
   resultsIbge : IbgeData[];
   resultsDates!: any[];
+  resultsEvaluationId!: any[];
 
   constructor(private http:HttpClient) {
     this.resultsDetailPoints = [];
@@ -38,6 +39,24 @@ export class MapleafService {
       .then(
         data => {
           this.resultsDetailPoints = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaEvaluationId(id:string){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_evaluationbyid' + '?id=' + id)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsEvaluationId = data;
           resolve();
         },
         msg => {
