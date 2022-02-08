@@ -53,13 +53,16 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   seriesValues: any[] = [];
   categoryMaxPoints: number[] = [45, 150, 120, 45, 40, 50, 70, 15, 60, 30];
   categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
+  scoreTotal!: number;
+  lastUpdate!: string;
+  nameCity!: string;
 
   /*** graphics configuration ***/
   stroke: number = 5;
   radius: number = 40;
   semicircle: boolean = false;
   rounded: boolean = true;
-  responsive: boolean = false;
+  responsive: boolean = true;
   clockwise: boolean = true;
   color: string = '#037DA6';
   background: string = '#eaeaea';
@@ -67,6 +70,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   colors:any;
+
 //   @ViewChild('linechart')
 //   chartLine !: ElementRef<any>;
 //   config !: Highcharts.Options ;
@@ -119,12 +123,13 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     if(this.mapleafservice.resultsSummaryPoints != undefined){
       for( var i = 0 ; i < this.mapleafservice.resultsSummaryPoints.length; i ++){
         let summary = this.mapleafservice.resultsSummaryPoints[i].summaryEvaluation
-        if(summary != undefined){
+        if(summary != undefined ){
           for (var category in summary){
             let value = summary[category]
             this.categoryValues.push(Number(value))
             // this.categoryValuesMean.push(category)
           }
+          this.scoreTotal = this.mapleafservice.resultsSummaryPoints[i].score
           break;
         }
       }
@@ -133,18 +138,18 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   getTimeSeries(){
     if(this.mapleafservice.resultsSummaryPoints != undefined){
-      let indexSeries = 0;
+      let indexSeries = -1;
       let indexAnterior = 0;
       let dateAnterior = " ";
-      for (var i = 0; i < this.mapleafservice.resultsSummaryPoints.length; i ++){
+      let resultsLength = this.mapleafservice.resultsSummaryPoints.length;
+      for (var i = resultsLength-1; i >= 0; i=i-1){
         let results = this.mapleafservice.resultsSummaryPoints
         let evaluation = this.mapleafservice.resultsSummaryPoints.slice(i)[0]
-        
         if(evaluation.endDateTime != "undefined"){
           let dateEvaluation = moment(evaluation.endDateTime).locale('pt').format('L');
 
           if(dateEvaluation != dateAnterior){
-            console.log(dateAnterior);
+            console.log(dateEvaluation, dateAnterior)
             this.seriesValues.push([dateEvaluation, Number(evaluation.score),])
             indexSeries += 1
             indexAnterior = i;
@@ -163,6 +168,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           continue
         }
       }
+      this.lastUpdate = this.seriesValues[0][0]
     }
   }
   
@@ -217,7 +223,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
         datasets: [
           {
             data: this.categoryValues,
-            // backgroundColor: this.colors,
+            backgroundColor: this.colors,
             borderWidth: 1
           }
         ]
@@ -275,7 +281,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   /*** capture API data ***/
   getDadosTotalPoints(nome:any){
     this.loading = true
-    this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {this.loading = false; this.conditionGraph = false; this.createChart(nome)})
+    this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {this.loading = false; this.conditionGraph = false; this.nameCity = nome; this.createChart(nome)})
   }
 
   /*** uses the "remove accents" function in searches ***/

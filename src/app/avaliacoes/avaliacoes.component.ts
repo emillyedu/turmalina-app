@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Input, Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { MatPaginator} from '@angular/material/paginator';
@@ -9,6 +9,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
+import moment from 'moment';
 @Component({
   selector: 'app-Avaliacoes',
   templateUrl: './Avaliacoes.component.html',
@@ -20,12 +21,11 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   date: FormControl = new FormControl();
   cityFilter: FormControl = new FormControl();
   @ViewChild('citySelect') citySelect!: MatSelect;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
 
  // dataSource = new MatTableDataSource<Element>(); //ELEMENT_DATA
   
@@ -33,21 +33,53 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   protected cities: IbgeData[] = this.mapleafservice.resultsIbge
   selectedValue!: string;
   selectedValueData!: string;
-  startDate!: Date;
   endDate!: Date;
   loading!: boolean;
   result: any;
   colors:any;
+  filter:any;
+  listDatesApi: any[] = [];
+
+  // @Input() max: any;
+  // tomorrow = new Date();
 
   constructor(public mapleafservice: MapleafService, private dateAdapter: DateAdapter<any>){
     this.dateAdapter.setLocale('pt');
+    // this.tomorrow.setDate(this.tomorrow.getDate());
   }
 
+  async getDates(selectedValue: string){
+    this.listDatesApi = []
+    if(selectedValue){
+      await this.mapleafservice.getTurmalinaDates(selectedValue.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos));
+      for(var i in this.mapleafservice.resultsDates){
+        let resultDate = this.mapleafservice.resultsDates[i]
+        this.listDatesApi.push([moment(resultDate["end_datetime"]).format("DD/MM/YYYY"), resultDate["id"]])
+      }
+      console.log(this.listDatesApi)
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  verifyDates(datesForms:string, datesApi:any[]){
+    let datesString: string[];
+    return datesApi.includes(datesForms)
+  }
+
+  date_picker_filters(){
+    return (date: any)=>{
+      return date?this.verifyDates(date.format("DD/MM/YYYY"), this.listDatesApi):true  
+    }
+  }
   // getNomeMunicipios(){
   //   this.mapleafservice.getIBGE().subscribe( data =>{
   //     console.log(data);
   //   })   
   // }
+
 
   removeAcentos(letra: string) {
     /** Remove letters accents*/
@@ -82,13 +114,18 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
 
   createTable(){
 
-    console.log(this.mapleafservice.results[0])
+    console.log(this.mapleafservice.resultsDetailPoints)
 
   }
 
   getDadosApi(nome:any, firststamp:any, secondstamp:any){
     this.loading = true
-    this.mapleafservice.getTurmalinaStamp(nome, firststamp, secondstamp).then(_ => {this.loading = false; this.createTable()})
+    this.mapleafservice.getTurmalinaStamp(nome, firststamp, secondstamp).then(_ => {
+      setTimeout(() => {
+        this.loading = false;
+      },1000);
+      this.createTable();
+    })
   }
 
 
@@ -103,7 +140,8 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   searchDadosMunicipio(nomeDoMunicipio:string){
     let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
     console.log(municipio)
-    this.getDadosApi(municipio, this.correctionDate(this.startDate), this.correctionDate(this.endDate))
+    this.correctionDate(this.endDate)
+    //this.getDadosApi(municipio)
   }
   
   filterCities(){
@@ -129,15 +167,16 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    this.filter = this.date_picker_filters()
     this.mapleafservice.getIBGE().then(data => {
       this.filteredCity.next(this.sortCities(this.mapleafservice.resultsIbge).slice());
     });
-
     this.cityFilter.valueChanges
     .pipe(takeUntil(this._onDestroy))
     .subscribe(() => {
       this.filterCities();
     });
+
     // this.getDadosApi("Joao Pessoa", "2021-02-11", "2021-02-12")
     /*****************************************************/
     /**************   Table accomplishment  **************/

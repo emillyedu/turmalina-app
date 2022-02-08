@@ -1,3 +1,4 @@
+import { TurmalinaStampDetail } from './../../shared/models/turmalinastamp_detail.model';
 import { TurmalinaStamp } from './../../shared/models/turmalinastamp.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
@@ -14,12 +15,13 @@ export class MapleafService {
   apiUrl = 'http://turmalina-api.herokuapp.com/'
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
   
-  results: TurmalinaStamp[];
+  resultsDetailPoints!: TurmalinaStampDetail[];
   resultsSummaryPoints?: TurmalinaStamp[];
   resultsIbge : IbgeData[];
+  resultsDates!: any[];
 
   constructor(private http:HttpClient) {
-    this.results = [];
+    this.resultsDetailPoints = [];
     this.resultsSummaryPoints = [];
     this.resultsIbge = [];
   }
@@ -31,23 +33,29 @@ export class MapleafService {
   public getTurmalinaStamp(municipio:string, firststamp:string, secondstamp:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<any[]>(this.apiUrl + 'turmalina_citytimestamp' + '?city=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
+      .get<any[]>(this.apiUrl + 'turmalina_entitiestimestamp' + '?entity=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
       .toPromise()
       .then(
         data => {
-          this.results = data.map(item => {
-            console.log(item)
-            return new TurmalinaStamp(
-              item.detailed_evaluation,
-              item.end_datetime,
-              item.id,
-              item.log_path,
-              item.management_unit,
-              item.score,
-              item.start_datetime,
-              item.status
-            )
-          })
+          this.resultsDetailPoints = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaDates(municipio:string){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_dates' + '?entity=' + municipio)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsDates = data;
           resolve();
         },
         msg => {

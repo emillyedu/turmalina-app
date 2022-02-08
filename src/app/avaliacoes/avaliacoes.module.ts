@@ -8,6 +8,7 @@ import { AvaliacoesRoutingModule } from './avaliacoes-routing.module';
 import { AvaliacoesComponent } from './avaliacoes.component';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_FORMATS } from './datepicker-formats';
 
@@ -20,6 +21,7 @@ const moment = _rollupMoment || _moment;
     AvaliacoesComponent
   ],
   imports: [
+    MatNativeDateModule,
     FormsModule, 
     ReactiveFormsModule,
     SharedModule,

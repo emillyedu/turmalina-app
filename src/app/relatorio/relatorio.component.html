@@ -26,13 +26,19 @@
         </div>
         <div>
             <div class="infosGraph">
-                <div class="infos">
-                    <div class="points">
-                        <h1>162/287</h1>
-                        <p>Pontos</p>
+                <div *ngIf = "conditionGraph" class="infos">
+                    <div class="texts">
+                        <div class="points">
+                            <h1>{{scoreTotal}}/625</h1>
+                            <p>Pontos</p>
+                        </div>
+                        <div class="nameCity">
+                            <h2>{{nameCity}}</h2>
+                        </div>
+                        <div class="dateLast">
+                            <p>Última atualização: {{lastUpdate}}</p>
+                        </div>
                     </div>
-                    <h2>João Pessoa</h2>
-                    <p>Última atualização: 01/02/2022</p>
                 </div>
                 <div [class.allgraphs] = "conditionGraph">
                     <!--progress circle chart-->
@@ -53,6 +59,7 @@
                                 [duration]="duration"
                                 [animation]= "animation"
                                 [animationDelay]= "animationDelay"
+                                [responsive]="true"
                             ></round-progress>
                             <div class="category-labels">{{categoryPtLabels[i]}}</div>
                         </div>

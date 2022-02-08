@@ -13,8 +13,8 @@ body{
     color: #fff !important;
     font-size: 13px;
     font-weight: 500;
-    background: rgb(116,76,44)!important;
-    background: linear-gradient(0deg, rgba(116,76,44,1) 0%, rgba(156,124,100,1) 100%)!important;
+    background: #71a9b3!important;
+    background: #71a9b3!important;
     border-radius: 1px !important;
 }
 
@@ -56,6 +56,31 @@ body{
     background-color: rgba(255,255,255,0.8);
 }
 
+.container{
+    max-width: 80vw;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gif-loading{
+    width: 200px;
+}
+
+.loading{
+    margin-top: 20vh;
+}
+
+.lead{
+    font-size: 2rem;
+    color: #683c14;
+    font-weight: bold;
+}
+
+.loading-gif{
+    width: 80px;
+}
 /** Table **/
  div.mat-app-background {
     background-color: #F0F0F0;

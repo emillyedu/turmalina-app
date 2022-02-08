@@ -13,8 +13,8 @@ body{
     color: #fff !important;
     font-size: 1rem;
     font-weight: 500;
-    background: rgb(116,76,44)!important;
-    background: linear-gradient(0deg, rgba(116,76,44,1) 0%, rgba(156,124,100,1) 100%)!important;
+    background: #71a9b3!important;
+    /* background: linear-gradient(0deg, rgba(116,76,44,1) 0%, rgba(156,124,100,1) 100%)!important; */
     border-radius: 1px !important;
 }
 
@@ -163,7 +163,7 @@ body{
 
 round-progress {
     margin: auto;
-    width: 5rem!important;
+    width: 5rem !important;
 }
 
 .category-labels{
@@ -183,12 +183,13 @@ round-progress {
 }
 .infos{
     width: 25rem;
-    text-align: center;
-}
-.infos .points{
     display: flex;
-    margin-top: 4rem;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+}
+.points{
+    display: flex;
 }
 .points h1{
     color: #4c949c;
@@ -201,13 +202,13 @@ round-progress {
     font-size: 22px; 
     margin-top: 10px;
 }
-.infos h2{
+.nameCity h2{
     color: rgb(48, 47, 47);
     font-weight: bold;
     font-size: 35px;
-    margin-top: 1rem;
+    margin-top: -1rem;
 }
-.infos p{
+.dateLast p{
     color: rgb(48, 47, 47);
     font-size: 18px;
     margin-top: -1rem;
@@ -252,7 +253,6 @@ round-progress {
 }
 
 @media screen and (min-width: 1300px) and (max-width: 1400px){
-
     #timechart{
         width: 35vw !important;
     }
@@ -266,7 +266,7 @@ round-progress {
     }
 }
 
-@media screen and (min-width: 530px) and (max-width: 1300px){
+@media screen and (min-width: 1000px) and (max-width: 1300px){
     #barchart{
         height: 18rem !important;
     }
@@ -291,7 +291,7 @@ round-progress {
     }
 
     .allgraphs{
-        margin-top: 3rem!important;        
+        margin-top: 3rem!important;   
     }
 
     .infosGraph{
@@ -304,7 +304,144 @@ round-progress {
         width: 30%;
     }
 }
+
+@media screen and (min-width: 800px) and (max-width: 1000px){
+    round-progress {
+        width: 4.6rem !important;
+    }
+
+    #barchart{
+        height: 18rem !important;
+    }
+
+    .graph-one{
+        margin-bottom: 3rem !important;
+    }
+
+    #linechart{
+        width: 30rem;
+    }
+
+    .graph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 3rem auto!important;
+    }
+
+    .infos{
+        width: 18rem;
+        margin: 0 auto;
+    }
+
+    .allgraphs{
+        margin-top: 3rem!important;
+        padding: 20px;       
+    }
+
+    .infosGraph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 0 auto !important;
+    }
+
+    .button{
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px){
+    round-progress {
+        width: 4.5rem !important;
+    }
+    
+    #barchart{
+        height: 18rem !important;
+    }
+
+    .graph-one{
+        margin-bottom: 3rem !important;
+    }
+
+    #linechart{
+        width: 30rem;
+    }
+
+    .graph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 3rem auto!important;
+    }
+
+    .infos{
+        width: 18rem;
+        margin: 0 auto;
+    }
+
+    .allgraphs{
+        margin-top: 3rem!important;
+        padding: 15px !important;    
+    }
+
+    .infosGraph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 0 auto !important;
+    }
+
+    .button{
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 530px) and (max-width: 600px){
+    round-progress {
+        width: 4.4rem !important;
+    }
+    
+    #barchart{
+        height: 18rem !important;
+    }
+
+    .graph-one{
+        margin-bottom: 3rem !important;
+    }
+
+    #linechart{
+        width: 30rem;
+    }
+
+    .graph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 3rem auto!important;
+    }
+
+    .infos{
+        width: 18rem;
+        margin: 0 auto;
+    }
+
+    .allgraphs{
+        margin-top: 3rem!important;
+        padding: 10px !important;           
+    }
+
+    .infosGraph{
+        max-width: 40rem;
+        flex-direction: column !important;
+        margin: 0 auto !important;
+    }
+
+    .button{
+        width: 30%;
+    }
+}
+
 @media screen and (min-width: 450px) and (max-width: 530px){
+    round-progress {
+        width: 4.2rem !important;
+    }
+
     #barchart{
         width: 25rem !important;
     }
@@ -325,7 +462,8 @@ round-progress {
         margin: 0 auto!important; 
     }
     .allgraphs{
-        margin: 3rem auto 0 auto!important;        
+        margin: 3rem auto 0 auto!important;
+        padding: 0px !important;        
     }
 
     .infosGraph{
@@ -342,6 +480,10 @@ round-progress {
 }
 
 @media screen and (min-width: 0px) and (max-width: 450px){
+    round-progress {
+        width: 3.9rem !important;
+    }
+
     #barchart{
         width: 19rem !important;
     }
@@ -364,7 +506,8 @@ round-progress {
     }
 
     .allgraphs{
-        margin: 3rem auto 0 auto!important;        
+        margin: 3rem auto 0 auto!important;
+        padding: 0px !important;           
     }
 
     .infosGraph{
