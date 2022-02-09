@@ -230,7 +230,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -260,7 +260,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -290,7 +290,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -320,7 +320,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -358,7 +358,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -367,10 +367,6 @@ round-progress {
 }
 
 @media screen and (min-width: 1150px) and (max-width: 1250px){
-    round-progress {
-        width: 4rem !important;
-    }
-
     #barchart{
         width: 30rem !important;
     }
@@ -400,7 +396,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{
@@ -409,10 +405,6 @@ round-progress {
 }
 
 @media screen and (min-width: 1050px) and (max-width: 1150px){
-    round-progress {
-        width: 3.8rem !important;
-    }
-
     #barchart{
         width: 30rem !important;
     }
@@ -442,7 +434,7 @@ round-progress {
     }
 
     .graph{
-        flex-direction: row !important;
+        flex-direction: column !important;
     }
 
     .infosGraph{

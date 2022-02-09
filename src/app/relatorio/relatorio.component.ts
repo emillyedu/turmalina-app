@@ -236,7 +236,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
         ]
       },
       options: {
-        indexAxis: 'y',
+        indexAxis: 'x',
         responsive: true,
         plugins: {
           legend: {

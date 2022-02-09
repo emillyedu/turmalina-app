@@ -21,6 +21,7 @@ export class MapleafService {
   resultsDates!: any[];
   resultsEvaluationId!: any;
   summaryMean: any;
+  ranking: any;
 
   constructor(private http:HttpClient) {
     this.resultsDetailPoints = [];
@@ -76,6 +77,24 @@ export class MapleafService {
       .then(
         data => {
           this.summaryMean = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getRanking(){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_ranking')
+      .toPromise()
+      .then(
+        data => {
+          this.ranking = data;
           resolve();
         },
         msg => {

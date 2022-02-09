@@ -117,18 +117,9 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   createTable(){
-    // console.log(this.mapleafservice.resultsEvaluationId.detailed_evaluation)
     this.resultsEvaluation = this.mapleafservice.resultsEvaluationId
     this.datesApi.push([moment(this.resultsEvaluation["start_datetime"]).format("DD/MM/YYYY"), moment(this.resultsEvaluation["end_datetime"]).format("DD/MM/YYYY")])
     console.log(this.resultsEvaluation["detailed_evaluation"])
-    // for (var item in this.mapleafservice.resultsEvaluationId){
-    //   if(item == "detailed_evaluation"){
-    //     console.log(this.mapleafservice.resultsEvaluationId[item])
-    //     break
-    //   }
-    //   else{continue}
-    // }
-
   }
 
   getDadosApi(id:string){
