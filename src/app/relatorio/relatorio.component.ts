@@ -70,6 +70,8 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   animation: string = 'easeOutCubic';
   animationDelay: number = 0;
   colors:any;
+  summaryMean: any;
+  colorsMean: any;
 
   constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
@@ -172,7 +174,15 @@ export class RelatorioComponent implements OnInit, OnDestroy{
       useEndAsStart: false,
     };
 
+    const colorRangeInfoMean = {
+      colorStart: 1,
+      colorEnd: 1.5,
+      useEndAsStart: false,
+    };
+
+
     this.colors = color.interpolateColors(datalength, colorRangeInfo);
+    this.colorsMean = color.interpolateColorsMean(datalength, colorRangeInfoMean);
   }
 
   /*** progress circle chart styles ***/
@@ -200,7 +210,8 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     }
     this.categoryValues = [];
     this.seriesValues = [];
-
+    this.summaryMean = Object.entries(this.mapleafservice.summaryMean).map(([k, v]) => v);
+    console.log(this.summaryMean)
     this.subCategories();
     this.generateColors();
     this.getTimeSeries();
@@ -213,7 +224,14 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           {
             data: this.categoryValues,
             backgroundColor: this.colors,
-            borderWidth: 1
+            borderWidth: 1,
+            label: nome,
+          },
+          {
+            data: this.summaryMean,
+            backgroundColor: this.colorsMean,
+            borderWidth: 1,
+            label: 'Média do Estado'
           }
         ]
       },
@@ -222,11 +240,11 @@ export class RelatorioComponent implements OnInit, OnDestroy{
         responsive: true,
         plugins: {
           legend: {
-            display: false
+            display: true
           },
           title: {
             display: true,
-            // text: `${nome}`
+            text: 'Pontuação do município e do Estado'
           }
         }
       }
@@ -270,7 +288,14 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   /*** capture API data ***/
   getDadosTotalPoints(nome:any){
     this.loading = true
-    this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {this.loading = false; this.conditionGraph = false; this.nameCity = nome; this.createChart(nome)})
+    this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {
+      this.mapleafservice.getTurmalinaMean().then(_ => {      
+        this.loading = false;
+        this.conditionGraph = false;
+        this.nameCity = nome;
+        this.createChart(nome)
+      });
+    })
   }
 
   /*** uses the "remove accents" function in searches ***/

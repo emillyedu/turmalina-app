@@ -23,4 +23,19 @@ export class ColorGenerator{
         
         return colorArray;
     }
+
+    interpolateColorsMean(dataLength:any, colorRangeInfo:any) {
+        var { colorStart, colorEnd } = colorRangeInfo;
+        var colorRange = colorEnd - colorStart;
+        var intervalSize = colorRange / dataLength;
+        var i, colorPoint;
+        var colorArray = [];
+        
+        for (i = 0; i < dataLength; i++) {
+            colorPoint = this.calculatePoint(i, intervalSize, colorRangeInfo);
+            colorArray.push(d3.interpolateReds(colorPoint));
+        }
+        
+        return colorArray;
+    }
 }

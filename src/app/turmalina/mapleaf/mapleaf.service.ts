@@ -20,6 +20,7 @@ export class MapleafService {
   resultsIbge : IbgeData[];
   resultsDates!: any[];
   resultsEvaluationId!: any;
+  summaryMean: any;
 
   constructor(private http:HttpClient) {
     this.resultsDetailPoints = [];
@@ -57,6 +58,24 @@ export class MapleafService {
       .then(
         data => {
           this.resultsEvaluationId = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaMean(){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_summarymean')
+      .toPromise()
+      .then(
+        data => {
+          this.summaryMean = data;
           resolve();
         },
         msg => {
