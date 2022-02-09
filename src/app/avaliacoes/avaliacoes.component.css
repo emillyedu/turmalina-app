@@ -14,7 +14,11 @@ body{
     font-size: 1rem;
     font-weight: 500;
     background-color: #71a9b3!important;
-    border-radius: 1px !important;
+    border-radius: 2px !important;
+}
+
+.alltables{
+    background: rgba(213, 218, 218)!important;
 }
 
 .city{

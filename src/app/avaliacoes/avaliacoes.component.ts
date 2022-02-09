@@ -41,7 +41,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   listDatesApi: any[] = [];
   dateId: any;
   datesApi: any[] = [];
-  
+
   resultsEvaluation: any;
   // @Input() max: any;
   // tomorrow = new Date();
@@ -120,7 +120,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     // console.log(this.mapleafservice.resultsEvaluationId.detailed_evaluation)
     this.resultsEvaluation = this.mapleafservice.resultsEvaluationId
     this.datesApi.push([moment(this.resultsEvaluation["start_datetime"]).format("DD/MM/YYYY"), moment(this.resultsEvaluation["end_datetime"]).format("DD/MM/YYYY")])
-    
+    console.log(this.resultsEvaluation["detailed_evaluation"])
     // for (var item in this.mapleafservice.resultsEvaluationId){
     //   if(item == "detailed_evaluation"){
     //     console.log(this.mapleafservice.resultsEvaluationId[item])
