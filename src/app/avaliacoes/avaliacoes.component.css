@@ -82,6 +82,10 @@ body{
     width: 80px;
 }
 /** Table **/
+
+.table {
+    overflow-x: initial; 
+}
  /* div.mat-app-background {
     background-color: #F0F0F0;
 }
@@ -94,10 +98,7 @@ body{
     margin: 0 auto;
 }
 
-.table {
-    width: 100%;
-    font-size: 1rem;
-}
+
 
 th.mat-column-position, td.mat-column-position {
     padding-left: 8px;

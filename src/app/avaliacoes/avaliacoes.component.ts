@@ -40,7 +40,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   filter:any;
   listDatesApi: any[] = [];
   dateId: any;
-
+  resultsEvaluation: any;
   // @Input() max: any;
   // tomorrow = new Date();
 
@@ -116,7 +116,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
 
   createTable(){
     // console.log(this.mapleafservice.resultsEvaluationId.detailed_evaluation)
-    console.log(this.mapleafservice.resultsEvaluationId["detailed_evaluation"])
+    this.resultsEvaluation = this.mapleafservice.resultsEvaluationId
     // for (var item in this.mapleafservice.resultsEvaluationId){
     //   if(item == "detailed_evaluation"){
     //     console.log(this.mapleafservice.resultsEvaluationId[item])
@@ -124,10 +124,6 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     //   }
     //   else{continue}
     // }
-
-  }
-
-  getDataId(){
 
   }
 
