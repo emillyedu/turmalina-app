@@ -62,16 +62,6 @@ body{
     background-color: rgba(255,255,255,0.8);
 }
 
-#barchart{
-    width: 30rem;
-    margin: auto 0;
-}
-
-#timechart{
-    width: 34rem;
-    margin: auto 0;
-}
-
 #polarchart{
     width: 25rem;
 }
@@ -126,6 +116,7 @@ body{
     max-width: 100rem;
     margin-top: 2rem;
     justify-content: space-between;
+    flex-direction: column;
 }
 .infosGraph{
     display: flex;
@@ -214,234 +205,58 @@ round-progress {
     font-size: 18px;
     margin-top: -1rem;
 }
+.graphBar{
+    padding: 20px;
+}
+
+.graphLine{
+    margin-top: 2rem;
+    padding: 20px;
+}
+
+#barchart{
+    width: 40rem !important;
+    height: 20rem !important;
+    margin: auto 0;
+}
+
+#timechart{
+    width: 50rem !important;
+    height: 23rem !important;
+    margin: auto 0;
+}
+
 /***********************************************************/
 
-@media screen and (min-width: 1700px) and (max-width: 2000px){
-    #barchart{
-        width: 40rem !important;
-    }
-    
-    #timechart{
-        width: 38.7rem !important;
-    }
-
-    .infos{
-        width: 40rem !important;
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
-    .infosGraph{
-        flex-direction: row !important;     
-    }
-}
-
-@media screen and (min-width: 1550px) and (max-width: 1700px){
-    #barchart{
-        width: 40rem !important;
-    }
-
-    #timechart{
-        width: 40rem !important;
-    }
-
+@media screen and (min-width: 1450px) and (max-width: 2000px){
     .infos{
         width: 30rem !important;
     }
 
-    .graphBar{
-        width: 35rem ;
-    }
-
-    .graphLine{
-        width: 40rem ;
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
     .infosGraph{
         flex-direction: row !important;     
     }
 }
 
-@media screen and (min-width: 1450px) and (max-width: 1550px){
-    #barchart{
-        width: 40rem !important;
-    }
-
-    #timechart{
-        width: 40rem !important;
-    }
-
-    .infos{
-        width: 30rem !important;
-    }
-
-    .graphBar{
-        width: 31rem ;
-    }
-
-    .graphLine{
-        width: 40rem ;
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
-    .infosGraph{
-        flex-direction: row !important;     
-    }
-}
-
-@media screen and (min-width: 1350px) and (max-width: 1450px){
-    #barchart{
-        width: 35rem !important;
-    }
-    
-    #timechart{
-        width: 35vw !important;
-    }
-
+@media screen and (min-width: 1250px) and (max-width: 1450px){
     .infos{
         width: 25rem !important;
     }
 
-    .graphBar{
-        width: 26rem ;
-    }
-
-    .graphLine{
-        width: 40rem ;
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
     .infosGraph{
         flex-direction: row !important;     
     }
 }
 
-@media screen and (min-width: 1250px) and (max-width: 1350px){
-    #barchart{
-        width: 35rem !important;
-    }
-    
-    #timechart{
-        width: 35vw !important;
-    }
-
-    .infos{
-        width: 25rem !important;
-    }
-
-    .graphBar{
-        width: 26rem ;
-    }
-
-    .graphLine{
-        width: 35rem ;
-    }
-
-    .graphProgress{
-        width: 35rem;
-    }
-
-    .allgraphs{
-        padding: 20px;       
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
-    .infosGraph{
-        flex-direction: row !important;     
-    }
-}
-
-@media screen and (min-width: 1150px) and (max-width: 1250px){
-    #barchart{
-        width: 30rem !important;
-    }
-    
-    #timechart{
-        width: 35vw !important;
-    }
-
-    .infos{
-        width: 23rem !important;
-    }
-
-    .graphBar{
-        width: 23rem ;
-    }
-
-    .graphLine{
-        width: 32rem ;
-    }
-
-    .graphProgress{
-        width: 32rem;
-    }
-
-    .allgraphs{
-        padding: 10px;       
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
-    .infosGraph{
-        flex-direction: row !important;     
-    }
-}
-
-@media screen and (min-width: 1050px) and (max-width: 1150px){
-    #barchart{
-        width: 30rem !important;
-    }
-    
-    #timechart{
-        width: 35vw !important;
-    }
-
+@media screen and (min-width: 1050px) and (max-width: 1250px){
     .infos{
         width: 22rem !important;
     }
 
-    .graphBar{
-        width: 22rem ;
-    }
-
-    .graphLine{
-        width:38rem ;
-    }
-
-    .graphProgress{
-        width: 38rem;
-    }
-
-    .allgraphs{
-        padding: 0px;       
-    }
-
-    .graph{
-        flex-direction: column !important;
-    }
-
     .infosGraph{
         flex-direction: row !important;     
     }
 }
-
 
 @media screen and (min-width: 800px) and (max-width: 1050px){
     round-progress {
@@ -449,6 +264,12 @@ round-progress {
     }
 
     #barchart{
+        width: 30rem !important;
+        height: 15rem !important;
+    }
+    
+    #timechart{
+        width: 35rem !important;
         height: 18rem !important;
     }
 
@@ -456,13 +277,12 @@ round-progress {
         margin-bottom: 3rem !important;
     }
 
-    #linechart{
-        width: 30rem;
+    .graphLine{
+        margin-top: 0rem;
     }
 
     .graph{
         max-width: 40rem;
-        flex-direction: column !important;
         margin: 3rem auto!important;
     }
 
@@ -487,26 +307,31 @@ round-progress {
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 800px){
+@media screen and (min-width: 650px) and (max-width: 800px){
     round-progress {
         width: 4.5rem !important;
     }
     
     #barchart{
-        height: 18rem !important;
+        width: 30rem !important;
+        height: 15rem !important;
+    }
+    
+    #timechart{
+        width: 30rem !important;
+        height: 15rem !important;
     }
 
     .graph-one{
         margin-bottom: 3rem !important;
     }
 
-    #linechart{
-        width: 30rem;
+    .graphLine{
+        margin-top: 0rem;
     }
 
     .graph{
         max-width: 40rem;
-        flex-direction: column !important;
         margin: 3rem auto!important;
     }
 
@@ -531,26 +356,31 @@ round-progress {
     }
 }
 
-@media screen and (min-width: 530px) and (max-width: 600px){
+@media screen and (min-width: 530px) and (max-width: 650px){
     round-progress {
         width: 4.4rem !important;
     }
     
     #barchart{
-        height: 18rem !important;
+        width: 25rem !important;
+        height: 14rem !important;
+    }
+    
+    #timechart{
+        width: 25rem !important;
+        height: 14rem !important;
     }
 
     .graph-one{
         margin-bottom: 3rem !important;
     }
 
-    #linechart{
-        width: 30rem;
+    .graphLine{
+        margin-top: 0rem;
     }
 
     .graph{
         max-width: 40rem;
-        flex-direction: column !important;
         margin: 3rem auto!important;
     }
 
@@ -561,7 +391,7 @@ round-progress {
 
     .allgraphs{
         margin-top: 3rem!important;
-        padding: 10px !important;           
+        padding: 15px !important;    
     }
 
     .infosGraph{
@@ -581,18 +411,26 @@ round-progress {
     }
 
     #barchart{
-        width: 25rem !important;
+        width: 20rem !important;
+        height: 10rem !important;
     }
+    
+    #timechart{
+        width: 22rem !important;
+        height: 10rem !important;
+    }
+
+    .graphBar{
+        padding: 10px;
+    }
+
+    .graphLine{
+        margin-top: 0rem;
+        padding: 10px;
+    }
+
     .graph-one{
         margin-bottom: 3rem !important;
-    }
-
-    #linechart{
-        width: 25rem !important;
-    }
-
-    .graph{
-        flex-direction: column !important;
     }
 
     .infos{
@@ -608,10 +446,6 @@ round-progress {
         flex-direction: column !important;     
     }
 
-    #polarchart{
-        width: 28rem !important;
-    }
-
     .button{
         width: 30%;
     }
@@ -623,19 +457,26 @@ round-progress {
     }
 
     #barchart{
-        width: 19rem !important;
+        width: 17rem !important;
+        height: 8rem !important;
     }
     
+    #timechart{
+        width: 17rem !important;
+        height: 8rem !important;
+    }
+
+    .graphBar{
+        padding: 10px;
+    }
+
+    .graphLine{
+        margin-top: 0rem;
+        padding: 10px;
+    }
+
     .graph-one{
         margin-bottom: 3rem !important;
-    }
-
-    #linechart{
-        width: 19rem !important;
-    }
-
-    .graph{
-        flex-direction: column !important;
     }
 
     .infos{
@@ -664,9 +505,6 @@ round-progress {
         flex-direction: column;
     }
 
-    #polarchart{
-        width: 22rem !important;
-    }
     .button{
         width: 100%;
         margin: 0px !important;
