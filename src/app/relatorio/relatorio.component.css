@@ -182,7 +182,7 @@ round-progress {
     margin-top: 5px !important;
 }
 .infos{
-    width: 25rem;
+    width: 30rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -201,6 +201,7 @@ round-progress {
     font-weight: bold;
     font-size: 22px; 
     margin-top: 10px;
+    padding-left: 10px;
 }
 .nameCity h2{
     color: rgb(48, 47, 47);
@@ -209,19 +210,23 @@ round-progress {
     margin-top: -1rem;
 }
 .dateLast p{
-    color: rgb(48, 47, 47);
+    color: rgb(48 47 47 / 61%);
     font-size: 18px;
     margin-top: -1rem;
 }
 /***********************************************************/
 
-@media screen and (min-width: 1800px) and (max-width: 2000px){
+@media screen and (min-width: 1700px) and (max-width: 2000px){
     #barchart{
         width: 40rem !important;
     }
     
     #timechart{
-        width: 35rem !important;
+        width: 38.7rem !important;
+    }
+
+    .infos{
+        width: 40rem !important;
     }
 
     .graph{
@@ -233,16 +238,86 @@ round-progress {
     }
 }
 
-@media screen and (min-width: 1400px) and (max-width: 1800px){
-
+@media screen and (min-width: 1550px) and (max-width: 1700px){
     #barchart{
+        width: 40rem !important;
+    }
+
+    #timechart{
+        width: 40rem !important;
+    }
+
+    .infos{
         width: 30rem !important;
+    }
+
+    .graphBar{
+        width: 35rem ;
+    }
+
+    .graphLine{
+        width: 40rem ;
+    }
+
+    .graph{
+        flex-direction: row !important;
+    }
+
+    .infosGraph{
+        flex-direction: row !important;     
+    }
+}
+
+@media screen and (min-width: 1450px) and (max-width: 1550px){
+    #barchart{
+        width: 40rem !important;
+    }
+
+    #timechart{
+        width: 40rem !important;
+    }
+
+    .infos{
+        width: 30rem !important;
+    }
+
+    .graphBar{
+        width: 31rem ;
+    }
+
+    .graphLine{
+        width: 40rem ;
+    }
+
+    .graph{
+        flex-direction: row !important;
+    }
+
+    .infosGraph{
+        flex-direction: row !important;     
+    }
+}
+
+@media screen and (min-width: 1350px) and (max-width: 1450px){
+    #barchart{
+        width: 50rem !important;
     }
     
     #timechart{
         width: 40vw !important;
     }
 
+    .infos{
+        width: 25rem !important;
+    }
+
+    .graphBar{
+        width: 26rem ;
+    }
+
+    .graphLine{
+        width: 40rem ;
+    }
     .graph{
         flex-direction: row !important;
     }
@@ -252,23 +327,9 @@ round-progress {
     }
 }
 
-@media screen and (min-width: 1300px) and (max-width: 1400px){
-    #timechart{
-        width: 35vw !important;
-    }
-
-    .graph{
-        flex-direction: row !important;
-    }
-
-    .infosGraph{
-        flex-direction: row !important;     
-    }
-}
-
-@media screen and (min-width: 1000px) and (max-width: 1300px){
+@media screen and (min-width: 1000px) and (max-width: 1350px){
     #barchart{
-        height: 18rem !important;
+        height: 22rem !important;
     }
 
     .graph-one{

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div [class.allgraphs] = "conditionGraph">
+                <div [class.allgraphs] = "conditionGraph" class="graphProgress">
                     <!--progress circle chart-->
                     <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
                         <div class="g{{i}}">
@@ -69,11 +69,11 @@
 
             <div class="graph">
                 <!--bar graph-->
-                <div [class.graph-one] = "conditionGraph">
+                <div [class.graph-one] = "conditionGraph" class="graphBar">
                     <canvas #graphOneId id="barchart">{{barchart}}</canvas>
                 </div>
                 <!--line graph-->
-                <div [class.graph-two] = "conditionGraph">
+                <div [class.graph-two] = "conditionGraph" class="graphLine">
                     <canvas class="linechart" #graphTwoId id="timechart">{{timechart}}</canvas>
                 </div>
             </div>
