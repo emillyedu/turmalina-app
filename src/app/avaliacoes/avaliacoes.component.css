@@ -1,19 +1,30 @@
+:host { 
+    --color-primary: #f8f9fd;
+    --color-light: #eceffc;
+    --color-dark: black;
+    --color-white : white;
+    --color-lightblue: #71a9b3;
+    --color-blue: #4e949f;
+
+    --font-family: "Montserrat", sans-serif; 
+}
+
 body{
-    font-family: "Montserrat", sans-serif;
+    font-family:  var(--font-family);
     height: 90vh;
     background-color: rgb(213, 218, 218)!important;
 }
 
-/** form **/
+/********************* Form ************************/
 .button{
     text-align: center;
     margin: 0 5px;
     width: 20%;
     padding: 0px 30px 0px 30px !important;
-    color: #fff !important;
+    color: var(--color-white) !important;
     font-size: 1rem;
     font-weight: 500;
-    background-color: #71a9b3!important;
+    background-color: var(--color-lightblue) !important;
     border-radius: 2px !important;
 }
 
@@ -40,7 +51,6 @@ body{
 
 .picker{
     width: 100vw;
-    /* height: 354px; */
 }
 
 .main-select{
@@ -84,65 +94,15 @@ body{
 .loading-gif{
     width: 80px;
 }
-/** Table **/
 
+/********************* Table ************************/
 .table {
     overflow-x: initial; 
 }
- /* div.mat-app-background {
-    background-color: #F0F0F0;
-}
-  
-.example-container {
-    height: 100%;
-    width: 100%;
-    max-width: 1200px;
-    overflow: auto;
-    margin: 0 auto;
-}
-
-
-
-th.mat-column-position, td.mat-column-position {
-    padding-left: 8px;
-}
-
-.mat-table-sticky:first-child {
-    border-right: 1px solid #ddd;
-}
-
-.mat-header-cell {
-    background: #ddd;
-    border: #fff;
-    padding: 3px 5px;
-}
-
-.mat-cell:first-of-type,
-.mat-header-cell:first-of-type {
-    padding-left: 5px;
-}
-
-.mat-row:nth-child(even){
-    background-color:#fff;
-}
-
-.mat-row:nth-child(odd){
-    background-color:#f9f9f9;
-}
-
-.mat-cell {
-    padding: 3px 5px;
-    font-size: 0.75rem;
-}
-
-.mat-sort-header-container,
-.mat-sort-header-button {
-    flex-direction: column;
-}  */
 
 a {
 	transition: .3s all ease;
-	color: #4e949f;
+	color: var(--color-blue);
 }
 
 a:hover{
@@ -156,11 +116,11 @@ h1, h2, h3, h4, h5,
 	line-height: 1.5;
 	font-weight: 400;
 	font-family:  'Poppins',Arial, sans-serif;;
-	color: black;
+	color: var(--color-dark);
 }
 
 .bg-primary{
-	background-color: #4e949f !important;
+	background-color: var(--color-blue) !important;
 }
 
 .ftco-section{
@@ -171,13 +131,14 @@ h1, h2, h3, h4, h5,
 .ftco-no-pt{
 	padding-top: 0;
 }
+
 .ftco-no-pb{
 	padding-bottom: 0;
 }
 
 .heading-section{
 	font-size: 28px;
-	color: black;
+	color: var(--color-dark);
 }
 
 .img{
@@ -190,62 +151,73 @@ h1, h2, h3, h4, h5,
     max-width: 1200px !important;
 	min-width: 1000px !important;
 	width: 100%;
-	background-color: #4e949f;
+	background-color: var(--color-blue);
 	box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
 	text-align: center;
 }
+
 .table thead .thead-primary{
-    background-color: #4e949f !important;
+    background-color: var(--color-blue) !important;
 }
+
 thead th{		
     border: none;
     padding: 25px;
     font-size: 14px;
-    color: #4e949f;
-    background-color: #4e949f;
+    color: var(--color-blue);
+    background-color: var(--color-blue);
 }
+
 tbody tr{
     margin-bottom: 10px;
 }
+
 tbody th, tbody td{
     border: none;
     padding: 25px;
     font-size: 14px;
-    background-color: white;
+    background-color: var(--color-white) ;
     vertical-align: middle;
-    border-bottom: 2px solid #f8f9fd;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 tbody .scope{
-    background-color: #eceffc!important;
-    border-bottom: 2px solid #eceffc !important;
+    background-color: var(--color-light)!important;
+    border-bottom: 2px solid var(--color-light) !important;
 }
+
 tbody td:nth-child(odd){
-    background-color: #f8f9fd;
-    border-bottom: 2px solid #f8f9fd;
+    background-color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
 }
+
 .btn:hover:active:focus{
     outline: none !important;
     box-shadow: 0px 12px 20px -6px rgba(0,0,0,0.21);
 }
+
 .btn-primary{
-    background-color: #4e949f;
-    border-color: #4e949f;
-    color: white;
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+    color: var(--color-white) ;
 }
+
 .btn-primary:hover:focus{
-    border-color: #4e949f !important;
-    background-color: #4e949f !important;
+    border-color: var(--color-blue) !important;
+    background-color: var(--color-blue) !important;
 }
+
 .btn-link{
     background-color: transparent;
-    color: white;
+    color: var(--color-white) ;
     border:none;
     box-shadow: none;
 }
+
 .btn-outline-primary{
-    color: white;
+    color: var(--color-white) ;
 }
+
 .btn {
 	cursor: pointer;
 	border-width: 2px;
