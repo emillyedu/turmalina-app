@@ -15,7 +15,7 @@
     --radius: 0.125rem;
 
     --font-family: "Montserrat", sans-serif; 
-  }
+}
   
 * {
     box-sizing: border-box;
@@ -23,7 +23,7 @@
     scrollbar-color: var(--color-primary) var(--color-mid);
 }
 
-/* Chrome and Edge */
+/********************* Chrome and Edge ************************/
 *::-webkit-scrollbar {
     width: 10px;
 }
@@ -66,10 +66,7 @@ h2 {
     line-height: 1.2;
 }
 
-    /*************************/
-   /*  Navegation SideBar   */
-  /*************************/
-
+/********************* Navegation SideBar ************************/
 .sidebar {
     --offset: var(--space);
     flex-grow: 1;
@@ -199,10 +196,7 @@ a:hover{
     content: counters(item, ".") " ";
 }
 
-    /*************************/
-   /*       Article         */
-  /*************************/
-
+/********************* Article ************************/
 .article {
     flex-basis: 0;
     flex-grow: 999;

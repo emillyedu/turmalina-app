@@ -50,7 +50,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   imports: [A11yModule,
@@ -100,7 +100,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatFormFieldModule,
     MatDialogModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,
+    NgxMatSelectSearchModule,
+  ],
 
   exports: [
             A11yModule,
@@ -150,6 +152,8 @@ import { LayoutModule } from '@angular/cdk/layout';
             MatFormFieldModule,
             MatDialogModule,
             MatProgressBarModule,
-            MatProgressSpinnerModule]
+            MatProgressSpinnerModule,
+            NgxMatSelectSearchModule  
+          ]
 })
 export class MaterialModule { }

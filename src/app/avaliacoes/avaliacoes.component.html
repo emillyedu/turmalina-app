@@ -1,0 +1,927 @@
+<body>
+	<div class="main-select">
+		<mat-form-field class="select city">
+			<mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" (ngModelChange)="getDates(selectedValue).then()" name="municipio" [formControl]="city" #citySelect>
+			<mat-option>
+				<ngx-mat-select-search placeholderLabel="Pesquise o município" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
+			</mat-option>  
+			<mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
+					{{cityName.nome}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="select range" *ngIf="selectedValue">
+			<input matInput [matDatepicker]="resultPicker"
+			[matDatepickerFilter]="myFilter || null" [(ngModel)]="date">
+			<mat-datepicker-toggle matSuffix [for]="resultPicker"></mat-datepicker-toggle>
+			<mat-datepicker touchUI #resultPicker></mat-datepicker>
+		</mat-form-field>
+		<button mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(date)">ACESSAR</button>         
+	</div>
+	<div class="container">
+		<div class="text-center">
+			<div *ngIf="loading" class="loading">
+				<img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
+				<p class="lead">
+					<img class="loading-gif" src="../../assets/images/1484.png">
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="resultsEvaluation" class="alltables">
+		<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						<thead class="thead-primary">
+							<tr>
+							<th>Município</th>
+							<th>Inicio da avaliação</th>
+							<th>Final da avaliação</th>
+							<th>Pontuação máxima</th>
+							<th>Portal do município</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope" >{{resultsEvaluation["management_unit"]["public_entity"]}}</th>
+							<td>{{datesApi[0][0]}}</td>
+							<td>{{datesApi[0][1]}}</td>
+							<td>{{resultsEvaluation["score"]}}</td>
+							<td><a [href]="resultsEvaluation['management_unit']['start_urls']" class="btn btn-primary">Portal</a></td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		</section>
+		<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						<thead class="thead-primary">
+							<tr>
+							<th>Tipo</th>
+							<th>Pontuação máxima</th>
+							<th>Pontuação recebida</th>
+							</tr>
+						</thead>
+						<thead class="thead-primary">
+							<tr>
+								<th>Convênios</th>
+								<th>45</th>
+								<th>{{resultsEvaluation["summary_evaluation"]["Agreement"]}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Valor Pactuado</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["agreementAmount"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope" >Número do Convênio</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["agreementID"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Data da Celebração</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["celebrationDate"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Convenente</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["contractorName"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Valor da Contrapartida</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["counterpartAmount"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Concedente</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["grantorName"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Objeto</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["object"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Data da Publicação</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["publicationDate"]}}</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+							<th scope="row" class="scope">Vigência</th>
+							<td>5</td>
+							<td>{{resultsEvaluation["detailed_evaluation"]["Agreement"]["validityDate"]}}</td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Procedimentos Licitatórios</th>
+									<th>150</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["Bid"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Número de Ordem/Série</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["bidID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Modalidade de Licitação</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["bidModality"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Nome dos Participantes</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["bidderName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valores</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["bidderProposalAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CNPJ/CPF</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Repartição/Setor Interessado</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Edital</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["notice"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Objeto</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["object"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data de Publicação</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["publicationDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data de Realização</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Bid"]["realizationDate"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Despesa Orçamentária</th>
+									<th>120</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["BudgetExpenditure"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Número da Licitação</th>
+								<td>7.5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["bidID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Modalidade da Licitação</th>
+								<td>7.5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["bidModality"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Ação</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureAction"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Elemento da Despesa</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureElement"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Função</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureFunction"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Modalidade de Aplicação</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureModality"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Programa</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureProgram"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Subfunção</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetExpenditureSubfunction"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Natureza da Despesa</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["budgetNature"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data do Empenho</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["comittedExpenditureDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Histórico do Empenho</th>
+								<td>25</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["comittedExpenditureHistory"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Número do Empenho</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["comittedExpenditureID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor do Empenho</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["comittedValue"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Favorecido do Empenho</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["creditorName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Categoria Econômica</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["economicCategory"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor fixado</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["fixedAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CNPJ/CPF do Favorecido</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Órgão/Unidade Orçamentária</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor pago</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetExpenditure"]["paymentAmount"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Receita Orçamentária</th>
+									<th>45</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["BudgetRevenue"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Rúbrica/Descrição</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetRevenue"]["budgetRevenueDescription"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Origem da Receita</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetRevenue"]["budgetRevenueSource"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor Arrecadado</th>
+								<td>15</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetRevenue"]["collectionAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Unidade Gestora Arrecadadora</th>
+								<td>15</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetRevenue"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor Previsto</th>
+								<td>15</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["BudgetRevenue"]["predictedAmount"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Contratos</th>
+									<th>40</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["Contract"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor Contratado</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["contractAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Número do Contrato</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["contractID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Nome do Contratado</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["contractorName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CNPJ/CPF do Contratado</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Unidade Gestora</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Objeto</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["object"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data de Publicação</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["publicationDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Vigência</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["Contract"]["validityDate"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Quadro Pessoal</th>
+									<th>50</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["EmployeeInformation"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Nome dos Funcionários</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["EmployeeInformation"]["employeeName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Cargo / Função</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["EmployeeInformation"]["employeePosition"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Salário por servidor</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["EmployeeInformation"]["employeeSalary"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Tipo de Cargo / Emprego / Função</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["EmployeeInformation"]["employmentContractType"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CPF</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["EmployeeInformation"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Despesa Extraorçamentária</th>
+									<th>50</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["ExtraBudgetExpenditure"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Credor</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["creditorName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Descrição</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["extraBudgetExpenditureDescription"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Código adotado</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["extraBudgetExpenditureID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Nomenclatura</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["extraBudgetExpenditureNomenclature"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CNPJ/CPF do Credor</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Órgão/Unidade Orçamentária</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data de movimentação</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["moveDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor pago</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["paymentAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data da Guia</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["tabDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Histórico</th>
+								<td>25</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["tabHistory"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Número da Guia</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetExpenditure"]["tabID"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Receita Extraorçamentária</th>
+									<th>15</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["ExtraBudgetRevenue"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Rúbrica/Descrição</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["extraBudgetRevenueDescription"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Histórico</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["extraBudgetRevenueHistory"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Código adotado</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["extraBudgetRevenueID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Origem da receita</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["extraBudgetRevenueSource"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Unidade Gestora Arrecadadora</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Nomeclatura utilizada</th>
+								<td>0</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["nomenclature"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor Realizado</th>
+								<td>15</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["ExtraBudgetRevenue"]["realizedAmount"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Documento de Pagamento</th>
+									<th>60</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["PaymentDocument"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Conta Bancária</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["bankAccountNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Número</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["bankOperationID"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Favorecido</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["creditorName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Fonte de Recursos</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["fundingSource"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">CPF do Favorecido</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["identificationNumber"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Unidade Gestora Emitente</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["managementUnitName"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Valor</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["paymentAmount"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Data</th>
+								<td>5</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["paymentDate"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Histórico do Pagamento</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PaymentDocument"]["paymentHistory"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap">
+							<table class="table">
+							<thead class="thead-primary">
+								<tr>
+								<th>Tipo</th>
+								<th>Pontuação máxima</th>
+								<th>Pontuação recebida</th>
+								</tr>
+							</thead>
+							<thead class="thead-primary">
+								<tr>
+									<th>Instrumentos de Planejamento</th>
+									<th>30</th>
+									<th>{{resultsEvaluation["summary_evaluation"]["PlanningInstrument"]}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Lei Orçamentária Anual</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PlanningInstrument"]["annualBudgetLaw"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope" >Lei de Diretrizes Orçamentárias</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PlanningInstrument"]["budgetGuidelinesLaw"]}}</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+								<th scope="row" class="scope">Plano Plurianual</th>
+								<td>10</td>
+								<td>{{resultsEvaluation["detailed_evaluation"]["PlanningInstrument"]["multiyearPlan"]}}</td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>

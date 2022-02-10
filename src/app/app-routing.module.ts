@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [
   { 
     path: 'documentation',
-     loadChildren: () => import('./documentation/documentation.module').then(m => m.DocumentationModule) 
+     loadChildren: () => import('./documentation/documentation.module').then(m => m.DocumentationModule) ,
   },
   { 
     path: 'turmalina',
@@ -19,6 +20,10 @@ const routes: Routes = [
     path: 'relatorio',
      loadChildren: () => import('./relatorio/relatorio.module').then(m => m.RelatorioModule) 
   },
+  { 
+    path: 'avaliacoes',
+     loadChildren: () => import('./avaliacoes/avaliacoes.module').then(m => m.AvaliacoesModule) 
+  },
   {
     path: '',
     redirectTo: 'turmalina',
@@ -29,10 +34,11 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
-    {
-      preloadingStrategy: PreloadAllModules
-    }
-  )],
+      {
+        preloadingStrategy: PreloadAllModules
+      }
+    ),
+    NgCircleProgressModule.forRoot()],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

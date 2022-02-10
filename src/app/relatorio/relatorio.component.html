@@ -1,119 +1,83 @@
 <body>
+    <!--city select-->
     <div class="main-select">
         <mat-form-field class="select city">
-            <mat-label>Selecione o município*</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
-                <mat-option *ngFor="let city of mapleafservice.resultsIbge" [value]="city.nome">
-                    {{city.nome}}
+            <mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+                <mat-option>
+                    <ngx-mat-select-search placeholderLabel="Pesquise o município" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
+                    {{cityName.nome}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="select date" *ngIf="evaluations && evaluations.length">
-            <mat-label>Selecione a data*</mat-label>
-            <mat-select [(ngModel)]="selectedValueData" name="data" [formControl]="date" (selectionChange)="getDadosMunicipio(selectedValue, selectedValueData)" #evaluationSelect>
-                <mat-option *ngFor="let date of evaluations" [value]="date.date">
-                    {{date.dateView}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
-        <mat-form-field class="select range">
-            <mat-label>Selecione </mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-              <input matStartDate formControlName="start" placeholder="Data de Início">
-              <input matEndDate formControlName="end" placeholder="Data de Fim">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          
-            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-        </mat-form-field>
-          
+        <button mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
     </div>
 
+    <!--graphics-->
     <div class="container">
         <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
+            <div *ngIf="loading" class="loading">
+                <img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
+                <p class="lead">
+                    <img class="loading-gif" src="../../assets/images/1484.png">
+                </p>
+            </div>
         </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
+        <div class="graphgrid">
+            <div class="infosGraph">
+                <div *ngIf = "conditionGraph" class="infos">
+                    <div class="texts">
+                        <div class="points">
+                            <h1>{{scoreTotal}}/625</h1>
+                            <p>Pontos</p>
+                        </div>
+                        <div class="nameCity">
+                            <h2>{{nameCity}}</h2>
+                        </div>
+                        <div class="dateLast">
+                            <p>Última atualização: {{lastUpdate}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div [class.allgraphs] = "conditionGraph" class="graphProgress">
+                    <!--progress circle chart-->
+                    <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
+                        <div class="g{{i}}">
+                            <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
+                            <round-progress
+                                [current]="item"
+                                [max]="categoryMaxPoints[i]"
+                                [color]="color"
+                                [background]="background"
+                                [radius]="radius"
+                                [stroke]="stroke"
+                                [semicircle]="semicircle"
+                                [rounded]="rounded"
+                                [clockwise]="clockwise"
+                                [responsive]="responsive"
+                                [duration]="duration"
+                                [animation]= "animation"
+                                [animationDelay]= "animationDelay"
+                                [responsive]="true"
+                            ></round-progress>
+                            <div class="category-labels">{{categoryPtLabels[i]}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
 
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
+            <div class="graph">
+                <!--bar graph-->
+                <div [class.graph-one] = "conditionGraph" class="graphBar">
+                    <canvas #graphOneId id="barchart">{{barchart}}</canvas>
+                </div>
+                <!--line graph-->
+                <div [class.graph-two] = "conditionGraph" class="graphLine">
+                    <canvas class="linechart" #graphTwoId id="timechart">{{timechart}}</canvas>
+                </div>
+            </div>
         </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center">
-            <p class="lead" *ngIf="loading">Loading...</p>
-        </div>
-        <div class="graph1">
-            <div>
-              <canvas id="canvas">{{chart}}</canvas>
-            </div>
-          </div>
-      
-          <div class="graph2">
-            <div>
-              <canvas id="canvas2">{{chart2}}</canvas>
-            </div>
-          </div>
     </div>
 
 </body>

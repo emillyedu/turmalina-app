@@ -14,7 +14,7 @@
   
     --radius: 0.125rem;
 
-    --font-family: "Montserrat", sans-serif; 
+    --font-family: "Calibre Light", sans-serif;  
   }
   
 * {
@@ -23,7 +23,7 @@
     scrollbar-color: var(--color-primary) var(--color-mid);
 } 
 
-/* Chrome and Edge */
+/********************* Chrome and Edge ************************/
 *::-webkit-scrollbar {
     width: 10px;
 }
@@ -38,6 +38,13 @@
 
 }
 
+.white {
+    background-color: rgba(213, 218, 218);
+}
+
+.gray{
+    background-color: white;
+}
 
 body {
     width: 100%;
@@ -46,18 +53,20 @@ body {
     line-height: 1.4;
 }
 
-    /*************************/
-   /*   Navegation Header   */
-  /*************************/
-
+/********************* Navegation Header ************************/
 header{
     width: 100%;
     display: flex;
 }
 
-a{
+a.nav-active{
+   border-bottom: 0.5px solid #4c949c;   
+}
+
+a.nav-link{
     color: black;
     text-decoration:none;
+    padding: 14px !important;
     font-size: 18px !important;
 }
 
@@ -88,20 +97,78 @@ a:hover{
     justify-content: flex-end;
 }
 
-
-/* @media screen and (min-width: 2500px){
-    body{
-        margin: 0 15vw!important;
+@media screen and (min-width: 1800px) and (max-width: 2500px){
+    .white{
+        height: 95rem;
     }
-} **/
+    
+    .gray{
+        height: 95rem;
+    }
+}
+
+@media screen and (min-width: 1300px) and (max-width: 1800px){
+    .white{
+        height: 95rem;
+    }
+    
+    .gray{
+        height: 95rem;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1300px){
+    .white{
+        height: 95rem;
+    }
+    
+    .gray{
+        height: 95rem;
+    }
+}
+
+@media screen and (min-width: 630px) and (max-width: 800px){
+    .white{
+        height: 100rem;
+    }
+    
+    .gray{
+        height: 100rem;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 630px){
+    .white{
+        height: 105rem;
+    }
+    
+    .gray{
+        height: 105rem;
+    }
+}
+
+@media screen and (min-width: 367px) and (max-width: 500px){
+    .white{
+        height: 105rem;
+    }
+    
+    .gray{
+        height: 105rem;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 367px){
+    .white{
+        height: 135rem;
+    }
+    
+    .gray{
+        height: 135rem;
+    }
+}
+
 @media screen and (min-width: 729px) and (max-width: 991px){
     .navbar-toggler-icon{
         display: flex!important;
     }
 }
-
-
-
-
-
-

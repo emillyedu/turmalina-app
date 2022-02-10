@@ -1,84 +1,15 @@
-.container{
-    height: 100vh;
-    padding-top: 35px;
-    width: 100% !important;
-    max-width: 1300px !important;
-    margin: 0 auto !important;
-}
-
-table{
-    padding: 20px !important;
-}
-
-table tr:nth-child(even) {
-    background: #fff;
-}
-
-table tr:nth-child(odd) {
-    background: rgb(243, 243, 243);
-}
-
-table tr{
-    padding: 2px;
-}
-
-table td:not(:last-child), table tr:not(:last-child){
-    padding-right: 0 !important;
-}
-
-td{
-    padding: 0 20px !important;
-}
-
-table th{
-    padding: 5px 20px !important;
-}
-
-a{
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  
+  .mat-header-cell.mat-sort-header-sorted {
     color: black;
-}
-
-@media (max-width: 990px) { 
-    table td:not(:last-child), table tr:not(:last-child){
-        padding-right: none;
-    }
-
-    td{
-        padding: 0px !important;
-    }
-
-    table tbody tr{
-        padding: 5px 20px 0px 20px !important;
-    }
-
-    table {
-        display: block;
-        position: relative;
-        width: 100%;
-    } 
-
-    table thead, table tbody, table th, table td, table tr {
-        display: block;
-    }
-
-    table tbody tr {
-        display: inline-block;
-    }
-
-    table td, table th {
-        height: 35px;
-    }
-
-    table thead {
-        float: left;
-    }
-    
-    table tbody{
-        width: auto;
-        position: relative;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        white-space: nowrap;
-    }
-
-}
+  }
+  

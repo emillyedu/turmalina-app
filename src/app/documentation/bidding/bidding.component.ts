@@ -37,33 +37,33 @@ export class BiddingComponent {
     <table itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
       <!-- Cabeçalho da tabela  -->
       <tr>
-        <th itemprop="ManagementUnitName">Nome da unidade gestora</th>
-        <th itemprop="ManagementUnitID">Código da unidade gestora</th>
-        <th itemprop="BidID">Número da licitação</th>
-        <th itemprop="BidModality">Modalidade de licitação</th>
-        <th itemprop="Object">Objeto da licitação</th>
-        <th itemprop="PublicationDate">Data da publicação</th>
-        <th itemprop="RealizationDate">Data de realização</th>
-        <th itemprop="BidderName">Nome do Participante</th>
-        <th itemprop="IdentificationNumber">CNPJ do paricipante</th>
-        <th itemprop="BidderProposalAmount">Valor da proposta</th>
-        <th itemprop="Notice">Edital</th>
+        <th itemprop="managementUnitName">Nome da unidade gestora</th>
+        <th itemprop="managementUnitID">Código da unidade gestora</th>
+        <th itemprop="bidID">Número da licitação</th>
+        <th itemprop="bidModality">Modalidade de licitação</th>
+        <th itemprop="object">Objeto da licitação</th>
+        <th itemprop="publicationDate">Data da publicação</th>
+        <th itemprop="realizationDate">Data de realização</th>
+        <th itemprop="bidderName">Nome do Participante</th>
+        <th itemprop="identificationNumber">CNPJ do paricipante</th>
+        <th itemprop="bidderProposalAmount">Valor da proposta</th>
+        <th itemprop="notice">Edital</th>
       </tr>
       <!-- Dados referentes a certa linha da tabela  -->
       <tr>
-        <td itemprop="ManagementUnitName">Secretaria de Administração</td>
-        <td itemprop="ManagementUnitID">201151</td>
-        <td itemprop="BidID">000012021</td>
-        <td itemprop="BidModality">Pregão Eletrônico</td>
-        <td itemprop="Object">
+        <td itemprop="managementUnitName">Secretaria de Administração</td>
+        <td itemprop="managementUnitID">201151</td>
+        <td itemprop="bidID">000012021</td>
+        <td itemprop="bidModality">Pregão Eletrônico</td>
+        <td itemprop="object">
             REGISTRO DE PREÇOS PARA EVENTUAL CONTRATAÇÃO DE EMPRESA ESPECIALIZADA SERVIÇO DE CONTRATAÇÃO DE SEGURO PARA ESTAGIÁRIOS, PARA ATENDER AS NECESSIDADES DA SECRETARIA DE ADMINISTRAÇÃO – SEAD.
         </td>
-        <td itemprop="PublicationDate">08/07/2021</td>
-        <td itemprop="RealizationDate">20/08/2021</td>
-        <td itemprop="BidderName">BRASILSEG COMPANHIA DE SEGUROS</td>
-        <td itemprop="IdentificationNumber">28.196.889/0001-43</td>
-        <td itemprop="BidderProposalAmount">1440.00</td>
-        <td itemprop="Notice"><a href="https://transparencia.joaopessoa.pb.gov.br:8080/licitacoes/visualizar-arquivo?id=37710">Edital</a></td>
+        <td itemprop="publicationDate">08/07/2021</td>
+        <td itemprop="realizationDate">20/08/2021</td>
+        <td itemprop="bidderName">BRASILSEG COMPANHIA DE SEGUROS</td>
+        <td itemprop="identificationNumber">28.196.889/0001-43</td>
+        <td itemprop="bidderProposalAmount">1440.00</td>
+        <td itemprop="notice"><a href="https://transparencia.joaopessoa.pb.gov.br:8080/licitacoes/visualizar-arquivo?id=37710">Edital</a></td>
       </tr>
     </table>
     \`\`\`
@@ -74,33 +74,33 @@ export class BiddingComponent {
     <div itemscope itemtype="https://app-turmalina.herokuapp.com/documentation/Bidding">
       <!-- Cabeçalho da tabela  -->
       <div>
-        <div itemprop="ManagementUnitName">Nome da unidade gestora</div>
-        <div itemprop="ManagementUnitID">Código da unidade gestora</div>
-        <div itemprop="BidID">Número da licitação</div>
-        <div itemprop="BidModality">Modalidade de licitação</div>
-        <div itemprop="Object">Objeto da licitação</div>
-        <div itemprop="PublicationDate">Data da publicação</div>
-        <div itemprop="RealizationDate">Data de realização</div>
-        <div itemprop="BidderName">Nome do Participante</div>
-        <div itemprop="IdentificationNumber">CNPJ do paricipante</div>
-        <div itemprop="BidderProposalAmount">Valor da proposta</div>
-        <div itemprop="Notice">Edital</div>
+        <div itemprop="managementUnitName">Nome da unidade gestora</div>
+        <div itemprop="managementUnitID">Código da unidade gestora</div>
+        <div itemprop="bidID">Número da licitação</div>
+        <div itemprop="bidModality">Modalidade de licitação</div>
+        <div itemprop="object">Objeto da licitação</div>
+        <div itemprop="publicationDate">Data da publicação</div>
+        <div itemprop="realizationDate">Data de realização</div>
+        <div itemprop="bidderName">Nome do Participante</div>
+        <div itemprop="identificationNumber">CNPJ do paricipante</div>
+        <div itemprop="bidderProposalAmount">Valor da proposta</div>
+        <div itemprop="notice">Edital</div>
       </div>
       <!-- Dados referentes a certa linha da tabela  -->
       <div>
-        <div itemprop="ManagementUnitName">Secretaria de Administração</div>
-        <div itemprop="ManagementUnitID">201151</div>
-        <div itemprop="BidID">000012021</div>
-        <div itemprop="BidModality">Pregão Eletrônico</div>
-        <div itemprop="Object">
+        <div itemprop="managementUnitName">Secretaria de Administração</div>
+        <div itemprop="managementUnitID">201151</div>
+        <div itemprop="bidID">000012021</div>
+        <div itemprop="bidModality">Pregão Eletrônico</div>
+        <div itemprop="object">
           REGISTRO DE PREÇOS PARA EVENTUAL CONTRATAÇÃO DE EMPRESA ESPECIALIZADA SERVIÇO DE CONTRATAÇÃO DE SEGURO PARA ESTAGIÁRIOS, PARA ATENDER AS NECESSIDADES DA SECRETARIA DE ADMINISTRAÇÃO – SEAD.
         </div>
-        <div itemprop="PublicationDate">08/07/2021</div>
-        <div itemprop="RealizationDate">20/08/2021</div>
-        <div itemprop="BidderName">BRASILSEG COMPANHIA DE SEGUROS</div>
-        <div itemprop="IdentificationNumber">28.196.889/0001-43</div>
-        <div itemprop="BidderProposalAmount">1440.00</div>
-        <div itemprop="Notice"><a href="https://transparencia.joaopessoa.pb.gov.br:8080/licitacoes/visualizar-arquivo?id=37710">Edital</a></div>
+        <div itemprop="publicationDate">08/07/2021</div>
+        <div itemprop="realizationDate">20/08/2021</div>
+        <div itemprop="bidderName">BRASILSEG COMPANHIA DE SEGUROS</div>
+        <div itemprop="identificationNumber">28.196.889/0001-43</div>
+        <div itemprop="bidderProposalAmount">1440.00</div>
+        <div itemprop="notice"><a href="https://transparencia.joaopessoa.pb.gov.br:8080/licitacoes/visualizar-arquivo?id=37710">Edital</a></div>
       </div>
     </div>
     \`\`\`

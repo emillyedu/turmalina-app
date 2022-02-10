@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RelatorioRoutingModule } from './relatorio-routing.module';
-import { RelatorioComponent } from './relatorio.component';
+import { AvaliacoesRoutingModule } from './avaliacoes-routing.module';
+import { AvaliacoesComponent } from './avaliacoes.component';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_FORMATS } from './datepicker-formats';
 
@@ -18,20 +18,20 @@ const moment = _rollupMoment || _moment;
 
 @NgModule({
   declarations: [
-    RelatorioComponent
+    AvaliacoesComponent
   ],
   imports: [
-    RoundProgressModule,
+    MatNativeDateModule,
     FormsModule, 
     ReactiveFormsModule,
     SharedModule,
     MaterialModule,
     CommonModule,
     HttpClientModule,
-    RelatorioRoutingModule
+    AvaliacoesRoutingModule
   ],
   bootstrap: [
-    RelatorioComponent
+    AvaliacoesComponent
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS  },
@@ -44,4 +44,4 @@ const moment = _rollupMoment || _moment;
   ]
 })
 
-export class RelatorioModule { }
+export class AvaliacoesModule { }

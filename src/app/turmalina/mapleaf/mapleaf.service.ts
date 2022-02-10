@@ -1,7 +1,9 @@
+import { RankingModel } from './../../shared/models/ranking.model';
+import { TurmalinaStampDetail } from './../../shared/models/turmalinastamp_detail.model';
+import { TurmalinaStamp } from './../../shared/models/turmalinastamp.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TotalPoints } from 'src/app/shared/models/totalpoints.model';
 import { resolve } from 'dns';
 import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 
@@ -10,14 +12,21 @@ import { IbgeData } from 'src/app/shared/models/ibgenames.model';
 })
 
 export class MapleafService {
-
-  apiUrl = 'http://localhost:4200/result/turmalina_totalpoints'
+  /*** Urls ***/
+  apiUrl = 'http://turmalina-api.herokuapp.com/'
   ibgeUrl = 'http://servicodados.ibge.gov.br/'
-  results: TotalPoints[];
+  
+  resultsDetailPoints!: TurmalinaStampDetail[];
+  resultsSummaryPoints?: TurmalinaStamp[];
   resultsIbge : IbgeData[];
+  resultsDates!: any[];
+  resultsEvaluationId!: any;
+  summaryMean: any;
+  ranking: any;
 
   constructor(private http:HttpClient) {
-    this.results = [];
+    this.resultsDetailPoints = [];
+    this.resultsSummaryPoints = [];
     this.resultsIbge = [];
   }
 
@@ -25,26 +34,114 @@ export class MapleafService {
     return this.http.get("./assets/map-data/paraiba.json")
   }
   
-  public getTotalPoints(municipio:string, datestamp:string){
+  public getTurmalinaStamp(municipio:string, firststamp:string, secondstamp:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<TotalPoints[]>(this.apiUrl + '?city=' + municipio + '&first_timestamp=' + datestamp + ' 00:00:00.000' + '&second_timestamp=' + datestamp + ' 23:59:59.999')
+      .get<any[]>(this.apiUrl + 'turmalina_entitiestimestamp' + '?entity=' + municipio + '&first_timestamp=' + firststamp + ' 00:00:00.000' + '&second_timestamp=' + secondstamp + ' 23:59:59.999')
       .toPromise()
       .then(
         data => {
-          this.results = data.map(item => {
-            return new TotalPoints(
-              item.Agreement,
-              item.Bid,
-              item.BudgetExpenditure,
-              item.BudgetRevenue,
-              item.Contract,
-              item.EmployeeInformation,
-              item.ExtraBudgetExpenditure,
-              item.ExtraBudgetRevenue,
-              item.PaymentDocument,
-              item.PlanningInstrument,
-              item.total_points
+          this.resultsDetailPoints = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaEvaluationId(id:string){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_evaluationbyid' + '?id=' + id)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsEvaluationId = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaMean(){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_summarymean')
+      .toPromise()
+      .then(
+        data => {
+          this.summaryMean = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getRanking(){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_ranking')
+      .toPromise()
+      .then(
+        data => {
+          this.ranking = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getTurmalinaDates(municipio:string){
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_dates' + '?entity=' + municipio)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsDates = data;
+          resolve();
+        },
+        msg => {
+          reject(msg);
+        }
+      );
+    })
+    return promise
+  }
+
+  public getSummaryPoints(municipio:string, quantity:string){
+    this.resultsSummaryPoints = undefined;
+    let promise = new Promise<void>((resolve, reject) => {
+      this.http
+      .get<any[]>(this.apiUrl + 'turmalina_entitieslatest' + '?entity=' + municipio + '&quantity=' +  quantity)
+      .toPromise()
+      .then(
+        data => {
+          this.resultsSummaryPoints = data.map(item => {
+            return new TurmalinaStamp(
+              item.end_datetime,
+              item.id,
+              item.log_path,
+              item.management_unit,
+              item.score,
+              item.start_datetime,
+              item.status,
+              item.summary_evaluation,
             )
           })
           resolve();
@@ -76,6 +173,7 @@ export class MapleafService {
         msg => {
           reject(msg);
         }
+        
       );
     })
     return promise
