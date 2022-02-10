@@ -35,9 +35,8 @@
         </header> <!-- NAVBAR -->
         <div class="component" >
             <router-outlet></router-outlet>
-        </div>        
+        </div>
     </div>
-
     <footer class="section-footer">
         <div class="container">
             <div class="footer-container">
@@ -55,7 +54,6 @@
                         <div class="logo">
                             <img class="logo-item logo-ufpb" src="assets/images/UFPB.png" alt="">
                         </div>
-
                         <div class="logo">
                             <img class="logo-item logo-aria" src="assets/images/ARIA.png" alt="">
                         </div>
@@ -63,22 +61,27 @@
                 </div>
                 <div class="footer-page">
                     <div class="page">
-                        <a class="footer-nav" routerLink="turmalina" (click)="getRoute()">Mapa</a>
+                        <a class="footer-nav" routerLink="turmalina" routerLinkActive="nav-active" (click)="getRoute()">MAPA</a>
                     </div>
+                    <span>|</span>
                     <div class="page">
-                        <a class="footer-nav" routerLink="rank" (click)="getRoute()">Ranking</a>
+                        <a class="footer-nav" routerLink="rank" routerLinkActive="nav-active" (click)="getRoute()">RANKING</a>
                     </div>
+                    <span>|</span>
                     <div class="page">
-                        <a class="footer-nav" routerLink="relatorio" (click)="getRoute()">Relatório</a>
+                        <a class="footer-nav" routerLink="relatorio" routerLinkActive="nav-active" (click)="getRoute()">RELATÓRIO</a>
                     </div>
+                    <span>|</span>
                     <div class="page"> 
-                        <a  class="footer-nav" routerLink="avaliacoes" (click)="getRoute()" >Avaliações</a>
+                        <a  class="footer-nav" routerLink="avaliacoes" routerLinkActive="nav-active" (click)="getRoute()" >AVALIAÇÕES</a>
                     </div>
+                    <span>|</span>
                     <div class="page">
-                        <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active" (click)="getRoute()">Documentação</a>  
+                        <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active" (click)="getRoute()">DOCUMENTAÇÃO</a>  
                     </div>
                 </div> 
             </div>
         </div>
-    </footer>
+    </footer>        
+
 </body>

@@ -44,6 +44,7 @@
 							<th>Final da avaliação</th>
 							<th>Pontuação máxima</th>
 							<th>Portal do município</th>
+							<th>Download</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +54,7 @@
 							<td>{{datesApi[0][1]}}</td>
 							<td>{{resultsEvaluation["score"]}}</td>
 							<td><a [href]="resultsEvaluation['management_unit']['start_urls']" class="btn btn-primary">Portal</a></td>
+							<td><a [href]="relatorioUrl" class="btn btn-primary">Link</a></td>
 							</tr>
 						</tbody>
 						</table>

@@ -1,15 +1,99 @@
+:host { 
+    --color-primary: #f8f9fd;
+    --color-light: #eceffc;
+    --color-dark: black;
+    --color-white : white;
+    --color-lightblue: #71a9b3;
+    --color-blue: #4e949f;
+
+    --font-family: "Montserrat", sans-serif; 
+}
+
 .example-container {
     display: flex;
     flex-direction: column;
     min-width: 300px;
-  }
-  
-  .mat-table {
+}
+
+.mat-table {
     overflow: auto;
     max-height: 500px;
-  }
-  
-  .mat-header-cell.mat-sort-header-sorted {
+}
+
+.mat-header-cell.mat-sort-header-sorted {
     color: black;
-  }
-  
+}
+
+.section{
+    margin-bottom: 10px;
+    background-color: var(--color-lightblue) !important;
+    padding: 25px;
+    font-size: 14px;
+}
+.example-container{
+    align-items: center;
+}
+.mat-elevation-z8 {
+    overflow-x: initial !important; 
+}
+.mat-elevation-z8{
+    max-width: 1200px !important;
+	min-width: 1000px !important;
+	width: 100% !important;
+	box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29) !important;
+    text-align: center;
+}
+
+.input{
+    max-width: 1200px !important;
+	min-width: 1000px !important;
+	width: 100% !important;
+    margin-top: 1rem;
+}
+table td, table tr{
+    padding-right: 0rem !important;
+}
+.element:nth-child(odd){
+    background-color: var(--color-primary) !important;
+}
+
+.element:nth-child(even){
+    background-color: var(--color-white) !important;
+}
+
+.btn:hover:active:focus{
+    outline: none !important;
+    box-shadow: 0px 12px 20px -6px rgba(0,0,0,0.21);
+}
+
+.btn-primary{
+    background-color: var(--color-blue) !important;
+    border-color: var(--color-blue) !important;
+    color: var(--color-white) ;
+}
+
+.btn-primary:hover:focus{
+    border-color: var(--color-blue) !important;
+    background-color: var(--color-blue) !important;
+}
+
+.btn-link{
+    background-color: transparent;
+    color: var(--color-white) ;
+    border:none;
+    box-shadow: none;
+}
+
+.btn-outline-primary{
+    color: var(--color-white) ;
+}
+
+.btn {
+	cursor: pointer;
+	border-width: 2px;
+	border-radius: 2px;
+	box-shadow: none !important;
+	font-size: 13px;
+	font-weight: 500;
+	box-shadow: 0px 10px 20px -6px rgba(0,0,0,0.12);
+}

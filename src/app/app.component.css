@@ -11,6 +11,8 @@
     --color-light: white;
     --color-highlight: dodgerblue;
     --color-dark-red: rgb(87, 2, 2);
+    --color-lightblue: #71a9b3;
+    --color-blue: #0f4750;
   
     --radius: 0.125rem;
 
@@ -175,7 +177,7 @@ a:hover{
 
 /********************* footer ************************/
 .section-footer {
-    background-color: rgb(29, 28, 28);
+    background-color: var(--color-blue);
     line-height: 3rem;
     text-align: center;
     padding: 40px 0px;
@@ -183,11 +185,11 @@ a:hover{
 .footer-page{
     display: flex;
     max-width: 100rem;
-    justify-content: space-between;
+    justify-content: flex-end;
     flex-direction: row;
 }
 .footer-nav:hover{
-    color: rgb(30, 134, 160);
+    color:rgb(39, 11, 5) !important;
 }
 .footer-nav{
     display: block;
