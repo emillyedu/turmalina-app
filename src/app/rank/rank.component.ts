@@ -48,7 +48,6 @@ export class RankComponent implements OnInit {
         ) 
       }
       this.dataSource.data = this.rankingList;
-      console.log(this.dataSource.data)
       this.dataSource.paginator = this.paginator;
     })
   }
