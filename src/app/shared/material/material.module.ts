@@ -52,7 +52,6 @@ import { MatTableModule } from '@angular/material/table';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
-
 @NgModule({
   imports: [A11yModule,
     CdkAccordionModule,

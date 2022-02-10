@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { RankingModel } from './../shared/models/ranking.model';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { RankingModel } from '../shared/models/ranking.model';
 import { MatPaginator} from '@angular/material/paginator';
@@ -12,34 +13,42 @@ import moment from 'moment';
 })
 export class RankComponent implements OnInit {
   rank: any;
-  rankingList: RankingModel[] = [];
+  rankingList: RankingModel[];
   endDateTime!: any;
   displayedColumns: string[] = ['posicao','nome','entidade','avaliacao', 'pontuacao', 'url']
-  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  dataSource = new MatTableDataSource<RankingModel>(this.rankingList);
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  dataSource= new MatTableDataSource<RankingModel>([]);
+  verify: boolean = false;
 
-  constructor(private mapleafservice: MapleafService) { }
+  constructor(private mapleafservice: MapleafService) { 
+    this.rankingList = []
+    this.getRank()
+  }
 
-  ngOnInit(): void {
-    this.mapleafservice.getRanking().then( _ => {
+  async getRank(){
+    await this.mapleafservice.getRanking().then(_ => {
       this.rank = this.mapleafservice.ranking
       for(var i in this.rank){
-        let position = (Number(i)+1).toString();
+        const item = new Object() 
         this.rankingList.push(
-          new RankingModel(
-            moment(this.rank[i]["end_datetime"]).format("DD/MM/YYYY"),
-            position,
-            this.rank[i]["management_unit"]["name"],
-            this.rank[i]["management_unit"]["public_entity"],
-            this.rank[i]["management_unit"]["url"],
-            this.rank[i]["score"]
-          )
-        )
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+          
+            item.end_datetime = moment(this.rank[i]["end_datetime"]).format("DD/MM/YYYY"),
+            position: (Number(i)+1),
+            name: this.rank[i]["management_unit"]["name"],
+            public_entity: this.rank[i]["management_unit"]["public_entity"],
+            url: this.rank[i]["management_unit"]["url"],
+            score: this.rank[i]["score"]
+        ) 
       }
-    });
+    })
+  }
+
+  ngOnInit(){
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.data = this.rankingList;
+    console.log(this.dataSource.data)
   }
 
   applyFilter(filterValue: string) {

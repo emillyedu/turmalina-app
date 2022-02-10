@@ -5,7 +5,7 @@
     </mat-form-field>
     </div>
 <div class="example-container mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
         <ng-container matColumnDef="posicao" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Posição
             </th>
