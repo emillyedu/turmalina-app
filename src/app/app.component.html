@@ -37,4 +37,48 @@
             <router-outlet></router-outlet>
         </div>        
     </div>
+
+    <footer class="section-footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <div class="logo-site">
+                        <img class="logo-turmalina" src="assets/images/turmalina.png">
+                    </div>
+                    <div class="logos">
+                        <div class="logo">
+                            <img class="logo-item" src="assets/images/ODS_logo.png" alt="">     
+                        </div>
+                        <div class="logo">
+                            <img class="logo-item" src="assets/images/TCE.png" alt="">
+                        </div>
+                        <div class="logo">
+                            <img class="logo-item logo-ufpb" src="assets/images/UFPB.png" alt="">
+                        </div>
+
+                        <div class="logo">
+                            <img class="logo-item logo-aria" src="assets/images/ARIA.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-page">
+                    <div class="page">
+                        <a class="footer-nav" routerLink="turmalina" (click)="getRoute()">Mapa</a>
+                    </div>
+                    <div class="page">
+                        <a class="footer-nav" routerLink="rank" (click)="getRoute()">Ranking</a>
+                    </div>
+                    <div class="page">
+                        <a class="footer-nav" routerLink="relatorio" (click)="getRoute()">Relatório</a>
+                    </div>
+                    <div class="page"> 
+                        <a  class="footer-nav" routerLink="avaliacoes" (click)="getRoute()" >Avaliações</a>
+                    </div>
+                    <div class="page">
+                        <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active" (click)="getRoute()">Documentação</a>  
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </footer>
 </body>
