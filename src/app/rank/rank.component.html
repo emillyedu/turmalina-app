@@ -1,11 +1,11 @@
 
 <div class="example-container">
     <mat-form-field>
-        <input #inputString matInput (keyup)="applyFilter(inputString.value)" placeholder="Filter">
+        <input #inputString matInput (keyup)="applyFilter(inputString.value)" placeholder="Pesquisar">
     </mat-form-field>
 </div>
-<div class="example-container mat-elevation-z8" >
-    <table class="example-table" mat-table [dataSource]="dataSource">
+<div class="example-container" >
+    <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="posicao">
             <th mat-header-cell *matHeaderCellDef> Posição
@@ -41,7 +41,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
 </div> 
 
 

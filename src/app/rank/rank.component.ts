@@ -51,11 +51,6 @@ export class RankComponent implements OnInit {
       console.log(this.dataSource.data)
       this.dataSource.paginator = this.paginator;
     })
-    // this.mapleafservice.getRanking()
-    //   .subscribe((res)=>{
-    //     console.log(res);
-    //     this.dataSource.data = res;
-    //   })
   }
 
   applyFilter(filterValue: string) {

@@ -88,9 +88,6 @@ export class MapleafService {
     return promise
   }
 
-  // public getRanking(): Observable<RankingModel[]> {
-  //   return this.http.get<RankingModel[]>(this.apiUrl + 'turmalina_ranking')
-  // }
   public getRanking(){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
