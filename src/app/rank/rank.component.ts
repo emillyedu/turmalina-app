@@ -1,5 +1,4 @@
-import { RankingModel } from './../shared/models/ranking.model';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { RankingModel } from '../shared/models/ranking.model';
 import { MatPaginator} from '@angular/material/paginator';
@@ -13,42 +12,50 @@ import moment from 'moment';
 })
 export class RankComponent implements OnInit {
   rank: any;
-  rankingList: RankingModel[];
+  rankingList: RankingModel[]=[];
   endDateTime!: any;
   displayedColumns: string[] = ['posicao','nome','entidade','avaliacao', 'pontuacao', 'url']
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  dataSource= new MatTableDataSource<RankingModel>([]);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource = new MatTableDataSource<RankingModel>();
   verify: boolean = false;
 
   constructor(private mapleafservice: MapleafService) { 
-    this.rankingList = []
-    this.getRank()
   }
 
-  async getRank(){
-    await this.mapleafservice.getRanking().then(_ => {
+  // async getRank(){
+
+
+  //   return this.rankingList
+  // }
+
+  ngOnInit(){
+    this.getRankingInformation();
+  }
+
+  getRankingInformation(){
+    this.mapleafservice.getRanking().then(_ => {
       this.rank = this.mapleafservice.ranking
       for(var i in this.rank){
-        const item = new Object() 
         this.rankingList.push(
-          
-            item.end_datetime = moment(this.rank[i]["end_datetime"]).format("DD/MM/YYYY"),
+          {
+            end_datetime: moment(this.rank[i]["end_datetime"]).format("DD/MM/YYYY"),
             position: (Number(i)+1),
             name: this.rank[i]["management_unit"]["name"],
             public_entity: this.rank[i]["management_unit"]["public_entity"],
-            url: this.rank[i]["management_unit"]["url"],
+            url: this.rank[i]["management_unit"]["start_urls"],
             score: this.rank[i]["score"]
+          }
         ) 
       }
+      this.dataSource.data = this.rankingList;
+      console.log(this.dataSource.data)
+      this.dataSource.paginator = this.paginator;
     })
-  }
-
-  ngOnInit(){
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.dataSource.data = this.rankingList;
-    console.log(this.dataSource.data)
+    // this.mapleafservice.getRanking()
+    //   .subscribe((res)=>{
+    //     console.log(res);
+    //     this.dataSource.data = res;
+    //   })
   }
 
   applyFilter(filterValue: string) {

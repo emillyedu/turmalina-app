@@ -3,46 +3,45 @@
     <mat-form-field>
         <input #inputString matInput (keyup)="applyFilter(inputString.value)" placeholder="Filter">
     </mat-form-field>
-    </div>
-<div class="example-container mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
-        <ng-container matColumnDef="posicao" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Posição
+</div>
+<div class="example-container mat-elevation-z8" >
+    <table class="example-table" mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="posicao">
+            <th mat-header-cell *matHeaderCellDef> Posição
             </th>
             <td mat-cell *matCellDef="let element"> {{element.position}} </td>
         </ng-container>
-        <ng-container matColumnDef="nome" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Nome
             </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
-        <ng-container matColumnDef="entidade" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Entidade Pública
+        <ng-container matColumnDef="entidade">
+            <th mat-header-cell *matHeaderCellDef> Entidade Pública
             </th>
             <td mat-cell *matCellDef="let element"> {{element.public_entity}} </td>
         </ng-container>
-        <ng-container matColumnDef="avaliacao" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data da Avaliação
+        <ng-container matColumnDef="avaliacao">
+            <th mat-header-cell *matHeaderCellDef> Data da Avaliação
             </th>
             <td mat-cell *matCellDef="let element"> {{element.end_datetime}} </td>
         </ng-container>
-        <ng-container matColumnDef="pontuacao" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Pontuação
+        <ng-container matColumnDef="pontuacao" >
+            <th mat-header-cell *matHeaderCellDef> Pontuação
             </th>
             <td mat-cell *matCellDef="let element"> {{element.score}} </td>
         </ng-container>
-        <ng-container matColumnDef="url" sticky>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Url
+        <ng-container matColumnDef="url">
+            <th mat-header-cell *matHeaderCellDef> Url
             </th>
-            <td mat-cell *matCellDef="let element"><a [href]="element.position"> Portal </a></td>
+            <td mat-cell *matCellDef="let element"><a [href]="element.url"> Portal </a></td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
-<div class="example-container mat-elevation-z8">
     <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
-</div>  
+</div> 
 
 

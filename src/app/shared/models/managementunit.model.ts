@@ -1,6 +1,6 @@
 export class managementUnit{
-    district!: string;
     id!: number;
     name!: string;
-    url!: string;
+    public_entity!: string;
+    start_urls!: string;
 }

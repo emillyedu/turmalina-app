@@ -1,3 +1,4 @@
+import { RankingModel } from './../../shared/models/ranking.model';
 import { TurmalinaStampDetail } from './../../shared/models/turmalinastamp_detail.model';
 import { TurmalinaStamp } from './../../shared/models/turmalinastamp.model';
 import { Injectable } from '@angular/core';
@@ -87,6 +88,9 @@ export class MapleafService {
     return promise
   }
 
+  // public getRanking(): Observable<RankingModel[]> {
+  //   return this.http.get<RankingModel[]>(this.apiUrl + 'turmalina_ranking')
+  // }
   public getRanking(){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
