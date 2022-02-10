@@ -23,7 +23,7 @@
     scrollbar-color: var(--color-primary) var(--color-mid);
 } 
 
-/* Chrome and Edge */
+/********************* Chrome and Edge ************************/
 *::-webkit-scrollbar {
     width: 10px;
 }
@@ -53,10 +53,7 @@ body {
     line-height: 1.4;
 }
 
-    /*************************/
-   /*   Navegation Header   */
-  /*************************/
-
+/********************* Navegation Header ************************/
 header{
     width: 100%;
     display: flex;
@@ -99,13 +96,6 @@ a:hover{
     align-items: center;
     justify-content: flex-end;
 }
-
-
-/* @media screen and (min-width: 2500px){
-    body{
-        margin: 0 15vw!important;
-    }
-} **/
 
 @media screen and (min-width: 1800px) and (max-width: 2500px){
     .white{
@@ -182,10 +172,3 @@ a:hover{
         display: flex!important;
     }
 }
-
-
-
-
-
-
-
