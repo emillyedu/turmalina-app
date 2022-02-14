@@ -23,9 +23,12 @@
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) var(--color-mid);
 }
+
 .documentation-component{
+    font-family: var(--font-family) !important;
     margin-bottom: 100px;
 }
+
 /********************* Chrome and Edge ************************/
 *::-webkit-scrollbar {
     width: 10px;
