@@ -1,48 +1,92 @@
-
-<div class="example-container">
-    <mat-form-field class="input">
-        <input #inputString matInput (keyup)="applyFilter(inputString.value)" placeholder="Pesquisar">
-    </mat-form-field>
+<div class="rank-component">
+    <div class="example-container">
+        <mat-form-field class="input">
+            <input #inputString matInput (keyup)="applyFilter(inputString.value)" placeholder="Pesquise o Município/Estado/Órgão Público">
+            <mat-icon style="color: dimgray !important" matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="example-container table" [style.visibility]="(visibility === false) ? 'hidden' : 'visible'" >
+        <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="posicao">
+                <th class="section" mat-header-cell *matHeaderCellDef> Posição
+                </th>
+                <td class="element" mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nome">
+                <th class="section" mat-header-cell *matHeaderCellDef> Nome
+                </th>
+                <td class="element" mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="entidade">
+                <th class="section" mat-header-cell *matHeaderCellDef> Entidade Pública
+                </th>
+                <td class="element" mat-cell *matCellDef="let element"> {{element.public_entity}} </td>
+            </ng-container>
+            <ng-container matColumnDef="avaliacao">
+                <th class="section" mat-header-cell *matHeaderCellDef> Data da Avaliação
+                </th>
+                <td class="element" mat-cell *matCellDef="let element"> {{element.end_datetime}} </td>
+            </ng-container>
+            <ng-container matColumnDef="pontuacao" >
+                <th class="section" mat-header-cell *matHeaderCellDef> Pontuação
+                </th>
+                <td class="element" mat-cell *matCellDef="let element"> {{element.score}} </td>
+            </ng-container>
+            <ng-container matColumnDef="url">
+                <th class="section" mat-header-cell *matHeaderCellDef> Url
+                </th>
+                <td mat-cell *matCellDef="let element"><a [href]="element.url" class="btn btn-primary"> Portal </a></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div class="amount-page">
+    <mat-paginator class= "max-pagination" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>
-<div class="example-container table" >
-    <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="posicao">
-            <th class="section" mat-header-cell *matHeaderCellDef> Posição
-            </th>
-            <td class="element" mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-        <ng-container matColumnDef="nome">
-            <th class="section" mat-header-cell *matHeaderCellDef> Nome
-            </th>
-            <td class="element" mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        <ng-container matColumnDef="entidade">
-            <th class="section" mat-header-cell *matHeaderCellDef> Entidade Pública
-            </th>
-            <td class="element" mat-cell *matCellDef="let element"> {{element.public_entity}} </td>
-        </ng-container>
-        <ng-container matColumnDef="avaliacao">
-            <th class="section" mat-header-cell *matHeaderCellDef> Data da Avaliação
-            </th>
-            <td class="element" mat-cell *matCellDef="let element"> {{element.end_datetime}} </td>
-        </ng-container>
-        <ng-container matColumnDef="pontuacao" >
-            <th class="section" mat-header-cell *matHeaderCellDef> Pontuação
-            </th>
-            <td class="element" mat-cell *matCellDef="let element"> {{element.score}} </td>
-        </ng-container>
-        <ng-container matColumnDef="url">
-            <th class="section" mat-header-cell *matHeaderCellDef> Url
-            </th>
-            <td mat-cell *matCellDef="let element"><a [href]="element.url" class="btn btn-primary"> Portal </a></td>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
-<div class="example-container">
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-</div>  
-
-
+<!-- <footer class="section-footer">
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logos">
+                    <div class="logo">
+                        <img class="logo-item" src="assets/images/ODS_logo.png" alt="">     
+                    </div>
+                    <div class="logo">
+                        <img class="logo-item" src="assets/images/TCE.png" alt="">
+                    </div>
+                    <div class="logo">
+                        <img class="logo-item logo-ufpb" src="assets/images/UFPB.png" alt="">
+                    </div>
+                    <div class="logo">
+                        <img class="logo-item logo-aria" src="assets/images/ARIA.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-page">
+                <div class="page">
+                    <a class="footer-nav" routerLink="turmalina" routerLinkActive="nav-active">MAPA</a>
+                </div>
+                <span>|</span>
+                <div class="page">
+                    <a class="footer-nav" routerLink="rank" routerLinkActive="nav-active">RANKING</a>
+                </div>
+                <span>|</span>
+                <div class="page">
+                    <a class="footer-nav" routerLink="relatorio" routerLinkActive="nav-active">RELATÓRIO</a>
+                </div>
+                <span>|</span>
+                <div class="page"> 
+                    <a  class="footer-nav" routerLink="avaliacoes" routerLinkActive="nav-active" >AVALIAÇÕES</a>
+                </div>
+                <span>|</span>
+                <div class="page">
+                    <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active">DOCUMENTAÇÃO</a>  
+                </div>
+            </div> 
+        </div>
+    </div>
+</footer> -->

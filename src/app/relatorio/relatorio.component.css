@@ -5,6 +5,7 @@
     --color-white : white;
     --color-lightblue: #71a9b3;
     --color-blue: #4c949c;
+    --color-bluefooter: #4e949f;
 
     --font-family: "Montserrat", sans-serif; 
 }
@@ -13,6 +14,11 @@ body{
     font-family: var(--font-family) !important;
     height:90vh;
     background-color: rgb(213, 218, 218)!important;
+}
+
+.relatorio-component{
+    min-height: 100vh;
+    margin-bottom: 100px;
 }
 
 /********************* Form ************************/
@@ -81,6 +87,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* margin-bottom: 2.5rem; */
 }
 
 .gif-loading{
@@ -519,5 +526,86 @@ round-progress {
     .button{
         width: 100%;
         margin: 0px !important;
+    }
+}
+
+/********************* footer ************************/
+.section-footer {
+    background-color: var(--color-bluefooter);
+    line-height: 3rem;
+    text-align: center;
+    padding: 40px 0px;
+}
+.footer-page{
+    display: flex;
+    max-width: 100rem;
+    justify-content: center;
+    flex-direction: row;
+}
+.footer-nav:hover{
+    color:rgb(24, 68, 65) !important;
+}
+.footer-nav{
+    display: block;
+    color: #f1f1f1;
+    font-size: 1rem;
+    text-decoration:none;
+    padding: 14px;
+    font-size: 18px;
+}
+.footer-logo{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.logos{
+    display: flex;
+}
+.logo-turmalina{
+    width: 11rem !important;
+}
+.logo-item{
+    width: 3rem;
+}
+.logo-ufpb{
+    width: 3.5rem;
+}
+.logo-aria{
+    width: 4rem;
+}
+.logo{
+    padding: 0 10px;
+}
+span{
+    color: #f1f1f1;
+    margin-top: 0.8rem;
+}
+@media screen and (min-width: 600px) and (max-width: 700px){
+    span{
+        display: none;
+    }
+    .footer-nav{
+        padding: 8px!important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .footer-logo{
+        flex-direction: column;
+    }
+    .footer-page{
+        flex-direction: column;
+    }
+    .logos{
+        display: block;
+    }
+    .logo{
+        padding: 10px 0px ;
+    }
+    .footer-nav{
+        padding: 5px;
+    }
+    span{
+        display: none;
     }
 }
