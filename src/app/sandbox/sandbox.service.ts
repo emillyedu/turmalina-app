@@ -23,7 +23,8 @@ export class SandboxService {
     // body = body.append('start_urls', user.start_urls);
     // body = body.append('receiver_address', user.receiver_address);
 
-    let body = JSON.stringify(user.value) 
+    let body = JSON.stringify(user.value)
+    console.log(body) 
     const httpOptions = {
         headers: new HttpHeaders({'Content-Type': 'application/json'})
     };

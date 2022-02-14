@@ -3,10 +3,11 @@
     <div class="turmalina-ranking" id="top3-widget">
     </div>
   </div>
+
   <form style="padding-left: 1%" id="search-form" class="turmalina-search-municipio-field" fxLayout="column">
     <div class="input-row turmalina-form-cidades" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
     fxLayoutGap.lt-md="0px">
-    <mat-form-field style="z-index: 999999; " fxFlex
+    <mat-form-field [style.z-index]="9999999" fxFlex
     class="turmalina-search-municipio-field turmalina-home-mapa-full-width">
         <mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
             <mat-option>
