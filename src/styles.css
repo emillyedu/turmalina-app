@@ -3,6 +3,8 @@
 @import "../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css";
 @import "../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~leaflet/dist/leaflet.css";
+
 
 :host {
     --weight: 540;

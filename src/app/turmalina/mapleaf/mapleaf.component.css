@@ -5,7 +5,7 @@
     bottom: 0;
 }
 
-#map {
+/* #map {
   margin: 0 auto !important;
   height: 89vh;
   width: 100vw;
@@ -13,8 +13,32 @@
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.04),
     0 4px 8px rgba(0, 0, 0, 0.03), 0 8px 16px rgba(0, 0, 0, 0.03),
     0 16px 32px rgba(0, 0, 0, 0.02), 0 32px 64px rgba(0, 0, 0, 0.02);
+} */
+
+
+.turmalina-content {
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.turmalina-mapa-component {
+  height: 100% !important;
+  position: relative;
+  top: 0;
+  left: 0;
+  /* margin-top: -19px; */
+}
+
+#map {
+  height: 89vh;
+  width: 100vw;
+  height: 100% !important;
+  position: fixed;
+  /* top: 11.5%; */
+  bottom: 0;
+  left: 0;
+  overflow: hidden !important;
+}
 /** Search **/
 
 .turmalina-search-municipio-field {
@@ -27,7 +51,6 @@
   left: 50%;
   width: 350px;
   height: auto;
-  border-radius: 40px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   transform: translate(-50%, -50%);
   background: #fff;

@@ -7,6 +7,7 @@ import { TurmalinaComponent } from './turmalina.component';
 import { MapleafComponent } from './mapleaf/mapleaf.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../shared/material/material.module';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MaterialModule } from '../shared/material/material.module';
     MapleafComponent
   ],
   imports: [
+    LeafletModule,
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,

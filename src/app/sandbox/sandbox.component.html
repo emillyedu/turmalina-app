@@ -1,0 +1,33 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3></h3>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Lista de urls</label>
+                        <input type="text" formControlName="urlName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.urlName.errors }" />
+                        <div *ngIf="submitted && f.urlName.errors" class="invalid-feedback">
+                            <div *ngIf="f.urlName.errors.required">Lista de urls é necessária</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email é necessário</div>
+                            <div *ngIf="f.email.errors.email">Digite um endereço de email válido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

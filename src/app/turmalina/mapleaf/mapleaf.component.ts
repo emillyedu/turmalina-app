@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import 'leaflet';
-import { tap, map, filter, debounceTime, distinctUntilChanged, switchMap, startWith } from 'rxjs/operators';
+import * as d3 from 'd3';
+import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import { latLng, tileLayer, polygon, Polygon } from "leaflet";
+import { tap, map, filter, debounceTime, distinctUntilChanged, switchMap, startWith, takeUntil } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-
-declare let L: any;
+import * as L from 'leaflet';
+import * as _ from 'lodash';
+import { Municipio } from 'src/app/shared/models/municipio.class';
+import { ReplaySubject, Subject } from 'rxjs';
+import { IbgeData } from 'src/app/shared/models/ibgenames.model';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-mapleaf',
@@ -16,25 +23,31 @@ declare let L: any;
 })
 
 export class MapleafComponent implements OnInit {
-  private mapa:any;
+  mapa:any;
   public innerWidth: any;
-  municipioCtrl: FormControl = new FormControl;
-  results$: Observable<any> | undefined;
+  
+  municipioCtrl!: FormControl;
+  protected _onDestroy = new Subject<void>();
+  public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
+  city: FormControl = new FormControl();
+  cityFilter: FormControl = new FormControl();
+  @ViewChild('citySelect') citySelect!: MatSelect;
+  protected cities: IbgeData[] = this.mapleafservice.resultsIbge
+  selectedValue!: string;
+
+
   paraibaGeoJson: any;
-  erro : any;
-  totalpoints!: number;
-  agreement!: number;
-
-  async getGeoJsonData (){
-    return await this.mapService.getParaibaGeoJson().toPromise();
-  }
-
-  // getTotalPoints(){
-  //   this.mapService.getTotalPoints('Joao Pessoa', '2021-02-11').subscribe(data=>{
-  //     this.agreement = data[0].PlanningInstrument.annualBudgetLaw;
-  //     console.log(this.agreement);
-  //   })
-  // }
+  municipios: Municipio[] = [];
+  private stateTiles: any[] = [];
+  private initialZoom: any = 8;
+  public layers: any[] = [];
+  private color:any;
+  escalaCorLegenda: any;
+  public maxPontuacaoMunicipios: number = 629;
+  public MAX_PONTUACAO = 625;
+  municipiosTopDez: Municipio[] = [];
+  colorTextRank = "#fffff";
+  colorTextRankScale: any;
 
   ajusteMapaResolucao(tamanhoTela:any) {
     if (tamanhoTela <= 600) {
@@ -66,6 +79,11 @@ export class MapleafComponent implements OnInit {
     return nome.toLowerCase().replace(/[áàâãéêíóôõúüç']/g, this.removeAcentos);
   }
 
+  filterMunicipios(nome: string) {
+    return this.municipios.filter(municipio =>
+      _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
+  }
+
   // public searchMunicipios(nome: string) {
   //   console.log(nome)
   //   return this.municipios.filter(municipio =>
@@ -77,204 +95,299 @@ export class MapleafComponent implements OnInit {
   //     _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
   // }
 
-  private initMap(): void {
+  public convertJsonObjMunicipio(data: any) {
+    let cont = 1
+    for (let i in data) {
+      let municipio = new Municipio();
+      municipio.nome = data[i]["management_unit"]["public_entity"];
+      municipio.pontuacao = data[i]["score"];
+      municipio.pontuacaoMaxima = this.MAX_PONTUACAO;
+      municipio.urlPortal = data[i]["management_unit"]["start_urls"];
+      municipio.posicao = cont;
+      this.municipios.push(municipio);
+      cont = cont + 1;
+    }
 
-    this.mapa = L.map('map', {
-      center: [ -7.1311923, -36.8275259 ],
-      zoom: 5,
-      maxZoom: 15,
-      minZoom: 7.4,
-      maxBounds: [
-        //south west
-        [-8.06, -39.13],
-        //north east
-        [-6, -34]
-        ], 
-    });
-
-    this.mapa.createPane('labels');
-
-    // This pane is above markers but below popups
-    this.mapa.getPane('labels').style.zIndex = 650;
-  
-    // Layers in this pane are non-interactive and do not obscure mouse/touch events
-    this.mapa.getPane('labels').style.pointerEvents = 'none';
-    
-    const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-
-    });
-
-    tiles.addTo(this.mapa);
-
-    const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-      pane: 'labels'
-    });
-    tilesPane.addTo(this.mapa);
   }
 
-  public mapReady(mapa: L.Map, paraibaGeoJson: any) {
-    let info = new L.Control();
+  public getTilesByZoomLevel() {
+    return this.stateTiles;
+  }
 
-    info.onAdd = function () {
-        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-        this.update();
-        return this._div;
-    };
-
-    // method that we will use to update the control based on feature properties passed
-    info.update = function (props: { NM_MUNICIP: string; }) {
-        // let municipio = props ? this.searchMunicipios(props.NM_MUNICIP): null;
-        // console.log(municipio);
-        this._div.innerHTML = '<h4>Município da Paraíba</h4>' +  (props ?
-            '<b>' + props.NM_MUNICIP + '</b><br />'
-            : 'Selecione o município');
-    };
-
-    function getColor(d : any) {
-      return d >= 100 ? '#00F9FF' :
-      d > 80 ? '#1CD0D4' :
-      d > 60  ? '#2DB6B9' :
-      d > 40   ? '#3D9192' :
-      d > 20   ? '#945113' :
-      d > 0   ? '#62370F' :
-                 '#62370F';
+  public getPontuacaoMunicipio(municipio: string) {
+    for (let m of this.municipios) {
+      if (this.simplificaNomes(municipio) === this.simplificaNomes(m.nome)) {
+        return m.pontuacao;
+      }
     }
+    return null;
+  }
 
-    function style(feature : any) {
-        return {
+  
+  public getColor(pontuacaoMunicipio: any) {
+    this.escalaCorLegenda = this.escalaCorLegenda === undefined ? d3.scaleSequential(d3ScaleChromatic.interpolateViridis)
+      .domain([this.maxPontuacaoMunicipios, 0]) : this.escalaCorLegenda;
+    return this.escalaCorLegenda(pontuacaoMunicipio);
+  }
+
+
+  public mapReady(map: L.Map) {
+      this.mapa = map;
+      let legend = new (L.Control.extend({
+        options: { position: 'bottomright' }
+      }));
+  
+      this.mapleafservice.getEstadoParaibaGeoJson().subscribe((data: any) => {
+        const paraibaLatLon = data.features[0].geometry.coordinates[1].map(
+          (coords: any) => new L.LatLng(coords[1], coords[0])
+        );
+  
+        
+        L.polygon(
+          [
+            [
+              new L.LatLng(90, -180),
+              new L.LatLng(90, 180),
+              new L.LatLng(-90, 180),
+              new L.LatLng(-90, -180)
+            ],
+            paraibaLatLon
+          ],
+          { color: "#3b3b3b3b", weight: 1, fillOpacity: 0.26 }
+        ).addTo(map);
+  
+      });
+  
+      const vm = this;
+
+      legend.onAdd = (map) => {
+  
+          var div = L.DomUtil.create('div', 'info legend'),
+              grades = [0, 100, 200, 400, 500, 600],
+              labels = [];
+  
+          div.innerHTML += '<div class="legend_text"><h1> Pontuação </h1></div>';
+          var divtext = L.DomUtil.create('div', 'legend_box', div);
+          
+          for (var i = 0; i < grades.length; i++) {
+              divtext.innerHTML +=
+  
+              '<i style="background:' + vm.getColor(grades[i] + 1) + '"></i> ' +
+              grades[i] + (grades[i + 1] ?'<br>' : '+');              
+  
+          }
+  
+          return div;
+      };
+  
+      legend.addTo(map);
+      
+      map.on('zoom', (result) => {
+        this.layers = [];
+        this.zone.run(() => {
+          this.layers = this.getTilesByZoomLevel();
+        });
+      });
+      this.mapa.invalidateSize();
+  }
+
+  public mapOptions = {
+    layers: [
+      tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', { minZoom: 6, maxZoom: 11, attribution: '...' }),
+    ],
+    zoom: this.initialZoom,
+    zoomControl: false,
+    center: latLng(-7.16554, -36.13779)
+  };
+
+  private fetchTiles(tileObject:any) {
+    this.mapleafservice.getParaibaGeoJson().subscribe((data: any) => {
+
+      data.features.map((feature:any) => {
+        feature.geometry.coordinates.forEach((coordinate: any) => {
+          const nomeMunicipio = feature.properties.NM_MUNICIP === "SANTA TERESINHA" ? "SANTA TEREZINHA" : feature.properties.NM_MUNICIP;
+          const municipio = this.filterMunicipios(nomeMunicipio)[0];
+          const pontuacaoMunicipio = this.getPontuacaoMunicipio(nomeMunicipio);
+          const p = polygon(coordinate.map((coords:any) => [coords[1], coords[0]]),
+            {
+              fillColor: pontuacaoMunicipio !== null ? this.color(pontuacaoMunicipio) : '#3b3b3b3b',
+              color: '#ffff',
+              weight: 1.5,
+              opacity: .75,
+              fillOpacity: 0.7
+            });
+
+          if (pontuacaoMunicipio !== null) {
+            this.adicionarEventoMouseOverPolygono(p, municipio);
+            this.adicionarEventoPolygono(p, municipio);
+            this.adicionarEventoClickPolygono(p, municipio);
+            this.adicionarPolygonMunicipio(nomeMunicipio, p);
+          }
+          tileObject.push(p);
+
+        });
+      });
+      this.innerWidth = (window.innerWidth <= 600);
+      this.ajusteMapaResolucao(window.innerWidth);
+    });
+  }
+
+  
+  public adicionarPolygonMunicipio(nomeMunicipio: string, p:any) {
+    for (let i in this.municipios) {
+      if (this.municipios[i].nome.toLowerCase() === nomeMunicipio.toLowerCase()) {
+        this.municipios[i].polygon = p;
+        return;
+      }
+    }
+  }
+
+  public adicionarEventoClickPolygono(p: Polygon, municipio: Municipio) {
+    p.addEventListener('click', evt => {
+      this.zone.run(() => {
+        this.restaraMapaEstadoInicial();
+      });
+      this.zone.run(() => this.mapa.fitBounds(p.getBounds()));
+    });
+  }
+
+  public adicionarEventoMouseOverPolygono(p: Polygon, municipio: Municipio) {
+    p.addEventListener('mouseover', evt => {
+      this.zone.run(() => {
+        this.restaraMapaEstadoInicial();
+      });
+      p.setStyle({
+        fillColor: '#469b9c',
+        weight: 1,
+        opacity: .75,
+        fillOpacity: 0.7
+      });
+      p.bindPopup(this.getConteudoPopUp(municipio)).openPopup();
+    });
+  }
+
+  public adicionarEventoPolygono(p: Polygon, municipio: Municipio) {
+    p.addEventListener('mouseout', evt => {
+      this.zone.run(() => {
+        this.restaraMapaEstadoInicial();
+      });
+      p.setStyle({
+        fillColor: municipio.pontuacao != null ? this.color(municipio.pontuacao) : '#3b3b3b3b',
+        color: '#ffff',
+        weight: 1,
+        opacity: .75,
+        fillOpacity: 0.7
+      });
+      p.bindPopup(this.getConteudoPopUp(municipio)).closePopup();
+
+    });
+  }
+
+  
+  public restaraMapaEstadoInicial() {
+    for (let i in this.municipios) {
+      if (this.municipios[i].polygon !== null) {
+        this.municipios[i].polygon.setStyle({
+          fillColor: this.color(this.municipios[i].pontuacao),
           weight: 1,
-          opacity: 1,
-          color: "white",
-          dashArray: "3",
-          fillOpacity: 0.7,
-          fillColor: getColor(feature.properties.pontuation)
-        };
-    }
-  
-    function highlightFeature(e : any) {
-        var layer = e.target;
-  
-        layer.setStyle({
-          weight: 3,
-          color: "#666",
-          dashArray: "",
+          opacity: .75,
           fillOpacity: 0.7
         });
+        this.municipios[i].polygon.bindPopup(this.getConteudoPopUp(this.municipios[i])).closePopup();
 
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
       }
-
-      info.update(layer.feature.properties);
-
     }
-
-    function resetHighlight(e : any) {
-      geojson.resetStyle(e.target);
-      info.update();
-    }
-    
-    function zoomToFeature(e: any) {
-      mapa.fitBounds(e.target.getBounds());
-    }
-
-    const onEachFeature = (feature : any, layer : any) => {
-      layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
-      });
-    };
-
-    let geojson = L.geoJSON(paraibaGeoJson, {
-      style: style,
-      onEachFeature: onEachFeature
-    }).addTo(mapa);
-
-    var legend = L.control({position: 'bottomright'});
-
-    legend.onAdd = function () {
-
-        var div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 20, 40, 60, 80, 100],
-            labels = [];
-
-        div.innerHTML += '<div class="legend_text"><h1> Pontuação </h1></div>';
-        var divtext = L.DomUtil.create('div', 'legend_box', div);
-        
-        for (var i = 0; i < grades.length; i++) {
-            divtext.innerHTML +=
-
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ?'<br>' : '+');              
-
-        }
-
-        return div;
-    };
-
-    var legendData = L.control({position: 'bottomright'});
-
-    legend.addTo(mapa);
-    info.addTo(mapa);
-
-    this.innerWidth = (window.innerWidth <= 600);
-    this.ajusteMapaResolucao(window.innerWidth);
-
-    this.municipioCtrl.valueChanges.pipe(
-      map(value => value.trim()),
-      filter(value => value.length > 1),
-      debounceTime(200),
-      distinctUntilChanged(),
-      tap(value => console.log(value)),
-    ).subscribe();
-    // this.municipioCtrl.valueChanges.subscribe(val => console.log(val));
   }
 
-  // private fetchTiles(tileObject) {
-  //   this.homeMapaService.getParaibaGeoJson().subscribe((data: any) => {
+  public inicializaMunicipiosComponent() {
+    this.municipiosTopDez = this.municipios.slice(0, 10);
+    return this.municipiosTopDez;
+  }
 
-  //     data.features.map((feature) => {
-  //       feature.geometry.coordinates.forEach(coordinate => {
-  //         const nomeMunicipio = feature.properties.NM_MUNICIP === "SANTA TERESINHA" ? "SANTA TEREZINHA" : feature.properties.NM_MUNICIP;
-  //         const municipio = this.filterMunicipios(nomeMunicipio)[0];
-  //         const pontuacaoMunicipio = this.getPontuacaoMunicipio(nomeMunicipio);
-  //         const p = polygon(coordinate.map(coords => [coords[1], coords[0]]),
-  //           {
-  //             fillColor: pontuacaoMunicipio !== null ? this.color(pontuacaoMunicipio) : '#3b3b3b3b',
-  //             color: '#ffff',
-  //             weight: 1.5,
-  //             opacity: .75,
-  //             fillOpacity: 0.7
-  //           });
+  public getConteudoPopUp(municipio: Municipio) {
+    return '<b>' + municipio.nome +
+      '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima;
+  }
 
-  //         if (pontuacaoMunicipio !== null) {
-  //           this.adicionarEventoMouseOverPolygono(p, municipio);
-  //           this.adicionarEventoPolygono(p, municipio);
-  //           this.adicionarEventoClickPolygono(p, municipio);
-  //           this.adicionarPolygonMunicipio(nomeMunicipio, p);
-  //         }
-  //         tileObject.push(p);
+  
+  filterCities() {
+    if (!this.mapleafservice.resultsIbge) {
+      return;
+    }
+    // get the search keyword
+    let search = this.cityFilter.value;
+    if (!search) {
+      this.filteredCity.next(this.mapleafservice.resultsIbge.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.filteredCity.next(
+      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+    );
 
-  //       });
-  //     });
-  //     this.bgcolorComponentPagination = this.municipiosTopDez[9].polygon.options.fillColor;
-  //     this.innerWidth = (window.innerWidth <= 600);
-  //     this.ajusteMapaResulucao(window.innerWidth);
+  }
+  
+  sortCities(cities: IbgeData[]){
+    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+  }
 
-  //   });
-  // }
+    /*** uses the "remove accents" function in searches ***/
+  searchDadosMunicipio(nomeDoMunicipio:string){
+    let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
+    console.log(municipio)
+  }
 
-  constructor(private http: HttpClient, private mapService: MapleafService) {
+  constructor(private zone: NgZone, private mapleafservice: MapleafService) {
   }
 
   ngOnInit(): void{
-    this.initMap();   
-    // this.getTotalPoints();
-    this.getGeoJsonData().then((data: any) =>{
-        this.mapReady(this.mapa, data);
+    this.municipioCtrl = new FormControl();
+
+    this.colorTextRankScale = d3.scaleThreshold()
+    .domain([this.MAX_PONTUACAO * 0.2])
+    .range(['#4d4d4d', '#ffffff']);
+
+    this.mapleafservice.getIBGE().then(data => {
+      /** This will get value changes on city selector */
+      // load the initial bank list
+      this.filteredCity.next(this.sortCities(this.mapleafservice.resultsIbge).slice());
+      }
+    );
+
+
+    this.cityFilter.valueChanges
+    .pipe(takeUntil(this._onDestroy))
+    .subscribe(() => {
+      this.filterCities();
     });
 
+    this.mapleafservice.getRankingModel().subscribe((data: any) => {
+      this.convertJsonObjMunicipio(data);
+      this.layers = this.getTilesByZoomLevel();
+      this.fetchTiles(this.stateTiles);
+      this.mapa.createPane('labels');
+
+      // This pane is above markers but below popups
+      this.mapa.getPane('labels').style.zIndex = 650;
+    
+      // Layers in this pane are non-interactive and do not obscure mouse/touch events
+      this.mapa.getPane('labels').style.pointerEvents = 'none';
+      
+      const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+        pane: 'labels'
+      });
+      tilesPane.addTo(this.mapa);
+      this.inicializaMunicipiosComponent();
+      this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
+      console.log(this.maxPontuacaoMunicipios)
+      this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
+    })
   }
 
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 }

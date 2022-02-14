@@ -42,6 +42,11 @@
     background-color: rgba(213, 218, 218);
 }
 
+.whitemap{
+    background-color: white;
+    height: 100%;
+}
+
 .gray{
     background-color: white;
 }

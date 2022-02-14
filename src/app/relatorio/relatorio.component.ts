@@ -27,10 +27,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
 
   /*** input data ***/
   protected cities: IbgeData[] = this.mapleafservice.resultsIbge
