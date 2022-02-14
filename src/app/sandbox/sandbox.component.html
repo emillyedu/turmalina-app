@@ -5,11 +5,12 @@
                 <h3></h3>
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <label>Lista de urls</label>
+                        <label>Lista de URLs</label>
                         <input type="text" formControlName="urlName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.urlName.errors }" />
                         <div *ngIf="submitted && f.urlName.errors" class="invalid-feedback">
-                            <div *ngIf="f.urlName.errors.required">Lista de urls é necessária</div>
+                            <div *ngIf="f.urlName.errors.required">Lista de URLs é necessária</div>
                         </div>
+                        <mat-hint>Digite apenas urls separadas por vírgula</mat-hint>
                     </div>
 
                     <div class="form-group">
@@ -21,8 +22,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <button class="btn btn-primary">Register</button>
+                    <div class="form-group button">
+                        <button class="btn btn-primary">SUBMETER</button>
                     </div>
                 </form>
             </div>
