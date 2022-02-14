@@ -1,9 +1,9 @@
-<body>
+<div class="avaliacoes-component">
 	<div class="main-select">
 		<mat-form-field class="select city">
-			<mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" (ngModelChange)="getDates(selectedValue).then()" name="municipio" [formControl]="city" #citySelect>
+			<mat-select placeholder="Selecione o Município/Estado/Órgão Público" [(ngModel)]="selectedValue" (ngModelChange)="getDates(selectedValue).then()" name="municipio" [formControl]="city" #citySelect>
 			<mat-option>
-				<ngx-mat-select-search placeholderLabel="Pesquise o município" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
+				<ngx-mat-select-search placeholderLabel="Pesquise o Município/Estado/Órgão Público" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
 			</mat-option>  
 			<mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
 					{{cityName.nome}}
@@ -44,6 +44,7 @@
 							<th>Final da avaliação</th>
 							<th>Pontuação máxima</th>
 							<th>Portal do município</th>
+							<th>Download</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +54,7 @@
 							<td>{{datesApi[0][1]}}</td>
 							<td>{{resultsEvaluation["score"]}}</td>
 							<td><a [href]="resultsEvaluation['management_unit']['start_urls']" class="btn btn-primary">Portal</a></td>
+							<td><a [href]="relatorioUrl" class="btn btn-primary">Link</a></td>
 							</tr>
 						</tbody>
 						</table>
@@ -924,4 +926,47 @@
 			</div>
 		</section>
 	</div>
-</body>
+    <!-- <footer class="section-footer">
+        <div>
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <div class="logos">
+                        <div class="logo">
+                            <img class="logo-item" src="assets/images/ODS_logo.png" alt="">     
+                        </div>
+                        <div class="logo">
+                            <img class="logo-item" src="assets/images/TCE.png" alt="">
+                        </div>
+                        <div class="logo">
+                            <img class="logo-item logo-ufpb" src="assets/images/UFPB.png" alt="">
+                        </div>
+                        <div class="logo">
+                            <img class="logo-item logo-aria" src="assets/images/ARIA.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-page">
+                    <div class="page">
+                        <a class="footer-nav" routerLink="turmalina" routerLinkActive="nav-active">MAPA</a>
+                    </div>
+                    <span>|</span>
+                    <div class="page">
+                        <a class="footer-nav" routerLink="rank" routerLinkActive="nav-active">RANKING</a>
+                    </div>
+                    <span>|</span>
+                    <div class="page">
+                        <a class="footer-nav" routerLink="relatorio" routerLinkActive="nav-active">RELATÓRIO</a>
+                    </div>
+                    <span>|</span>
+                    <div class="page"> 
+                        <a  class="footer-nav" routerLink="avaliacoes" routerLinkActive="nav-active" >AVALIAÇÕES</a>
+                    </div>
+                    <span>|</span>
+                    <div class="page">
+                        <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active">DOCUMENTAÇÃO</a>  
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </footer> -->
+</div>

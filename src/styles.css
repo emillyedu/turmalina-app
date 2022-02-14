@@ -9,7 +9,7 @@
 :host {
     --weight: 540;
     --color-dark: black;
-    --font-family: "Calibre Light", sans-serif; 
+    --font-family: "Calibre Light", sans-serif;
 }    
 
 /** Documentation **/
@@ -194,4 +194,3 @@ mat-form-field {
         margin-left: 1rem !important;
     }
 }
-

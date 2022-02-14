@@ -382,7 +382,7 @@ export class TutorialComponent {
     
     1. A página de detalhamento da licitação só pode ser aberta acionando o elemento destacado. Portanto, ele contém a classe \`tm-execute\`.  
     
-    \`\`\`html
+    \`\`\`
     <!-- Adição da classe "tm-execute" ao elemento de detalhamento  -->
     
     <a _ngcontent-xmb-c319 class="tm-execute">04.064/2021</a>

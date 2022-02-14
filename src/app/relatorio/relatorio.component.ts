@@ -136,7 +136,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           let dateEvaluation = moment(evaluation.endDateTime).locale('pt').format('L');
 
           if(dateEvaluation != dateAnterior){
-            console.log(dateEvaluation, dateAnterior)
             this.seriesValues.push([dateEvaluation, Number(evaluation.score),])
             indexSeries += 1
             indexAnterior = i;
@@ -197,7 +196,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   /*** createChart ***/
   createChart(nome: string){
-    console.log( this.mapleafservice.resultsSummaryPoints); 
     if(this.barchart!==null && this.barchart!==undefined){
       this.barchart.destroy();
     }
@@ -207,7 +205,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     this.categoryValues = [];
     this.seriesValues = [];
     this.summaryMean = Object.entries(this.mapleafservice.summaryMean).map(([k, v]) => v);
-    console.log(this.summaryMean)
     this.subCategories();
     this.generateColors();
     this.getTimeSeries();
