@@ -4,7 +4,21 @@
     </div>
   </div>
 
-  <form style="padding-left: 1%" id="search-form" class="turmalina-search-municipio-field" fxLayout="column">
+  <div class="main-select">
+    <mat-form-field class="select city" [style.z-index]="10">
+        <mat-select placeholder="Selecione o Município/Estado/Órgão Público" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
+            <mat-option [style.z-index]="90">
+                <ngx-mat-select-search placeholderLabel="Selecione o Município/Estado/Órgão Público" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
+                {{cityName.nome}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button [style.z-index]="9999999" mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
+  </div>
+
+  <!-- <form style="padding-left: 1%" id="search-form" class="turmalina-search-municipio-field" fxLayout="column">
     <div class="input-row turmalina-form-cidades" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
     fxLayoutGap.lt-md="0px">
     <mat-form-field [style.z-index]="9999999" fxFlex
@@ -20,7 +34,7 @@
     </mat-form-field>
     </div>
     <button mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
-  </form>
+  </form> -->
 
   <div class="map-frame" >
     <div  id="map" class="turmalina-mapa-component turmalina-content"  leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers" (leafletMapReady)="mapReady($event)"></div>

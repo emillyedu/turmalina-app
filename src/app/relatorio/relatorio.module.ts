@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_FORMATS } from './datepicker-formats';
-
+import { ModalModule } from '../_modal';
 import _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 const moment = _rollupMoment || _moment;
@@ -21,6 +21,7 @@ const moment = _rollupMoment || _moment;
     RelatorioComponent
   ],
   imports: [
+    ModalModule,
     RoundProgressModule,
     FormsModule, 
     ReactiveFormsModule,

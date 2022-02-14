@@ -8,7 +8,10 @@
 
     --font-family: "Montserrat", sans-serif; 
 }
-
+.jumbotron{
+    font-family: var(--font-family) !important;
+    min-height: 100vh;
+}
 .form-group{
     margin-bottom: 15px;
 }
