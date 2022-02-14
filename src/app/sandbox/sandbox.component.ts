@@ -1,3 +1,4 @@
+import { SandboxService } from './sandbox.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,12 +12,12 @@ export class SandboxComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private registerService: SandboxService) { }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
-          urlName: ['', Validators.required],
-          email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+          start_urls: ['', Validators.required],
+          receiver_address: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       });
   }
 
@@ -30,7 +31,7 @@ export class SandboxComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
-
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+      
+      this.registerService.register(this.registerForm)
   }
 }

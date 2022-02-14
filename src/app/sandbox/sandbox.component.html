@@ -6,19 +6,19 @@
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label>Lista de URLs</label>
-                        <input type="text" formControlName="urlName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.urlName.errors }" />
-                        <div *ngIf="submitted && f.urlName.errors" class="invalid-feedback">
-                            <div *ngIf="f.urlName.errors.required">Lista de URLs é necessária</div>
+                        <input type="text" formControlName="start_urls" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.start_urls.errors }" />
+                        <div *ngIf="submitted && f.start_urls.errors" class="invalid-feedback">
+                            <div *ngIf="f.start_urls.errors.required">Lista de URLs é necessária</div>
                         </div>
                         <mat-hint>Digite apenas urls separadas por vírgula</mat-hint>
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                            <div *ngIf="f.email.errors.required">Email é necessário</div>
-                            <div *ngIf="f.email.errors.email">Digite um endereço de email válido</div>
+                        <input type="text" formControlName="receiver_address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.receiver_address.errors }" />
+                        <div *ngIf="submitted && f.receiver_address.errors" class="invalid-feedback">
+                            <div *ngIf="f.receiver_address.errors.required">Email é necessário</div>
+                            <div *ngIf="f.receiver_address.errors.receiver_address">Digite um endereço de email válido</div>
                         </div>
                     </div>
 
