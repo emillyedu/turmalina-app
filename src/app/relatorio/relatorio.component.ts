@@ -10,7 +10,6 @@ import { take, takeUntil } from 'rxjs/operators';
 import moment from 'moment';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
-import { ModalService } from '../_modal';
 
 @Component({
   selector: 'app-relatorio',
@@ -71,17 +70,10 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   summaryMean: any;
   colorsMean: any;
 
-  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef, private modalService: ModalService){
+  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
     Chart.register(...registerables);
   }
 
-  openModal(id: string) {
-    this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
-  }
   /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/
