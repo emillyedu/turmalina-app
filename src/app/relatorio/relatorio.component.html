@@ -7,8 +7,8 @@
                 <mat-option>
                     <ngx-mat-select-search placeholderLabel="Selecione o Município/Estado/Órgão Público" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
-                    {{cityName.nome}}
+                <mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.public_entity">
+                    {{cityName.public_entity}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

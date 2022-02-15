@@ -166,15 +166,16 @@ export class MapleafService {
   public getIBGE(){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<IbgeData[]>(this.ibgeUrl + '/api/v1/localidades/estados/pb/distritos')
+      .get<IbgeData[]>(this.apiUrl + 'turmalina_units')
       .toPromise()
       .then(
         data => {
+          console.log(data)
           this.resultsIbge = data.map(item => {
             return new IbgeData(
               item.id,
-              item.nome,
-              item.municipio,
+              item.name,
+              item.public_entity,
             )
           })
           resolve();

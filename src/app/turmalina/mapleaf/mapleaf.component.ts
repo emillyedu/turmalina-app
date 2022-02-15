@@ -351,13 +351,13 @@ export class MapleafComponent implements OnInit {
     }
     // filter the banks
     this.filteredCity.next(
-      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+      this.mapleafservice.resultsIbge.filter((bank) => bank.public_entity.toLowerCase().indexOf(search) > -1)
     );
 
   }
   
   sortCities(cities: IbgeData[]){
-    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+    return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
 
     /*** uses the "remove accents" function in searches ***/

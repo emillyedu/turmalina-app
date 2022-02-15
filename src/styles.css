@@ -190,3 +190,18 @@ mat-form-field {
         margin-left: 1rem !important;
     }
 }
+
+.box-modal{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.modal-content{
+    width:40% !important;
+    align-items: center;
+    height: 40%;
+}
+

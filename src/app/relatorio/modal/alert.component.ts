@@ -9,18 +9,20 @@ export interface AlertModel {
 @Component({
   selector: 'alert',
   template: `
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4>{{title || 'Alert!'}}</h4>
-      </div>
-      <div class="modal-body">
-        <p>{{message || 'TADAA-AM!'}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="close()">OK</button>
-      </div>
+    <div class="box-modal">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4>{{title || 'Alert!'}}</h4>
+        </div>
+        <div class="modal-body">
+            <p>{{message || 'TADAA-AM!'}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="close()">OK</button>
+        </div>
+        </div>
     </div>
-  `
+  `,
 })
 export class AlertComponent extends SimpleModalComponent<AlertModel, null> implements AlertModel {
   title!: string;
