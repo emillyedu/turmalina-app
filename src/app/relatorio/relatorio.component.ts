@@ -10,6 +10,8 @@ import { take, takeUntil } from 'rxjs/operators';
 import moment from 'moment';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
+import { SimpleModalService } from 'ngx-simple-modal';
+import { AlertComponent } from './modal/alert.component';
 
 @Component({
   selector: 'app-relatorio',
@@ -70,10 +72,16 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   summaryMean: any;
   colorsMean: any;
 
-  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
+  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef, private SimpleModalService: SimpleModalService){
     Chart.register(...registerables);
   }
 
+  showAlert2(i:number) {
+    console.log(i)
+    this.SimpleModalService.addModal(AlertComponent, { 
+      message: 'Click outside to close dialog' 
+    }, { closeOnClickOutside: true });
+  }
   /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/

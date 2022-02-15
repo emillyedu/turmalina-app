@@ -1,4 +1,5 @@
 <div class="relatorio-component">
+        
     <!--city select-->
     <div class="main-select">
         <mat-form-field class="select city">
@@ -13,6 +14,7 @@
         </mat-form-field>
         <button mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
     </div>
+
 
     <!--graphics-->
     <div class="container">
@@ -46,22 +48,24 @@
                     <div class="graphCircle progress-wrapper" *ngFor="let item of categoryValues; let i = index">
                         <div class="g{{i}}">
                             <div class="current" [ngStyle]="getOverlayStyle()">{{ item }}/{{ categoryMaxPoints[i] }}</div>
-                            <round-progress
-                                [current]="item"
-                                [max]="categoryMaxPoints[i]"
-                                [color]="color"
-                                [background]="background"
-                                [radius]="radius"
-                                [stroke]="stroke"
-                                [semicircle]="semicircle"
-                                [rounded]="rounded"
-                                [clockwise]="clockwise"
-                                [responsive]="responsive"
-                                [duration]="duration"
-                                [animation]= "animation"
-                                [animationDelay]= "animationDelay"
-                                [responsive]="true"
-                            ></round-progress>
+                            <a class="buttonprogress" (click)=showAlert2(i)>
+                                <round-progress
+                                    [current]="item"
+                                    [max]="categoryMaxPoints[i]"
+                                    [color]="color"
+                                    [background]="background"
+                                    [radius]="radius"
+                                    [stroke]="stroke"
+                                    [semicircle]="semicircle"
+                                    [rounded]="rounded"
+                                    [clockwise]="clockwise"
+                                    [responsive]="responsive"
+                                    [duration]="duration"
+                                    [animation]= "animation"
+                                    [animationDelay]= "animationDelay"
+                                    [responsive]="true"
+                                ></round-progress>
+                            </a>
                             <div class="category-labels">{{categoryPtLabels[i]}}</div>
                         </div>
                     </div>

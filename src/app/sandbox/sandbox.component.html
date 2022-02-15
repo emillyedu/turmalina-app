@@ -3,7 +3,17 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h3></h3>
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="container">
+                    <div class="text-center">
+                        <div *ngIf="loading" class="loading">
+                            <img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
+                            <p class="lead">
+                                <img class="loading-gif" src="../../assets/images/1484.png">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <form [style.visibility]="loading ? 'hidden' : 'visible'" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label>Lista de URLs</label>
                         <input type="text" formControlName="start_urls" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.start_urls.errors }" />

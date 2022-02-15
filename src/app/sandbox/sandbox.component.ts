@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SandboxComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
+  loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private registerService: SandboxService) { }
 
@@ -31,7 +32,13 @@ export class SandboxComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
+      this.loading = true
+      this.registerService.register(this.registerForm).subscribe( (res:any) =>{
+        setTimeout(()=>{ 
+          console.log(res)                 // <<<---using ()=> syntax
+        }, 2);
+        this.loading=false;
+      });// <<<---using ()=> syntax
       
-      this.registerService.register(this.registerForm)
   }
 }

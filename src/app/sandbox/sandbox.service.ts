@@ -10,7 +10,6 @@ import { BehaviorSubject } from "rxjs";
 })
 
 export class SandboxService {
-
   public sandboxUrl:string = 'https://turmalina-api.herokuapp.com/turmalina_sandbox' 
   public registerRequests$: BehaviorSubject<number>;
   constructor(private http: HttpClient) {
@@ -23,15 +22,16 @@ export class SandboxService {
     // body = body.append('start_urls', user.start_urls);
     // body = body.append('receiver_address', user.receiver_address);
 
-    let body = JSON.stringify(user.value)
+    let body: any = new HttpParams();
+
+    body = body.append('start_urls', user.value.start_urls);
+    body = body.append('receiver_address', user.value.receiver_address);
     console.log(body) 
     const httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json'})
+        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
 
-    return this.http.post('https://turmalina-api.herokuapp.com/turmalina_sandbox', body, httpOptions).subscribe(res=>{
-        console.log(res);
-    });
+    return this.http.post('https://turmalina-api.herokuapp.com/turmalina_sandbox', body, httpOptions)
   }
 }
 

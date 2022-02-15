@@ -1,3 +1,4 @@
+import { AlertComponent } from './modal/alert.component';
 import { MomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,13 +14,16 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MY_FORMATS } from './datepicker-formats';
 import _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
+import { SimpleModalModule } from 'ngx-simple-modal';
 const moment = _rollupMoment || _moment;
 
 @NgModule({
   declarations: [
+    AlertComponent,
     RelatorioComponent
   ],
   imports: [
+    SimpleModalModule.forRoot({container: "modal-container"}),
     RoundProgressModule,
     FormsModule, 
     ReactiveFormsModule,
@@ -40,7 +44,10 @@ const moment = _rollupMoment || _moment;
       deps: [MAT_DATE_LOCALE]
     },
     MapleafService
-  ]
+  ],
+  entryComponents: [
+    AlertComponent
+  ],
 })
 
 export class RelatorioModule { }

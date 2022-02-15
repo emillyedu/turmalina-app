@@ -176,6 +176,10 @@ round-progress {
     width: 5rem !important;
 }
 
+.buttonprogress{
+    cursor:pointer;
+}
+
 .infos{
     width: 30rem;
     display: flex;
