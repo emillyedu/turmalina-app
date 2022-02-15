@@ -150,10 +150,6 @@ h3{
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
 }
 
-.map-container{
-    margin-top: -3.5rem !important;
-}
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -179,7 +175,7 @@ mat-form-field {
     .legend i{
         width: 15px !important;
     }
-    .leaactlet-bottom{
+    .leaflet-bottom{
         width: 205px;
     }
 }
