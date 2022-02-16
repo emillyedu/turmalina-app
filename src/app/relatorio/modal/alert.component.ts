@@ -15,7 +15,7 @@ export interface AlertModel {
             <h4>{{title || 'Alert!'}}</h4>
         </div>
         <div class="modal-body">
-            <p *ngFor="let data of message">
+            <p *ngFor="let data of message; let i = index" class="message-{{i}}">
               {{data || 'TADAA-AM!'}} 
             </p>
         </div>

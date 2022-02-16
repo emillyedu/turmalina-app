@@ -191,25 +191,50 @@ mat-form-field {
     }
 }
 
+.modal{
+    background-color: #0a1c1f71;
+}
+
 .box-modal{
     font-family: var(--font-family) !important;
     display:flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 90vh;
+    height: 100vh;
+}
+
+.modal-header{
+    padding: 2rem 1rem 0rem 1rem!important;
+    margin-bottom: 0!important;
+}
+
+.modal-header h4{
+    margin-bottom: 0!important;
+}
+
+.modal-body{
+    overflow: auto;
+}
+
+.message-0{
+    font-weight: bold;
+    margin-bottom: 20px !important;
 }
 
 .modal-content{
     width: 40% !important;
     align-items: center;
-    height: 90%;
+    height: 85%;
+}
+
+.modal-footer{
+    padding: 0.5rem 1rem 2rem 1rem!important;
 }
 
 .modal-content .btn{
 	cursor: pointer;
-	border-width: 2px;
-	border-radius: 2px;
+    border-radius: 1px!important;
 	box-shadow: none !important;
 	font-size: 13px;
 	font-weight: 500;
@@ -217,7 +242,7 @@ mat-form-field {
     background-color: #4e949f;
     border-color: #4e949f;
     color: white ;
-    width: 5rem;
+    width: 8rem;
 }
 
 @media screen and (min-width: 800px) and (max-width: 2000px){
