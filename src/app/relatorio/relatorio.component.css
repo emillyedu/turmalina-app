@@ -211,12 +211,13 @@ round-progress {
     font-weight: bold;
     font-size: 35px;
     margin-top: -1rem;
+    margin-bottom: -0rem;
 }
 
-.dateLast p{
+.dateLast a{
     color: rgb(48 47 47 / 61%);
     font-size: 18px;
-    margin-top: -1rem;
+    text-decoration: none;
 }
 
 .graphBar{

@@ -15,7 +15,7 @@
 			</div>
 		</div>
 	</div>
-    <div class="example-container table" [style.visibility]="(visibility === false) ? 'hidden' : 'visible'" >
+    <div class="example-container table" [style.visibility]="(loading === true) ? 'hidden' : 'visible'" >
         <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="posicao">
                 <th class="section" mat-header-cell *matHeaderCellDef> Posição
@@ -53,6 +53,6 @@
         </table>
     </div>
     <div class="amount-page">
-        <mat-paginator class= "max-pagination" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons [style.visibility]="(visibility === false) ? 'hidden' : 'visible'"></mat-paginator>
+        <mat-paginator class= "max-pagination" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons [style.visibility]="(loading === true) ? 'hidden' : 'visible'"></mat-paginator>
     </div>
 </div>

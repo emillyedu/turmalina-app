@@ -125,8 +125,8 @@ export class MapleafComponent implements OnInit {
 
   
   public getColor(pontuacaoMunicipio: any) {
-    this.escalaCorLegenda = this.escalaCorLegenda === undefined ? d3.scaleSequential(d3ScaleChromatic.interpolateViridis)
-      .domain([this.maxPontuacaoMunicipios, 0]) : this.escalaCorLegenda;
+    this.escalaCorLegenda = this.escalaCorLegenda === undefined ? d3.scaleSequential(["#004D66", "#87DED7"])
+      .domain([this.MAX_PONTUACAO,0]) : this.escalaCorLegenda;
     return this.escalaCorLegenda(pontuacaoMunicipio);
   }
 
@@ -155,30 +155,7 @@ export class MapleafComponent implements OnInit {
           ],
           { color: "#3b3b3b3b", weight: 1, fillOpacity: 0.26 }
         ).addTo(map);
-        
-        this.mapleafservice.getRankingModel().subscribe((data: any) => {
-          
-          this.convertJsonObjMunicipio(data);
-          
-          this.fetchTiles(this.stateTiles);
-          
-          this.mapa.createPane('labels');
-
-          // This pane is above markers but below popups
-          this.mapa.getPane('labels').style.zIndex = 650;
-        
-          // Layers in this pane are non-interactive and do not obscure mouse/touch events
-          this.mapa.getPane('labels').style.pointerEvents = 'none';
-          
-          const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-            pane: 'labels'
-          });
-          tilesPane.addTo(this.mapa);
-          this.inicializaMunicipiosComponent();
-          this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
-          console.log(this.maxPontuacaoMunicipios)
-          this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
-        })
+       
       });
   
       const vm = this;
@@ -218,6 +195,7 @@ export class MapleafComponent implements OnInit {
     layers: [
       tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', { minZoom: 6, maxZoom: 11, attribution: '...' }),
     ],
+    attributionControl: false,
     zoom: this.initialZoom,
     zoomControl: false,
     center: latLng(-7.16554, -36.13779)
@@ -355,7 +333,7 @@ export class MapleafComponent implements OnInit {
     );
 
   }
-  
+
   sortCities(cities: IbgeData[]){
     return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
@@ -384,28 +362,29 @@ export class MapleafComponent implements OnInit {
       this.filterCities();
     });
 
-    // this.mapleafservice.getRankingModel().subscribe((data: any) => {
-    //   this.convertJsonObjMunicipio(data);
-    //   this.layers = this.getTilesByZoomLevel();
-    //   console.log("get ranking")
-    //   this.fetchTiles(this.stateTiles);
-    //   this.mapa.createPane('labels');
+    this.mapleafservice.getRankingModel().subscribe((data: any) => {
+      this.convertJsonObjMunicipio(data);
+      this.layers = this.getTilesByZoomLevel();
+      console.log("get ranking")
+      this.fetchTiles(this.stateTiles);
+      this.mapa.createPane('labels');
 
-    //   // This pane is above markers but below popups
-    //   this.mapa.getPane('labels').style.zIndex = 650;
+      // This pane is above markers but below popups
+      this.mapa.getPane('labels').style.zIndex = 650;
     
-    //   // Layers in this pane are non-interactive and do not obscure mouse/touch events
-    //   this.mapa.getPane('labels').style.pointerEvents = 'none';
+      // Layers in this pane are non-interactive and do not obscure mouse/touch events
+      this.mapa.getPane('labels').style.pointerEvents = 'none';
       
-    //   const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-    //     pane: 'labels'
-    //   });
-    //   tilesPane.addTo(this.mapa);
-    //   this.inicializaMunicipiosComponent();
-    //   this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
-    //   console.log(this.maxPontuacaoMunicipios)
-    //   this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
-    // })
+      const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+        pane: 'labels'
+      });
+      tilesPane.addTo(this.mapa);
+      this.inicializaMunicipiosComponent();
+      this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
+      console.log(this.maxPontuacaoMunicipios)
+      this.color = d3.scaleSequential(["#004D66", "#87DED7"]).domain([this.MAX_PONTUACAO, 0]);
+      //this.color = d3.scaleSequential(d3.interpolateBlues).domain([0, this.MAX_PONTUACAO]);
+    })
   }
 
   ngOnDestroy(): void {

@@ -21,6 +21,11 @@
 	</div>
 	<div class="container">
 		<div class="text-center">
+            <div *ngIf="miniturmalina" class="loading">
+                <img class="gif-loading" src="../../assets/images/turmalina-minerando.gif">
+            </div>
+        </div>
+		<div class="text-center">
 			<div *ngIf="loading" class="loading">
 				<img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
 				<p class="lead">
@@ -30,7 +35,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="resultsEvaluation" class="alltables">
+	<div *ngIf="resultsEvaluation" class="alltables" [style.visibility]="(loading === true) ? 'hidden' : 'visible'">
 		<section class="ftco-section">
 		<div class="container">
 			<div class="row">

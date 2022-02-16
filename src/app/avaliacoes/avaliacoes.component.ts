@@ -35,6 +35,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   selectedValueData!: string;
   endDate!: Date;
   loading!: boolean;
+  miniturmalina: boolean = true;
   result: any;
   colors:any;
   filter:any;
@@ -127,6 +128,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   }
 
   getDadosApi(id:string){
+    this.miniturmalina = false
     this.loading = true
     this.mapleafservice.getTurmalinaEvaluationId(id).then(_ => {
       setTimeout(() => {
