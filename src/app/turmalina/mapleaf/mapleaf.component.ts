@@ -311,7 +311,9 @@ export class MapleafComponent implements OnInit {
 
   public getConteudoPopUp(municipio: Municipio) {
     return '<b>' + municipio.nome +
-      '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima;
+      '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima
+      + '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima
+      ;
   }
 
   
