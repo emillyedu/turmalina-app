@@ -5,6 +5,16 @@
             <mat-icon style="color: dimgray !important" matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
+    <div class="container">
+		<div class="text-center">
+			<div *ngIf="loading" class="loading">
+				<img class="gif-loading" src="../../assets/images/ezgif.com-gif-maker.gif">
+				<p class="lead">
+					<img class="loading-gif" src="../../assets/images/1484.png">
+				</p>
+			</div>
+		</div>
+	</div>
     <div class="example-container table" [style.visibility]="(visibility === false) ? 'hidden' : 'visible'" >
         <table class="mat-elevation-z8" mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="posicao">
@@ -43,50 +53,6 @@
         </table>
     </div>
     <div class="amount-page">
-    <mat-paginator class= "max-pagination" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+        <mat-paginator class= "max-pagination" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons [style.visibility]="(visibility === false) ? 'hidden' : 'visible'"></mat-paginator>
     </div>
 </div>
-
-<!-- <footer class="section-footer">
-    <div class="container">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <div class="logos">
-                    <div class="logo">
-                        <img class="logo-item" src="assets/images/ODS_logo.png" alt="">     
-                    </div>
-                    <div class="logo">
-                        <img class="logo-item" src="assets/images/TCE.png" alt="">
-                    </div>
-                    <div class="logo">
-                        <img class="logo-item logo-ufpb" src="assets/images/UFPB.png" alt="">
-                    </div>
-                    <div class="logo">
-                        <img class="logo-item logo-aria" src="assets/images/ARIA.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="footer-page">
-                <div class="page">
-                    <a class="footer-nav" routerLink="turmalina" routerLinkActive="nav-active">MAPA</a>
-                </div>
-                <span>|</span>
-                <div class="page">
-                    <a class="footer-nav" routerLink="rank" routerLinkActive="nav-active">RANKING</a>
-                </div>
-                <span>|</span>
-                <div class="page">
-                    <a class="footer-nav" routerLink="relatorio" routerLinkActive="nav-active">RELATÓRIO</a>
-                </div>
-                <span>|</span>
-                <div class="page"> 
-                    <a  class="footer-nav" routerLink="avaliacoes" routerLinkActive="nav-active" >AVALIAÇÕES</a>
-                </div>
-                <span>|</span>
-                <div class="page">
-                    <a  class="footer-nav" routerLink="documentation" routerLinkActive="nav-active">DOCUMENTAÇÃO</a>  
-                </div>
-            </div> 
-        </div>
-    </div>
-</footer> -->

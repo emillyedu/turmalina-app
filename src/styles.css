@@ -192,6 +192,7 @@ mat-form-field {
 }
 
 .box-modal{
+    font-family: var(--font-family) !important;
     display:flex;
     justify-content: center;
     flex-direction: column;
@@ -205,3 +206,28 @@ mat-form-field {
     height: 40%;
 }
 
+.modal-content .btn{
+	cursor: pointer;
+	border-width: 2px;
+	border-radius: 2px;
+	box-shadow: none !important;
+	font-size: 13px;
+	font-weight: 500;
+	box-shadow: 0px 10px 20px -6px rgba(0,0,0,0.12);
+    background-color: #4e949f;
+    border-color: #4e949f;
+    color: white ;
+    width: 5rem;
+}
+
+@media screen and (min-width: 800px) and (max-width: 2000px){
+    .modal-content{
+        min-width: 35rem !important;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 800px){
+    .modal-content{
+        min-width: 80vw !important;
+    }
+}

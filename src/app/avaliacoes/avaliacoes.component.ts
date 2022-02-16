@@ -11,9 +11,9 @@ import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
 import moment from 'moment';
 @Component({
-  selector: 'app-Avaliacoes',
-  templateUrl: './Avaliacoes.component.html',
-  styleUrls: ['./Avaliacoes.component.css']
+  selector: 'app-avaliacoes',
+  templateUrl: './avaliacoes.component.html',
+  styleUrls: ['./avaliacoes.component.css']
 })
 export class AvaliacoesComponent implements OnInit, OnDestroy{
   /*** instantiation forms ***/
