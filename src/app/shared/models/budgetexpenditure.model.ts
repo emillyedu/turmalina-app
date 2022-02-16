@@ -19,6 +19,4 @@ export class BudgetExpenditure{
     managementUnitID!: number;
     managementUnitName!: number;
     paymentAmount!: number;
-
-    subCategoryNames: string[] = ["Número da Licitação", "Modalidade da Licitação", "Ação", "Elemento da Despesa", "Função", "Modalidade de Aplicação", "Programa", "Subfunção", "Natureza da Despesa", "Data do Empenho", "Histórico do Empenho", "Número do Empenho", "Valor do Empenho", "Favorecido do Empenho", "Categoria Econômica", "Valor fixado", "CNPJ/CPF do Favorecido", "Valor pago"]
 }

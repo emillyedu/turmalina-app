@@ -10,6 +10,4 @@ export class BidModel{
     object!: number;
     publicationDate!: number;
     realizationDate!: number;
-
-    subCategoryNames: string[] = ["Número de Ordem/Série", "Modalidade de Licitação", "Nome dos Participantes", "Valores", "CNPJ/CPF", "Repartição/Setor Interessado", "Edital", "Objeto", "Data de Publicação", "Data de Realização"]
 }

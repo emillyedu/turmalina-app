@@ -11,6 +11,4 @@ export class ExtraBudgetExpenditureModel{
     tabDate!: number
     tabHistory!: number
     tabID!: number
-
-    subCategoryNames: string[] = ["Credor", "Descrição", "Código adotado", "Nomenclatura", "CNPJ/CPF do Credor", "Órgão/Unidade Orçamentária", "Data de movimentação", "Valor pago", "Data da Guia", "Histórico", "Número da Guia"]
 }

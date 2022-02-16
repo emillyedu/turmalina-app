@@ -38,7 +38,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   startDate!: Date;
   endDate!: Date;
   loading!: boolean;
-
+  miniturmalina: boolean = true;
   /*** graphics ***/
   datalength!: number;
   result: any[]=[];
@@ -313,6 +313,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   /*** capture API data ***/
   getDadosTotalPoints(nome:any){
+    this.miniturmalina = false
     this.loading = true
     this.mapleafservice.getSummaryPoints(nome, "12").then(_ => {
       this.mapleafservice.getTurmalinaMean().then(_ => {      

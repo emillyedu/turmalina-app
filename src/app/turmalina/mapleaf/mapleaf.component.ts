@@ -155,30 +155,7 @@ export class MapleafComponent implements OnInit {
           ],
           { color: "#3b3b3b3b", weight: 1, fillOpacity: 0.26 }
         ).addTo(map);
-        
-        this.mapleafservice.getRankingModel().subscribe((data: any) => {
-          
-          this.convertJsonObjMunicipio(data);
-          
-          this.fetchTiles(this.stateTiles);
-          
-          this.mapa.createPane('labels');
-
-          // This pane is above markers but below popups
-          this.mapa.getPane('labels').style.zIndex = 650;
-        
-          // Layers in this pane are non-interactive and do not obscure mouse/touch events
-          this.mapa.getPane('labels').style.pointerEvents = 'none';
-          
-          const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-            pane: 'labels'
-          });
-          tilesPane.addTo(this.mapa);
-          this.inicializaMunicipiosComponent();
-          this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
-          console.log(this.maxPontuacaoMunicipios)
-          this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
-        })
+       
       });
   
       const vm = this;
@@ -384,28 +361,28 @@ export class MapleafComponent implements OnInit {
       this.filterCities();
     });
 
-    // this.mapleafservice.getRankingModel().subscribe((data: any) => {
-    //   this.convertJsonObjMunicipio(data);
-    //   this.layers = this.getTilesByZoomLevel();
-    //   console.log("get ranking")
-    //   this.fetchTiles(this.stateTiles);
-    //   this.mapa.createPane('labels');
+    this.mapleafservice.getRankingModel().subscribe((data: any) => {
+      this.convertJsonObjMunicipio(data);
+      this.layers = this.getTilesByZoomLevel();
+      console.log("get ranking")
+      this.fetchTiles(this.stateTiles);
+      this.mapa.createPane('labels');
 
-    //   // This pane is above markers but below popups
-    //   this.mapa.getPane('labels').style.zIndex = 650;
+      // This pane is above markers but below popups
+      this.mapa.getPane('labels').style.zIndex = 650;
     
-    //   // Layers in this pane are non-interactive and do not obscure mouse/touch events
-    //   this.mapa.getPane('labels').style.pointerEvents = 'none';
+      // Layers in this pane are non-interactive and do not obscure mouse/touch events
+      this.mapa.getPane('labels').style.pointerEvents = 'none';
       
-    //   const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-    //     pane: 'labels'
-    //   });
-    //   tilesPane.addTo(this.mapa);
-    //   this.inicializaMunicipiosComponent();
-    //   this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
-    //   console.log(this.maxPontuacaoMunicipios)
-    //   this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
-    // })
+      const tilesPane =  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+        pane: 'labels'
+      });
+      tilesPane.addTo(this.mapa);
+      this.inicializaMunicipiosComponent();
+      this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
+      console.log(this.maxPontuacaoMunicipios)
+      this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
+    })
   }
 
   ngOnDestroy(): void {

@@ -211,6 +211,8 @@ mat-form-field {
 
 .modal-header h4{
     margin-bottom: 0!important;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 .modal-body{
