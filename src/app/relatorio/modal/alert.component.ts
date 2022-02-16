@@ -3,7 +3,7 @@ import { SimpleModalComponent } from 'ngx-simple-modal';
 
 export interface AlertModel {
   title?: string;
-  message: string;
+  message: string[];
 }
 
 @Component({
@@ -15,7 +15,9 @@ export interface AlertModel {
             <h4>{{title || 'Alert!'}}</h4>
         </div>
         <div class="modal-body">
-            <p>{{message || 'TADAA-AM!'}}</p>
+            <p *ngFor="let data of message">
+              {{data || 'TADAA-AM!'}} 
+            </p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="close()">OK</button>
@@ -26,7 +28,7 @@ export interface AlertModel {
 })
 export class AlertComponent extends SimpleModalComponent<AlertModel, null> implements AlertModel {
   title!: string;
-  message!: string;
+  message!: string[];
   constructor() {
     super();
   }

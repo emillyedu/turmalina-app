@@ -52,6 +52,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   seriesValues: any[] = [];
   categoryMaxPoints: number[] = [45, 150, 120, 45, 40, 50, 70, 15, 60, 30];
   categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
+  categoryLabels: string[] = [ "Agreement","Bid","BudgetExpenditure","BudgetRevenue","Contract","EmployeeInformation","ExtraBudgetExpenditure","ExtraBudgetRevenue","PaymentDocument","PlanningInstrument"];
   scoreTotal!: number;
   lastUpdate!: string;
   nameCity!: string;
@@ -76,12 +77,35 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     Chart.register(...registerables);
   }
 
+  /** display modal */
   showAlert2(i:number) {
-    console.log(i)
-    this.SimpleModalService.addModal(AlertComponent, { 
-      message: 'Click outside to close dialog' 
-    }, { closeOnClickOutside: true });
+    this.mapleafservice.getSubCategoryJson().subscribe((jsonNames:any) => {
+      let results = this.mapleafservice.resultsSummaryPoints?.slice(0,1)[0].detailedEvaluation
+      let nameCategory: string[] = []
+      Object.keys(jsonNames[this.categoryPtLabels[i]]).forEach(function(key){
+        console.log(key)
+        nameCategory.push(key)
+      });
+      let fullText = []
+      let iterator = 0
+      
+      for( var item in results[this.categoryLabels[i]]){
+        let value = results[this.categoryLabels[i]][item]
+        if(iterator == 0){
+          fullText.push(`Os atributos desta categoria obtiveram os seguintes resultados:`)
+        }
+        fullText.push(`${nameCategory[iterator]} : ${Number(value)}\n`)
+        iterator += 1
+      }
+
+      // let cafe = ` ${subCategoryValues[0]}\n`
+      this.SimpleModalService.addModal(AlertComponent, { 
+        title: `${this.categoryPtLabels[i]}`,
+        message: fullText
+      }, { closeOnClickOutside: true });
+    })
   }
+  
   /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/

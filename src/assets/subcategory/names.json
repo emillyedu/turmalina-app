@@ -1,0 +1,117 @@
+{
+    "Convênios":{
+        "Valor Pactuado": 0, 
+        "Número do Convênio": 0,
+        "Data da Celebração": 0,
+        "Convenente": 0, 
+        "Valor da Contrapartida": 0, 
+        "Concedente": 0, 
+        "Objeto": 0, 
+        "Data da Publicação": 0, 
+        "Vigência": 0
+    },
+
+    "Licitações": {
+        "Número de Ordem/Série": 0,
+        "Modalidade de Licitação": 0,
+        "Nome dos Participantes": 0,
+        "Valores": 0,
+        "CNPJ/CPF": 0,
+        "Repartição/Setor Interessado": 0,
+        "Edital": 0,
+        "Objeto": 0,
+        "Data de Publicação": 0,
+        "Data de Realização": 0
+    },
+
+    "Despesa": {
+        "Número da Licitação": 0,
+        "Modalidade da Licitação": 0,
+        "Ação": 0,
+        "Elemento da Despesa": 0,
+        "Função": 0,
+        "Modalidade de Aplicação": 0,
+        "Programa": 0,
+        "Subfunção": 0,
+        "Natureza da Despesa": 0,
+        "Data do Empenho": 0,
+        "Histórico do Empenho": 0,
+        "Número do Empenho": 0,
+        "Valor do Empenho": 0,
+        "Favorecido do Empenho": 0,
+        "Categoria Econômica": 0,
+        "Valor fixado": 0,
+        "CNPJ/CPF do Favorecido": 0,
+        "Valor pago": 0
+    },
+
+    "Receita": {
+        "Rúbrica/Descrição": 0,
+        "Origem da Receita": 0,
+        "Valor Arrecadado": 0,
+        "Unidade Gestora Arrecadadora": 0,
+        "Valor Previsto": 0
+    },
+
+    "Contratos": {
+        "Valor Pactuado": 0,
+        "Número do Contrato": 0,
+        "Nome do Contratado": 0,
+        "CNPJ/CPF do Contratado": 0,
+        "Unidade Gestora": 0,
+        "Concedente": 0,
+        "Objeto": 0,
+        "Data da Publicação": 0,
+        "Vigência": 0
+    },
+    
+    "Pessoal": {
+        "Nome dos Funcionários": 0,
+        "Cargo / Função": 0,
+        "Salário por servidor": 0,
+        "Tipo de Cargo / Emprego / Função": 0,
+        "CPF": 0
+    },
+
+    "Despesa Extra":{
+        "Credor": 0,
+        "Descrição": 0,
+        "Código adotado": 0,
+        "Nomenclatura": 0,
+        "CNPJ/CPF do Credor": 0,
+        "Órgão/Unidade Orçamentária": 0,
+        "Data de movimentação": 0,
+        "Valor pago": 0,
+        "Data da Guia": 0,
+        "Histórico": 0,
+        "Número da Guia": 0
+    },
+
+    "Receita Extra": {
+        "Rúbrica/Descrição": 0,
+        "Histórico": 0,
+        "Código adotado": 0,
+        "Origem da receita": 0,
+        "Unidade Gestora Arrecadadora": 0,
+        "Nomeclatura utilizada": 0,
+        "Valor Realizado": 0
+    },
+
+    "Pagamento": {
+        "Conta Bancária": 0,
+        "Número": 0,
+        "Favorecido": 0,
+        "Fonte de Recursos": 0,
+        "CPF do Favorecido": 0,
+        "Unidade Gestora Emitente": 0,
+        "Valor": 0,
+        "Data": 0,
+        "Histórico do Pagamento": 0
+    },
+
+    "Planejamento": {
+        "Lei Orçamentária Anual": 0,
+        "Lei de Diretrizes Orçamentárias": 0,
+        "Plano Plurianual": 0
+    }
+}   

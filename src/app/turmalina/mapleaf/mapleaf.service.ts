@@ -18,7 +18,7 @@ export class MapleafService {
   ibgeUrl = 'https://servicodados.ibge.gov.br/'
   
   resultsDetailPoints!: TurmalinaStampDetail[];
-  resultsSummaryPoints?: TurmalinaStamp[];
+  resultsSummaryPoints!: any;
   resultsIbge : IbgeData[];
   resultsDates!: any[];
   resultsEvaluationId!: any;
@@ -27,8 +27,11 @@ export class MapleafService {
 
   constructor(private http:HttpClient) {
     this.resultsDetailPoints = [];
-    this.resultsSummaryPoints = [];
     this.resultsIbge = [];
+  }
+
+  public getSubCategoryJson(): Observable<any>{
+    return this.http.get("./assets/subcategory/names.json")
   }
 
   public getParaibaGeoJson(): Observable<any> {
@@ -134,7 +137,6 @@ export class MapleafService {
   }
 
   public getSummaryPoints(municipio:string, quantity:string){
-    this.resultsSummaryPoints = undefined;
     let promise = new Promise<void>((resolve, reject) => {
       this.http
       .get<any[]>(this.apiUrl + 'turmalina_entitieslatest' + '?entity=' + municipio + '&quantity=' +  quantity)
@@ -143,6 +145,7 @@ export class MapleafService {
         data => {
           this.resultsSummaryPoints = data.map(item => {
             return new TurmalinaStamp(
+              item.detailed_evaluation,
               item.end_datetime,
               item.id,
               item.log_path,
@@ -170,7 +173,6 @@ export class MapleafService {
       .toPromise()
       .then(
         data => {
-          console.log(data)
           this.resultsIbge = data.map(item => {
             return new IbgeData(
               item.id,

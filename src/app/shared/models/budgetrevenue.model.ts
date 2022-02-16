@@ -5,4 +5,6 @@ export class BudgetRevenue{
     managementUnitID!: number;
     managementUnitName!: number;
     predictedAmount!: number;
+
+    subCategoryNames: string[] = ["Rúbrica/Descrição", "Origem da Receita", "Valor Arrecadado", "Unidade Gestora Arrecadadora", "Valor Previsto"]
 }
