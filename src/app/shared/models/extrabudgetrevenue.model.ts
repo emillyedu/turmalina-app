@@ -7,6 +7,4 @@ export class ExtraBudgetRevenueModel{
     managementUnitName!: number;
     nomenclature!: number;
     realizedAmount!: number;
-
-    subCategoryNames: string[] = ["Rúbrica/Descrição", "Histórico", "Código adotado", "Origem da receita", "Unidade Gestora Arrecadadora", "Nomeclatura utilizada", "Valor Realizado"]
 }

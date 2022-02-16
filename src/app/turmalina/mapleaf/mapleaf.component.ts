@@ -125,8 +125,8 @@ export class MapleafComponent implements OnInit {
 
   
   public getColor(pontuacaoMunicipio: any) {
-    this.escalaCorLegenda = this.escalaCorLegenda === undefined ? d3.scaleSequential(d3ScaleChromatic.interpolateViridis)
-      .domain([this.maxPontuacaoMunicipios, 0]) : this.escalaCorLegenda;
+    this.escalaCorLegenda = this.escalaCorLegenda === undefined ? d3.scaleSequential(["#004D66", "#87DED7"])
+      .domain([this.MAX_PONTUACAO,0]) : this.escalaCorLegenda;
     return this.escalaCorLegenda(pontuacaoMunicipio);
   }
 
@@ -195,6 +195,7 @@ export class MapleafComponent implements OnInit {
     layers: [
       tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', { minZoom: 6, maxZoom: 11, attribution: '...' }),
     ],
+    attributionControl: false,
     zoom: this.initialZoom,
     zoomControl: false,
     center: latLng(-7.16554, -36.13779)
@@ -332,7 +333,7 @@ export class MapleafComponent implements OnInit {
     );
 
   }
-  
+
   sortCities(cities: IbgeData[]){
     return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
@@ -381,7 +382,8 @@ export class MapleafComponent implements OnInit {
       this.inicializaMunicipiosComponent();
       this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
       console.log(this.maxPontuacaoMunicipios)
-      this.color = d3.scaleSequential(d3ScaleChromatic.interpolateViridis).domain([this.maxPontuacaoMunicipios, 0]);
+      this.color = d3.scaleSequential(["#004D66", "#87DED7"]).domain([this.MAX_PONTUACAO, 0]);
+      //this.color = d3.scaleSequential(d3.interpolateBlues).domain([0, this.MAX_PONTUACAO]);
     })
   }
 
