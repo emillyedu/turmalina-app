@@ -43,6 +43,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   datesApi: any[] = [];
 
   resultsEvaluation: any;
+  relatorioUrl!: string;
   // @Input() max: any;
   // tomorrow = new Date();
 
@@ -65,6 +66,8 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     else{
       return false;
     }
+
+   
   }
 
   verifyDates(datesForms:string, datesApi:any[]){
@@ -119,7 +122,8 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   createTable(){
     this.resultsEvaluation = this.mapleafservice.resultsEvaluationId
     this.datesApi.push([moment(this.resultsEvaluation["start_datetime"]).format("DD/MM/YYYY"), moment(this.resultsEvaluation["end_datetime"]).format("DD/MM/YYYY")])
-    console.log(this.resultsEvaluation["detailed_evaluation"])
+    let dateFormated = moment(this.datesApi[0][1]).format("YYYY-DD-MM")
+    this.relatorioUrl = "https://turmalina-api.herokuapp.com/turmalina_report?management_unit=" + (this.resultsEvaluation["management_unit"]["name"]) + "&date=" + (dateFormated)
   }
 
   getDadosApi(id:string){
@@ -167,12 +171,12 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     }
     // filter the cities
     this.filteredCity.next(
-      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+      this.mapleafservice.resultsIbge.filter((bank) => bank.public_entity.toLowerCase().indexOf(search) > -1)
     );
   }
 
   sortCities(cities: IbgeData[]){
-    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+    return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
 
   ngOnInit(): void {

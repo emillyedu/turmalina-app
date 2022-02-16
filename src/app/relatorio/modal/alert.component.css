@@ -1,0 +1,7 @@
+.box-modal{
+    display:flex;
+    justify-content: center;
+}
+.modal-content{
+    width:50% !important;
+}

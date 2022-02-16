@@ -6,6 +6,7 @@ import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { resolve } from 'dns';
 import { IbgeData } from 'src/app/shared/models/ibgenames.model';
+import { Municipio } from 'src/app/shared/models/municipio.class';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class MapleafService {
 
   public getParaibaGeoJson(): Observable<any> {
     return this.http.get("./assets/map-data/paraiba.json")
+  }
+
+  public getEstadoParaibaGeoJson(): Observable<any> {
+    return this.http.get("./assets/map-data/shape_paraiba.json")
   }
   
   public getTurmalinaStamp(municipio:string, firststamp:string, secondstamp:string){
@@ -106,6 +111,10 @@ export class MapleafService {
     return promise
   }
 
+  public getRankingModel(): Observable<any>{
+    return this.http.get<any[]>(this.apiUrl + 'turmalina_ranking')
+  }
+
   public getTurmalinaDates(municipio:string){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
@@ -157,15 +166,16 @@ export class MapleafService {
   public getIBGE(){
     let promise = new Promise<void>((resolve, reject) => {
       this.http
-      .get<IbgeData[]>(this.ibgeUrl + '/api/v1/localidades/estados/pb/distritos')
+      .get<IbgeData[]>(this.apiUrl + 'turmalina_units')
       .toPromise()
       .then(
         data => {
+          console.log(data)
           this.resultsIbge = data.map(item => {
             return new IbgeData(
               item.id,
-              item.nome,
-              item.municipio,
+              item.name,
+              item.public_entity,
             )
           })
           resolve();

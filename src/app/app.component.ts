@@ -22,7 +22,12 @@ export class AppComponent implements OnInit, AfterViewInit{
             this.colorString = "gray";
           }
           else{
-            this.colorString = "white";
+            if(event.url.search("/turmalina") != -1){
+              this.colorString ="whitemap"
+            }
+            else{
+              this.colorString = "white";
+            }
           }
         }
       }

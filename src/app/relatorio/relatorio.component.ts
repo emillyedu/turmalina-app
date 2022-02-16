@@ -10,6 +10,9 @@ import { take, takeUntil } from 'rxjs/operators';
 import moment from 'moment';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
+import { SimpleModalService } from 'ngx-simple-modal';
+import { AlertComponent } from './modal/alert.component';
+
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
@@ -27,10 +30,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
 
   /*** input data ***/
   protected cities: IbgeData[] = this.mapleafservice.resultsIbge
@@ -73,10 +72,16 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   summaryMean: any;
   colorsMean: any;
 
-  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef){
+  constructor(public mapleafservice: MapleafService, public changeDetectorRef: ChangeDetectorRef, private SimpleModalService: SimpleModalService){
     Chart.register(...registerables);
   }
 
+  showAlert2(i:number) {
+    console.log(i)
+    this.SimpleModalService.addModal(AlertComponent, { 
+      message: 'Click outside to close dialog' 
+    }, { closeOnClickOutside: true });
+  }
   /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/
@@ -140,7 +145,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           let dateEvaluation = moment(evaluation.endDateTime).locale('pt').format('L');
 
           if(dateEvaluation != dateAnterior){
-            console.log(dateEvaluation, dateAnterior)
             this.seriesValues.push([dateEvaluation, Number(evaluation.score),])
             indexSeries += 1
             indexAnterior = i;
@@ -201,7 +205,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
 
   /*** createChart ***/
   createChart(nome: string){
-    console.log( this.mapleafservice.resultsSummaryPoints); 
     if(this.barchart!==null && this.barchart!==undefined){
       this.barchart.destroy();
     }
@@ -211,7 +214,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     this.categoryValues = [];
     this.seriesValues = [];
     this.summaryMean = Object.entries(this.mapleafservice.summaryMean).map(([k, v]) => v);
-    console.log(this.summaryMean)
     this.subCategories();
     this.generateColors();
     this.getTimeSeries();
@@ -319,13 +321,13 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     }
     // filter the banks
     this.filteredCity.next(
-      this.mapleafservice.resultsIbge.filter((bank) => bank.nome.toLowerCase().indexOf(search) > -1)
+      this.mapleafservice.resultsIbge.filter((bank) => bank.public_entity.toLowerCase().indexOf(search) > -1)
     );
 
   }
   
   sortCities(cities: IbgeData[]){
-    return cities.sort((a, b) => a.nome.localeCompare(b.nome))
+    return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
 
   ngOnInit(): void {

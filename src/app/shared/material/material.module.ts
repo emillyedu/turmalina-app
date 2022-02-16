@@ -154,6 +154,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
             MatProgressBarModule,
             MatProgressSpinnerModule,
             NgxMatSelectSearchModule  
-          ]
+          ],
 })
 export class MaterialModule { }

@@ -1,7 +1,7 @@
 export class IbgeData{
     constructor(
         public id : number,
-        public nome : string,
-        public municipio : any[]
+        public name : string,
+        public public_entity : string
     ){}
 }

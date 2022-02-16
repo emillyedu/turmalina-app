@@ -3,11 +3,13 @@
 @import "../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css";
 @import "../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~leaflet/dist/leaflet.css";
+
 
 :host {
     --weight: 540;
     --color-dark: black;
-    --font-family: "Calibre Light", sans-serif; 
+    --font-family: "Calibre Light", sans-serif;
 }    
 
 /** Documentation **/
@@ -90,7 +92,7 @@ h3{
 
  /** Map **/
 
-.leaflet-right{
+ .leaflet-right{
     margin-right: 30px;
 }
 
@@ -139,17 +141,13 @@ h3{
     background: white; 
     background: rgba(255,255,255,0.8); 
     box-shadow: 0 0 15px rgba(0,0,0,0.2); 
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 
 .info h4 { 
     margin: 0 0 5px; 
     color: #777;
     font: 17px/18px Arial, Helvetica, sans-serif !important; 
-}
-
-.map-container{
-    margin-top: -3.5rem !important;
 }
 
 html, body { height: 100%; }
@@ -177,7 +175,7 @@ mat-form-field {
     .legend i{
         width: 15px !important;
     }
-    .leaactlet-bottom{
+    .leaflet-bottom{
         width: 205px;
     }
 }
@@ -193,3 +191,43 @@ mat-form-field {
     }
 }
 
+.box-modal{
+    font-family: var(--font-family) !important;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.modal-content{
+    width:40% !important;
+    align-items: center;
+    height: 40%;
+}
+
+.modal-content .btn{
+	cursor: pointer;
+	border-width: 2px;
+	border-radius: 2px;
+	box-shadow: none !important;
+	font-size: 13px;
+	font-weight: 500;
+	box-shadow: 0px 10px 20px -6px rgba(0,0,0,0.12);
+    background-color: #4e949f;
+    border-color: #4e949f;
+    color: white ;
+    width: 5rem;
+}
+
+@media screen and (min-width: 800px) and (max-width: 2000px){
+    .modal-content{
+        min-width: 35rem !important;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 800px){
+    .modal-content{
+        min-width: 80vw !important;
+    }
+}

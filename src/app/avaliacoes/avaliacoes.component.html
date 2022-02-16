@@ -1,12 +1,12 @@
-<body>
+<div class="avaliacoes-component">
 	<div class="main-select">
 		<mat-form-field class="select city">
-			<mat-select placeholder="Selecione o município" [(ngModel)]="selectedValue" (ngModelChange)="getDates(selectedValue).then()" name="municipio" [formControl]="city" #citySelect>
+			<mat-select placeholder="Selecione o Município/Estado/Órgão Público" [(ngModel)]="selectedValue" (ngModelChange)="getDates(selectedValue).then()" name="municipio" [formControl]="city" #citySelect>
 			<mat-option>
-				<ngx-mat-select-search placeholderLabel="Pesquise o município" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
+				<ngx-mat-select-search placeholderLabel="Pesquise o Município/Estado/Órgão Público" noEntriesFoundLabel="Nenhum município encontrado" [formControl]="cityFilter"></ngx-mat-select-search>
 			</mat-option>  
-			<mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.nome">
-					{{cityName.nome}}
+			<mat-option *ngFor="let cityName of filteredCity | async" [value]="cityName.public_entity">
+					{{cityName.public_entity}}
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
@@ -44,6 +44,7 @@
 							<th>Final da avaliação</th>
 							<th>Pontuação máxima</th>
 							<th>Portal do município</th>
+							<th>Download</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +54,7 @@
 							<td>{{datesApi[0][1]}}</td>
 							<td>{{resultsEvaluation["score"]}}</td>
 							<td><a [href]="resultsEvaluation['management_unit']['start_urls']" class="btn btn-primary">Portal</a></td>
+							<td><a [href]="relatorioUrl" class="btn btn-primary">Link</a></td>
 							</tr>
 						</tbody>
 						</table>
@@ -924,4 +926,4 @@
 			</div>
 		</section>
 	</div>
-</body>
+</div>

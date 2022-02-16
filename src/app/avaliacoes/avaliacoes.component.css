@@ -5,14 +5,15 @@
     --color-white : white;
     --color-lightblue: #71a9b3;
     --color-blue: #4e949f;
+    --color-bluefooter: #4e949f;
 
     --font-family: "Montserrat", sans-serif; 
 }
 
-body{
-    font-family:  var(--font-family);
-    height: 90vh;
-    background-color: rgb(213, 218, 218)!important;
+.avaliacoes-component{
+    font-family: var(--font-family) !important;
+    min-height: 100vh;
+    margin-bottom: 100px;
 }
 
 /********************* Form ************************/
@@ -123,7 +124,7 @@ h1, h2, h3, h4, h5,
 	background-color: var(--color-blue) !important;
 }
 
-.ftco-section{
+.ftco-section:not(:last-child){
 	padding: 0;
     margin-bottom: 1rem;
 }
@@ -226,7 +227,6 @@ tbody td:nth-child(odd){
 	font-size: 13px;
 	font-weight: 500;
 	box-shadow: 0px 10px 20px -6px rgba(0,0,0,0.12);
-	
 }
 
 @media screen and (min-width: 850px) and (max-width: 1300px){
@@ -267,4 +267,3 @@ tbody td:nth-child(odd){
         overflow-x: scroll;
     }
 }
-  

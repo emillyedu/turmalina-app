@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'avaliacoes',
      loadChildren: () => import('./avaliacoes/avaliacoes.module').then(m => m.AvaliacoesModule) 
   },
+  { 
+    path: 'sandbox',
+     loadChildren: () => import('./sandbox/sandbox.module').then(m => m.SandboxModule) 
+  },
   {
     path: '',
     redirectTo: 'turmalina',
