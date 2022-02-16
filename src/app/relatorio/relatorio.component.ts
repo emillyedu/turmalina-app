@@ -83,7 +83,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
       let results = this.mapleafservice.resultsSummaryPoints?.slice(0,1)[0].detailedEvaluation
       let nameCategory: string[] = []
       Object.keys(jsonNames[this.categoryPtLabels[i]]).forEach(function(key){
-        console.log(key)
         nameCategory.push(key)
       });
       let fullText = []

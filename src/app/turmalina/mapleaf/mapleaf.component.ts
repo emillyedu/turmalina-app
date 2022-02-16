@@ -1,3 +1,4 @@
+
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -5,10 +6,9 @@ import 'leaflet';
 import * as d3 from 'd3';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { latLng, tileLayer, polygon, Polygon } from "leaflet";
-import { tap, map, filter, debounceTime, distinctUntilChanged, switchMap, startWith, takeUntil } from 'rxjs/operators';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
+import { takeUntil } from 'rxjs/operators';
+import { SimpleModalService } from 'ngx-simple-modal';
+import { AlertMapComponent } from './modal/alertmap.component';
 import * as L from 'leaflet';
 import * as _ from 'lodash';
 import { Municipio } from 'src/app/shared/models/municipio.class';
@@ -83,17 +83,6 @@ export class MapleafComponent implements OnInit {
     return this.municipios.filter(municipio =>
       _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
   }
-
-  // public searchMunicipios(nome: string) {
-  //   console.log(nome)
-  //   return this.municipios.filter(municipio =>
-  //     this.simplificaNomes(municipio.nome).indexOf(this.simplificaNomes(nome)) === 0);
-  // }
-
-  // public filterMunicipios(nome: string, _ : any) {
-  //   return this.municipios.filter(municipio =>
-  //     _.isEqual(this.simplificaNomes(municipio.nome), this.simplificaNomes(nome)));
-  // }
 
   public convertJsonObjMunicipio(data: any) {
     let cont = 1
@@ -219,10 +208,10 @@ export class MapleafComponent implements OnInit {
             });
           p.addTo(this.mapa)
           if (pontuacaoMunicipio !== null) {
+            this.adicionarPolygonMunicipio(nomeMunicipio, p);
             this.adicionarEventoMouseOverPolygono(p, municipio);
             this.adicionarEventoPolygono(p, municipio);
             this.adicionarEventoClickPolygono(p, municipio);
-            this.adicionarPolygonMunicipio(nomeMunicipio, p);
           }
           tileObject.push(p);
 
@@ -240,7 +229,7 @@ export class MapleafComponent implements OnInit {
   
   public adicionarPolygonMunicipio(nomeMunicipio: string, p:any) {
     for (let i in this.municipios) {
-      if (this.municipios[i].nome.toLowerCase() === nomeMunicipio.toLowerCase()) {
+      if (this.simplificaNomes(this.municipios[i].nome) === this.simplificaNomes(nomeMunicipio.toLowerCase())) {
         this.municipios[i].polygon = p;
         return;
       }
@@ -288,6 +277,11 @@ export class MapleafComponent implements OnInit {
     });
   }
 
+  public zoomPolygon(p : Polygon, municipio: Municipio){
+    this.restaraMapaEstadoInicial();
+    this.mapa.fitBounds(p.getBounds());
+    p.bindPopup(this.getConteudoPopUp(municipio)).openPopup();
+  }
   
   public restaraMapaEstadoInicial() {
     for (let i in this.municipios) {
@@ -311,9 +305,9 @@ export class MapleafComponent implements OnInit {
 
   public getConteudoPopUp(municipio: Municipio) {
     return '<b>' + municipio.nome +
-      '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima
-      + '</b><br>pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima
-      ;
+      '</b><br>Pontuação: ' + municipio.pontuacao + '/' + municipio.pontuacaoMaxima
+      + '</b><br>Posição no rank: ' + municipio.posicao + "°";
+      
   }
 
   
@@ -340,13 +334,34 @@ export class MapleafComponent implements OnInit {
     return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
   }
 
-    /*** uses the "remove accents" function in searches ***/
   searchDadosMunicipio(nomeDoMunicipio:string){
     let municipio = nomeDoMunicipio.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, this.removeAcentos);
-    console.log(municipio)
+    const municipioFiltrado = this.filterMunicipios(municipio)[0];
+    if(municipioFiltrado.polygon != undefined){
+      this.zoomPolygon(municipioFiltrado.polygon, municipioFiltrado)
+    }
+    else{
+      this.showAlert2(municipioFiltrado)
+    }
   }
 
-  constructor(private zone: NgZone, private mapleafservice: MapleafService) {
+  showAlert2(municipio: Municipio) {
+      let messageText = [];
+      messageText.push(`Pontuação: ${municipio.pontuacao}/${municipio.pontuacaoMaxima}`)
+      messageText.push(`Posição no rank: ${municipio.posicao}°`)
+      let imageurl = undefined
+      if(this.simplificaNomes(municipio.nome) === "estado da paraiba"){
+        imageurl="./bandeira.png"
+      }
+
+      this.SimpleModalService.addModal((AlertMapComponent), { 
+        title: municipio.nome,
+        message: messageText,
+        imageurl: imageurl
+      }, { closeOnClickOutside: true });
+  }
+
+  constructor(private zone: NgZone, private mapleafservice: MapleafService, private SimpleModalService: SimpleModalService) {
   }
 
   ngOnInit(): void{
@@ -367,7 +382,6 @@ export class MapleafComponent implements OnInit {
     this.mapleafservice.getRankingModel().subscribe((data: any) => {
       this.convertJsonObjMunicipio(data);
       this.layers = this.getTilesByZoomLevel();
-      console.log("get ranking")
       this.fetchTiles(this.stateTiles);
       this.mapa.createPane('labels');
 
@@ -383,7 +397,6 @@ export class MapleafComponent implements OnInit {
       tilesPane.addTo(this.mapa);
       this.inicializaMunicipiosComponent();
       this.maxPontuacaoMunicipios = this.municipiosTopDez[0].pontuacao;
-      console.log(this.maxPontuacaoMunicipios)
       this.color = d3.scaleSequential(["#004D66", "#87DED7"]).domain([this.MAX_PONTUACAO, 0]);
       //this.color = d3.scaleSequential(d3.interpolateBlues).domain([0, this.MAX_PONTUACAO]);
     })

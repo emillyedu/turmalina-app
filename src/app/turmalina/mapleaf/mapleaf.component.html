@@ -5,7 +5,7 @@
   </div>
 
   <div class="infos">
-    <div class="main-select">
+    <div class="main-select" >
         <mat-form-field class="select city" [style.z-index]="10">
             <mat-select placeholder="Selecione o Município/Estado/Órgão Público" [(ngModel)]="selectedValue" name="municipio" [formControl]="city" #citySelect>
                 <mat-option [style.z-index]="90">
@@ -16,7 +16,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button [style.z-index]="9999999" mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
+        <button [style.z-index]="10" mat-raised-button class="button shadow-none" (click)="searchDadosMunicipio(selectedValue)">ACESSAR</button>     
     </div>
   </div>
 
