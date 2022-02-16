@@ -14,8 +14,8 @@ import { Municipio } from 'src/app/shared/models/municipio.class';
 
 export class MapleafService {
   /*** Urls ***/
-  apiUrl = 'http://turmalina-api.herokuapp.com/'
-  ibgeUrl = 'http://servicodados.ibge.gov.br/'
+  apiUrl = 'https://turmalina-api.herokuapp.com/'
+  ibgeUrl = 'https://servicodados.ibge.gov.br/'
   
   resultsDetailPoints!: TurmalinaStampDetail[];
   resultsSummaryPoints?: TurmalinaStamp[];
