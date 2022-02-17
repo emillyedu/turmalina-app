@@ -119,7 +119,7 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
   createTable(){
     this.resultsEvaluation = this.mapleafservice.resultsEvaluationId
     this.datesApi.push([moment(this.resultsEvaluation["start_datetime"]).format("DD/MM/YYYY"), moment(this.resultsEvaluation["end_datetime"]).format("DD/MM/YYYY")])
-    let dateFormated = moment(this.datesApi[0][1], 'DD/MM/YYYY').format("YYYY-DD-MM")
+    let dateFormated = moment(this.datesApi[0][1], 'DD/MM/YYYY').format("YYYY-MM-DD")
     this.relatorioUrl = "https://turmalina-api.herokuapp.com/turmalina_report?management_unit=" + (this.resultsEvaluation["management_unit"]["name"]) + "&date=" + dateFormated
   }
 
