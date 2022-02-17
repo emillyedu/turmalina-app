@@ -1,12 +1,9 @@
-import { RankingModel } from './../../shared/models/ranking.model';
 import { TurmalinaStampDetail } from './../../shared/models/turmalinastamp_detail.model';
 import { TurmalinaStamp } from './../../shared/models/turmalinastamp.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler, HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { resolve } from 'dns';
 import { IbgeData } from 'src/app/shared/models/ibgenames.model';
-import { Municipio } from 'src/app/shared/models/municipio.class';
 
 @Injectable({
   providedIn: 'root'

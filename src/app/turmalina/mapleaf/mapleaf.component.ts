@@ -1,7 +1,6 @@
-
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapleafService } from './mapleaf.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import 'leaflet';
 import * as d3 from 'd3';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
@@ -152,20 +151,25 @@ export class MapleafComponent implements OnInit {
       legend.onAdd = (map) => {
   
           var div = L.DomUtil.create('div', 'info legend'),
-              grades = [0, 100, 200, 400, 500, 600],
+              grades = [0, 100, 200, 400, 500, 625],
               labels = [];
   
           div.innerHTML += '<div class="legend_text"><h1> Pontuação </h1></div>';
           var divtext = L.DomUtil.create('div', 'legend_box', div);
           
-          for (var i = 0; i < grades.length; i++) {
-              divtext.innerHTML +=
+          // for (var i = 0; i < grades.length; i++) {
+          //     divtext.innerHTML +=
+          //     '<i style="background:' + vm.getColor(grades[i] + 1) + '"></i> ' +
+          //     grades[i] + (grades[i + 1] ?'<br>' : '+');              
   
-              '<i style="background:' + vm.getColor(grades[i] + 1) + '"></i> ' +
-              grades[i] + (grades[i + 1] ?'<br>' : '+');              
-  
-          }
-  
+          // }
+          
+          divtext.innerHTML +=
+          '<i style="background: linear-gradient(90deg, ' + vm.getColor(grades[0]) + '  0%, ' + vm.getColor(grades[5]) + ' "></i> ' +
+          '<div>' +
+          '<div>' + grades[0] +  '</div>' + '<div>' + grades[1] +  '</div>' + '<div>' + grades[2] +  '</div>' + '<div>' + grades[3] +  '</div>' + '<div>' + grades[4] +  
+          '</div>' + '<div>' + grades[5] +  '</div>' +
+          '</div>' 
           return div;
       };
   

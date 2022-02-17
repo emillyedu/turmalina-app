@@ -2,7 +2,6 @@ import { SandboxService } from './sandbox.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-sandbox',
   templateUrl: './sandbox.component.html',
@@ -34,11 +33,9 @@ export class SandboxComponent implements OnInit {
       }
       this.loading = true
       this.registerService.register(this.registerForm).subscribe( (res:any) =>{
-        setTimeout(()=>{ 
-          console.log(res)                 // <<<---using ()=> syntax
-        }, 2);
+        setTimeout(()=>{}, 2);
         this.loading=false;
-      });// <<<---using ()=> syntax
+      });
       
   }
 }

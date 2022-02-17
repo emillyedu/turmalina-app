@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { SandboxRoutingModule } from './sandbox-routing.module';
 
-
 @NgModule({
   declarations: [
     SandboxComponent
@@ -18,4 +17,5 @@ import { SandboxRoutingModule } from './sandbox-routing.module';
     SandboxRoutingModule
   ]
 })
+
 export class SandboxModule { }
