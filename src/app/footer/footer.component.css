@@ -82,6 +82,10 @@ span{
 }
 
 @media only screen and (max-width: 600px) {
+    .section-footer {
+        height: 550px !important;
+    }
+
     .footer-logo{
         flex-direction: column;
     }

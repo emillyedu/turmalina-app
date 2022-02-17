@@ -1,20 +1,21 @@
-import { Input, Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
 import moment from 'moment';
+
 @Component({
   selector: 'app-avaliacoes',
   templateUrl: './avaliacoes.component.html',
   styleUrls: ['./avaliacoes.component.css']
 })
+
 export class AvaliacoesComponent implements OnInit, OnDestroy{
   /*** instantiation forms ***/
   city: FormControl = new FormControl();
@@ -26,8 +27,6 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
 
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
-
- // dataSource = new MatTableDataSource<Element>(); //ELEMENT_DATA
   
   /*** input data ***/
   protected cities: IbgeData[] = this.mapleafservice.resultsIbge
@@ -45,12 +44,9 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
 
   resultsEvaluation: any;
   relatorioUrl!: string;
-  // @Input() max: any;
-  // tomorrow = new Date();
 
   constructor(public mapleafservice: MapleafService, private dateAdapter: DateAdapter<any>){
     this.dateAdapter.setLocale('pt');
-    // this.tomorrow.setDate(this.tomorrow.getDate());
   }
 
   async getDates(selectedValue: string){
@@ -67,8 +63,6 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     else{
       return false;
     }
-
-   
   }
 
   verifyDates(datesForms:string, datesApi:any[]){
@@ -83,12 +77,14 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     return false;
   }
 
+  /*** filter dates ***/
   myFilter = (d: Date | null): boolean => {
     const day = moment(d || new Date());
     // Prevent Saturday and Sunday from being selected.
     return day?this.verifyDates(day.format("DD/MM/YYYY"), this.listDatesApi):true 
   }
-
+  
+  /*** remove accents ***/
   removeAcentos(letra: string) {
     /** Remove letters accents*/
     if ('áàâã'.indexOf(letra) !== -1) {
@@ -190,11 +186,6 @@ export class AvaliacoesComponent implements OnInit, OnDestroy{
     .subscribe(() => {
       this.filterCities();
     });
-
-    // this.getDadosApi("Joao Pessoa", "2021-02-11", "2021-02-12")
-    /*****************************************************/
-    /**************   Table accomplishment  **************/
-    /*****************************************************/
   }
 
   ngOnDestroy() {

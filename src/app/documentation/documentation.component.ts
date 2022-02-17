@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import menuData from 'src/assets/search/menuData.json';
 
-
 @Component({
   selector: 'app-documentation',
   templateUrl: './documentation.component.html',

@@ -1,12 +1,10 @@
-import { AgreementComponent } from './../documentation/agreement/agreement.component';
-import { Evaluation } from './../shared/models/evaluation.model';
-import { Component, OnInit, ViewChildren, ViewChild, ElementRef, QueryList, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MapleafService } from './../turmalina/mapleaf/mapleaf.service';
 import { Chart, registerables} from 'chart.js';
 import { ColorGenerator } from './color-generator.model';
 import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import moment from 'moment';
 import { MatSelect } from '@angular/material/select';
 import { IbgeData } from '../shared/models/ibgenames.model';
@@ -26,7 +24,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   @ViewChild('citySelect') citySelect!: MatSelect;
   @ViewChild('graphOneId') barchartid!: ElementRef;
   @ViewChild('graphTwoId') timechartid!: ElementRef;
-  // @ViewChild('timechartid') timechartid!: ElementRef;
 
   protected _onDestroy = new Subject<void>();
   public filteredCity: ReplaySubject<IbgeData[]> = new ReplaySubject<IbgeData[]>(1);
@@ -97,7 +94,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
         iterator += 1
       }
 
-      // let cafe = ` ${subCategoryValues[0]}\n`
       this.SimpleModalService.addModal(AlertComponent, { 
         title: `${this.categoryPtLabels[i]}`,
         message: fullText
@@ -146,7 +142,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
           for (var category in summary){
             let value = summary[category]
             this.categoryValues.push(Number(value))
-            // this.categoryValuesMean.push(category)
           }
           this.scoreTotal = this.mapleafservice.resultsSummaryPoints[i].score
           break;
@@ -206,7 +201,6 @@ export class RelatorioComponent implements OnInit, OnDestroy{
       colorEnd: 1.5,
       useEndAsStart: false,
     };
-
 
     this.colors = color.interpolateColors(datalength, colorRangeInfo);
     this.colorsMean = color.interpolateColorsMean(datalength, colorRangeInfoMean);
@@ -362,17 +356,12 @@ export class RelatorioComponent implements OnInit, OnDestroy{
       }
     );
 
-
     this.cityFilter.valueChanges
     .pipe(takeUntil(this._onDestroy))
     .subscribe(() => {
       this.filterCities();
     });
-    /*****************************************************/
-    /**************   Chart accomplishment  **************/
-    /*****************************************************/
-
-
+    
   }
 
   /** Search form */
@@ -381,7 +370,4 @@ export class RelatorioComponent implements OnInit, OnDestroy{
     this._onDestroy.complete();
   }
 
-
-
-  
 }
