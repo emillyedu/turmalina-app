@@ -4,12 +4,14 @@
 @import "../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~leaflet/dist/leaflet.css";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
 
 :host {
     --weight: 540;
     --color-dark: black;
     --font-family: "Calibre Light", sans-serif;
+    --font-family-lato: 'Lato', sans-serif;
 }    
 
 /** Documentation **/
@@ -92,14 +94,14 @@ h3{
 
  /** Map **/
 
- .leaflet-right{
+.leaflet-right{
     margin-right: 30px;
 }
 
 .leaflet-bottom{
     position: absolute;
     left: 50%;
-    width: 250px;
+    width: 18vw;
 }
 
 .legend{
@@ -108,13 +110,25 @@ h3{
 }
 
 .legend h1{
+    font-family:var(---font-family);
     padding-bottom: 0 !important;
     font-size: 18px !important;
-    color: #777  !important;
+    color: #555  !important;
     margin-bottom: 2px !important;
 }
 .legend_box{
-    display: inline-flex !important;
+    display:flex !important;
+    flex-direction: column;
+}
+
+.legend_box div{
+    font-family:var(---font-family);
+    display: flex!important;
+    justify-content:space-around;
+}
+
+.legend_box div div{
+    padding-top: 0.5rem;
 }
 
 .legend_text{
@@ -127,21 +141,21 @@ h3{
 }
 
 .legend i {
-    width:30px;
-    height: 15px;
+    width:100%;
+    height: 20px;
     float: left;
     margin-right: 8px;
     opacity: 0.7;
 }
 
 .info {
-    padding: 6px 8px; 
+    padding: 6px 8px 10px 8px; 
     margin-right: -1rem !important;
     font: 17px/18px Arial, Helvetica, sans-serif; 
-    background: white; 
     background: rgba(255,255,255,0.8); 
     box-shadow: 0 0 15px rgba(0,0,0,0.2); 
     border-radius: 5px;
+    width: 40vw;
 }
 
 .info h4 { 
@@ -171,25 +185,17 @@ mat-form-field {
     height: 38rem!important;
 }
 
-@media screen and (min-width: 450px) and (max-width: 706px){
-    .legend i{
-        width: 15px !important;
+@media screen and (min-width: 0px) and (max-width: 650px){
+    .info{
+        width: 16rem;
     }
     .leaflet-bottom{
-        width: 205px;
+        width: 20vw;
+        left: 75%;
     }
 }
-@media screen and (min-width: 0px) and (max-width: 449px){
-    .legend i{
-        width: 15px !important;
-    }
-    .leaflet-bottom{
-        width: 170px;
-    }
-    .legend i:not(:first-child){
-        margin-left: 1rem !important;
-    }
-}
+
+/** pop up modal **/
 
 .modal{
     background-color: #0a1c1f71;

@@ -1,4 +1,4 @@
-import { MomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
+import { MomentDateAdapter} from '@angular/material-moment-adapter';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TurmalinaComponent } from './turmalina.component';
 
 describe('TurmalinaComponent', () => {

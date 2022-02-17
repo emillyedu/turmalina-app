@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MapleafService } from '../turmalina/mapleaf/mapleaf.service';
 import { RankingModel } from '../shared/models/ranking.model';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import moment from 'moment';
 
@@ -23,12 +22,6 @@ export class RankComponent implements OnInit{
 
   constructor(private mapleafservice: MapleafService) {
   }
-
-  // async getRank(){
-
-
-  //   return this.rankingList
-  // }
 
   ngOnInit(){
     this.getRankingInformation();
