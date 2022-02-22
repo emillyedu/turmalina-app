@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { PaymentDocumentComponent } from './payment-document/payment-document.component';
 import { PlanningInstrumentComponent } from './planning-instrument/planning-instrument.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
 
 const routes: Routes = [
   { path: '', component: DocumentationComponent, children:[
@@ -29,7 +30,8 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'PaymentDocument', component: PaymentDocumentComponent },
     { path: 'PlanningInstrument', component: PlanningInstrumentComponent },
-    { path: 'tutorial', component: TutorialComponent }
+    { path: 'tutorial', component: TutorialComponent },
+    { path: 'Sandbox', component: SandboxComponent }
   ]}
 
 ];

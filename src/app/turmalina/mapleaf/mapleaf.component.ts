@@ -42,8 +42,8 @@ export class MapleafComponent implements OnInit {
   public layers: any[] = [];
   private color:any;
   escalaCorLegenda: any;
-  public maxPontuacaoMunicipios: number = 629;
-  public MAX_PONTUACAO = 625;
+  public maxPontuacaoMunicipios: number = 545;
+  public MAX_PONTUACAO = 545;
   municipiosTopDez: Municipio[] = [];
   colorTextRank = "#fffff";
   colorTextRankScale: any;
@@ -151,7 +151,7 @@ export class MapleafComponent implements OnInit {
       legend.onAdd = (map) => {
   
           var div = L.DomUtil.create('div', 'info legend'),
-              grades = [0, 100, 200, 400, 500, 625],
+              grades = [0, 100, 200, 300, 400, 545],
               labels = [];
   
           div.innerHTML += '<div class="legend_text"><h1> Pontuação </h1></div>';
@@ -335,7 +335,16 @@ export class MapleafComponent implements OnInit {
   }
 
   sortCities(cities: IbgeData[]){
-    return cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
+
+    let newcities = cities.sort((a, b) => a.public_entity.localeCompare(b.public_entity))
+    const vw  =this
+    let index= newcities.map(function(e) {
+      return e.name.replace(/[áÁàÀâÂãéÉêÊíÍóÓôÔõúÚüç']/g, vw.removeAcentos);
+    }).indexOf('Governo da Paraiba')
+    let newobject: IbgeData = newcities[0];
+    newcities[0] = newcities[index];
+    newcities[index] = newobject;
+    return newcities
   }
 
   searchDadosMunicipio(nomeDoMunicipio:string){
