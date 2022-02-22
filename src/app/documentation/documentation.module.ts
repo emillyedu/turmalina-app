@@ -17,12 +17,13 @@ import { PlanningInstrumentComponent } from './planning-instrument/planning-inst
 import { BiddingComponent } from './bidding/bidding.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { EmployeeInformationComponent } from './employee-information/employee-information.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
 import { ExampleOneComponent } from './tutorial/example-one/example-one.component';
 import { ExampleTwoComponent } from './tutorial/example-two/example-two.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ContractComponent, DocumentationComponent, HomeComponent, TutorialComponent, BudgetRevenueComponent, ExtraBudgetRevenueComponent, BudgetExpenditureComponent, ExtraBudgetExpenditureComponent, PaymentDocumentComponent, PlanningInstrumentComponent, BiddingComponent, AgreementComponent, EmployeeInformationComponent, ExampleOneComponent, ExampleTwoComponent],
+  declarations: [ContractComponent, DocumentationComponent, HomeComponent, TutorialComponent, BudgetRevenueComponent, ExtraBudgetRevenueComponent, BudgetExpenditureComponent, ExtraBudgetExpenditureComponent, PaymentDocumentComponent, PlanningInstrumentComponent, BiddingComponent, AgreementComponent, EmployeeInformationComponent, ExampleOneComponent, ExampleTwoComponent, SandboxComponent],
   imports: [
     HttpClientModule,
     CommonModule,

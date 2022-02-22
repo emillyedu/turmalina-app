@@ -47,7 +47,7 @@ export class RelatorioComponent implements OnInit, OnDestroy{
   categoryValues: number[] = [];
   categoryValuesMean: number[] = [];
   seriesValues: any[] = [];
-  categoryMaxPoints: number[] = [45, 150, 120, 45, 40, 50, 70, 15, 60, 30];
+  categoryMaxPoints: number[] = [45, 150, 120, 45, 40, 50, 50, 15, 0, 30];
   categoryPtLabels: string[] = ["Convênios", "Licitações", "Despesa", "Receita", "Contratos", "Pessoal", "Despesa Extra", "Receita Extra",  "Pagamento",  "Planejamento"];
   categoryLabels: string[] = [ "Agreement","Bid","BudgetExpenditure","BudgetRevenue","Contract","EmployeeInformation","ExtraBudgetExpenditure","ExtraBudgetRevenue","PaymentDocument","PlanningInstrument"];
   scoreTotal!: number;

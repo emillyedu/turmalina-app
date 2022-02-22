@@ -79,5 +79,11 @@
         "Type": "Pessoal",
         "Name": "pessoal employeeInformation employeeName identificationNumber employmentContractType employeePosition employeeSalary",
         "Url": "/employeeInformation"
+    },
+
+    {
+        "Type": "Sandbox",
+        "Name": "ambientedeteste, sandbox, teste",
+        "Url": "/sandbox"
     }
 ]

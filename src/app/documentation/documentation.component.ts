@@ -30,6 +30,7 @@ export class DocumentationComponent implements OnInit{
   bidding = menuData[11].Name;
   agreement = menuData[12].Name;
   employeeInformation = menuData[13].Name;
+  sandbox = menuData[14].Name;
 
   find(userQuery: string, content: string){
       if(userQuery.length > 0){

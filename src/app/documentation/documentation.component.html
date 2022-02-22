@@ -57,6 +57,9 @@
                         <li class="nav-item has-submenu" *ngIf="find(userQuery, employeeInformation)">
                             <a class="nav-link" routerLink="EmployeeInformation">Pessoal</a>
                         </li>
+                        <li class="nav-item has-submenu" *ngIf="find(userQuery, sandbox)">
+                            <a class="nav-link" routerLink="Sandbox">Ambiente de teste</a>
+                        </li>
                     </ol>
                 </div>
                 <ul class="items list"></ul>
