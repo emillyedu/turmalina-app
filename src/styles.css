@@ -87,9 +87,14 @@ h3{
 }
 
 .img-md img{
-    width: 870x; 
+    width: 870px; 
     height: 640px;
     margin-bottom: 1rem;
+}
+
+.img-sandbox img{
+    width: 870px;
+    margin-top: 1rem;
 }
 
  /** Map **/
